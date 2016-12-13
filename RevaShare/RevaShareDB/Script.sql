@@ -47,7 +47,7 @@ CREATE TABLE [dbo].[AspNetUsers] (
     [Id]                   NVARCHAR (128) NOT NULL,
     [Name]                 NVARCHAR (256) NULL,
     [Email]                NVARCHAR (256) NULL, 
-    [ApartmentID]          INT  NOT NULL,               
+    [ApartmentID]          INT  NULL,               
     [EmailConfirmed]       BIT            NOT NULL,
     [PasswordHash]         NVARCHAR (MAX) NULL,
     [SecurityStamp]        NVARCHAR (MAX) NULL,
@@ -173,7 +173,7 @@ ADD CONSTRAINT [FK_dbo.RideRiders_dbo.Ride_ID] FOREIGN KEY ([RideID]) REFERENCES
 GO
 
 ALTER TABLE [dbo].[RideRiders]
-ADD CONSTRAINT [FK_dbo.RideRiders_dbo.AspNetUsers_UserId] FOREIGN KEY ([RiderID]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+ADD CONSTRAINT [FK_dbo.RideRiders_dbo.AspNetUsers_UserId] FOREIGN KEY ([RiderID]) REFERENCES [dbo].[AspNetUsers] ([Id])
 GO
 
 ALTER TABLE [dbo].[Flag]
@@ -181,5 +181,5 @@ ADD CONSTRAINT [FK_dbo.Flag_dbo.AspNetUsers_DriverId] FOREIGN KEY ([DriverID]) R
 GO
 
 ALTER TABLE [dbo].[Flag]
-ADD CONSTRAINT [FK_dbo.Flag_dbo.AspNetUsers_RiderId] FOREIGN KEY ([RiderID]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+ADD CONSTRAINT [FK_dbo.Flag_dbo.AspNetUsers_RiderId] FOREIGN KEY ([RiderID]) REFERENCES [dbo].[AspNetUsers] ([Id])
 GO

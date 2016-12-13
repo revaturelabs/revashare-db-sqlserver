@@ -19,6 +19,9 @@ namespace RevaShare.DataAccess
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
+            this.Flags = new HashSet<Flag>();
+            this.Flags1 = new HashSet<Flag>();
+            this.RideRiders = new HashSet<RideRider>();
             this.Vehicles = new HashSet<Vehicle>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
@@ -26,7 +29,7 @@ namespace RevaShare.DataAccess
         public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public int ApartmentID { get; set; }
+        public Nullable<int> ApartmentID { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
@@ -43,6 +46,12 @@ namespace RevaShare.DataAccess
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Flag> Flags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Flag> Flags1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RideRider> RideRiders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vehicle> Vehicles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

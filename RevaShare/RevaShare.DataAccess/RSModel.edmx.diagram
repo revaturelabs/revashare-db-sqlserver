@@ -4,19 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0485ffe2c93f4393a691c2468db732b6" Name="Diagram1">
-        <EntityTypeShape EntityType="RevaShareDBModel.Apartment" Width="1.5" PointX="0.75" PointY="4.25" />
-        <EntityTypeShape EntityType="RevaShareDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUser" Width="1.5" PointX="3" PointY="3" />
-        <EntityTypeShape EntityType="RevaShareDBModel.Flag" Width="1.5" PointX="5.25" PointY="11" />
-        <EntityTypeShape EntityType="RevaShareDBModel.Ride" Width="1.5" PointX="7.5" PointY="6.75" />
-        <EntityTypeShape EntityType="RevaShareDBModel.RideRider" Width="1.5" PointX="9.75" PointY="7" />
-        <EntityTypeShape EntityType="RevaShareDBModel.Vehicle" Width="1.5" PointX="5.25" PointY="6.5" />
+      <Diagram DiagramId="0485ffe2c93f4393a691c2468db732b6" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="RevaShareDBModel.Apartment" Width="1.5" PointX="0.5" PointY="7.5" />
+        <EntityTypeShape EntityType="RevaShareDBModel.AspNetRole" Width="1.5" PointX="0.5" PointY="4.875" />
+        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUserClaim" Width="1.5" PointX="5" PointY="2.875" />
+        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUserLogin" Width="1.5" PointX="5" PointY="5.625" />
+        <EntityTypeShape EntityType="RevaShareDBModel.AspNetUser" Width="1.5" PointX="2.75" PointY="6" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Flag" Width="1.5" PointX="5" PointY="14.75" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Ride" Width="1.5" PointX="7.25" PointY="11.25" />
+        <EntityTypeShape EntityType="RevaShareDBModel.RideRider" Width="1.5" PointX="9.5" PointY="8.875" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Vehicle" Width="1.5" PointX="5" PointY="11.125" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" />
         <AssociationConnector Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" />

@@ -56,7 +56,7 @@
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="ApartmentID" Type="int" Nullable="false" />
+          <Property Name="ApartmentID" Type="int" />
           <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
@@ -170,7 +170,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-          <End Role="Apartment" Type="Self.Apartment" Multiplicity="1">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
@@ -180,6 +180,32 @@
             </Principal>
             <Dependent Role="AspNetUsers">
               <PropertyRef Name="ApartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="RiderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -194,6 +220,18 @@
             </Principal>
             <Dependent Role="Ride">
               <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="RideRiders" Type="Self.RideRiders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RideRiders">
+              <PropertyRef Name="RiderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -256,9 +294,21 @@
             <End Role="Apartment" EntitySet="Apartment" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId" Association="Self.FK_dbo_Flag_dbo_AspNetUsers_DriverId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Flag" EntitySet="Flag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId" Association="Self.FK_dbo_Flag_dbo_AspNetUsers_RiderId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Flag" EntitySet="Flag" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="Self.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicle" />
             <End Role="Ride" EntitySet="Ride" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="RideRiders" EntitySet="RideRiders" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_RideRiders_dbo_Ride_ID" Association="Self.FK_dbo_RideRiders_dbo_Ride_ID">
             <End Role="Ride" EntitySet="Ride" />
@@ -294,6 +344,18 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Flag" EntitySet="Flags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Flag" EntitySet="Flags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="RideRider" EntitySet="RideRiders" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Vehicle_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -359,7 +421,7 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ApartmentID" Type="Int32" Nullable="false" />
+          <Property Name="ApartmentID" Type="Int32" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -373,6 +435,9 @@
           <NavigationProperty Name="Apartment" Relationship="RevaShareDBModel.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" FromRole="AspNetUser" ToRole="Apartment" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="RevaShareDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="Flags" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId" FromRole="AspNetUser" ToRole="Flag" />
+          <NavigationProperty Name="Flags1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId" FromRole="AspNetUser" ToRole="Flag" />
+          <NavigationProperty Name="RideRiders" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="RideRider" />
           <NavigationProperty Name="Vehicles" Relationship="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="Vehicle" />
           <NavigationProperty Name="AspNetRoles" Relationship="RevaShareDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
@@ -386,6 +451,8 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId" FromRole="Flag" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUser1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId" FromRole="Flag" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="Ride">
           <Key>
@@ -409,6 +476,7 @@
           <Property Name="RiderID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId" FromRole="RideRider" ToRole="AspNetUser" />
           <NavigationProperty Name="Ride" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" FromRole="RideRider" ToRole="Ride" />
         </EntityType>
         <EntityType Name="Vehicle">
@@ -427,7 +495,7 @@
           <NavigationProperty Name="Rides" Relationship="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" FromRole="Vehicle" ToRole="Ride" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-          <End Type="RevaShareDBModel.Apartment" Role="Apartment" Multiplicity="1">
+          <End Type="RevaShareDBModel.Apartment" Role="Apartment" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
@@ -465,6 +533,44 @@
             </Principal>
             <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId">
+          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId">
+          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
+          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="RevaShareDBModel.RideRider" Role="RideRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RideRider">
+              <PropertyRef Name="RiderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -514,7 +620,7 @@
           <End Type="RevaShareDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

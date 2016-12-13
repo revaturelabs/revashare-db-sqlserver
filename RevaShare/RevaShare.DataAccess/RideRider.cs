@@ -19,6 +19,7 @@ namespace RevaShare.DataAccess
         public bool Accepted { get; set; }
         public bool Active { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Ride Ride { get; set; }
     }
 }
