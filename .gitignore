@@ -250,3 +250,4 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/RevaShare/RevaShare.RevaShareDB/RevaShare.RevaShareDB.jfm
