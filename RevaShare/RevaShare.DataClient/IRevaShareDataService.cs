@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RevaShare.DataClient.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,10 +12,13 @@ namespace RevaShare.DataClient
     [ServiceContract]
     public interface IRevaShareDataService
     {
-        [OperationContract]
-        void DoWork();
 
-        [OperationBehavior]
+        [OperationContract]
+        RideDAO passRide();
+        [OperationContract]
+        UserDAO passUser();
+        [OperationContract]
+        RideRidersDAO passRideRider();
 
     }
 }

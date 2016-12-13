@@ -66,6 +66,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRevaShareDataService.cs" />
+    <Compile Include="Models\ApartmentDAO.cs" />
+    <Compile Include="Models\FlagDAO.cs" />
+    <Compile Include="Models\Identity.cs" />
+    <Compile Include="Models\RideDAO.cs" />
+    <Compile Include="Models\RideRidersDAO.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\UserDAO.cs" />
+    <Compile Include="Models\VehicleDAO.cs" />
     <Compile Include="RevaShareDataService.svc.cs">
       <DependentUpon>RevaShareDataService.svc</DependentUpon>
     </Compile>
@@ -75,6 +83,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\TeamDB-RevaShare.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
