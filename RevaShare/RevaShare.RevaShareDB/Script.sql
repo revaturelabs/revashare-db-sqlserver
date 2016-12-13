@@ -47,7 +47,7 @@ CREATE TABLE [dbo].[AspNetUsers] (
     [Id]                   NVARCHAR (128) NOT NULL,
     [Name]                 NVARCHAR (256) NULL,
     [Email]                NVARCHAR (256) NULL, 
-    [ApartmentID]          NVARCHAR (256) NOT NULL,               
+    [ApartmentID]          INT  NOT NULL,               
     [EmailConfirmed]       BIT            NOT NULL,
     [PasswordHash]         NVARCHAR (MAX) NULL,
     [SecurityStamp]        NVARCHAR (MAX) NULL,
@@ -109,6 +109,7 @@ CREATE TABLE [dbo].[Apartment] (
     [Latitude] NVARCHAR (128) NOT NULL,
     [Longitude] NVARCHAR (128)  NOT NULL,
     [Name]  NVARCHAR (250) NOT NULL,    
+    [Active]    BIT DEFAULT 1 NOT NULL,
     CONSTRAINT [PK_dbo.Apartment_ID] PRIMARY KEY CLUSTERED ([ID] ASC),
 );
 
@@ -121,7 +122,8 @@ CREATE TABLE [dbo].[Vehicle](
   [Model]   NVARCHAR(128) NOT NULL,
   [LicensePlate] NVARCHAR(10) NOT NULL,
   [Color]   NVARCHAR (20)   NOT NULL,
-  [Capacity] INT  NOT NULL
+  [Capacity] INT  NOT NULL,
+  [Active]  BIT DEFAULT 1 NOT NULL
 );
 GO
 
@@ -130,14 +132,16 @@ CREATE TABLE[dbo].[Ride](
   [VehicleID] INT NOT NULL,
   [StartOfWeekDate] DATE  NOT NULL,
   [DepartureTime] TIME    NULL,
-  [IsOnTime]  BIT         Default 1   NULL
+  [IsOnTime]  BIT         Default 1   NOT NULL,
+  [Active]    BIT     DEFAULT 1 NOT NULL
 );
 GO
 
 CREATE TABLE[dbo].[RideRiders](
   [RideID]   INT  NOT NULL,
   [RiderID] NVARCHAR(128) NOT NULL,
-  [Accepted] BIT DEFAULT 0 NULL,
+  [Accepted] BIT DEFAULT 0 NOT NULL,
+  [Active]    BIT DEFAULT 1 NOT NULL,
   CONSTRAINT [PK_dbo.RideRiders] PRIMARY KEY CLUSTERED ([RideID] ASC, [RiderID] ASC),
 );
 GO
@@ -147,8 +151,13 @@ CREATE TABLE [dbo].[Flag](
   [DriverID] NVARCHAR(128) NOT NULL,
   [RiderID] NVARCHAR(128) NOT NULL,
   [Type]    NVARCHAR(30) NOT NULL,
-  [Message] NVARCHAR(MAX) NOT NULL
+  [Message] NVARCHAR(MAX) NOT NULL,
+  [Active]  BIT DEFAULT 1 NOT NULL
 );
+GO
+
+ALTER TABLE [dbo].[AspNetUsers]
+ADD CONSTRAINT [FK_dbo.AspNetUsers_dbo.Apartments_ApartmentId] FOREIGN KEY ([ApartmentID]) REFERENCES [dbo].[Apartment] ([ID]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [dbo].[Vehicle]

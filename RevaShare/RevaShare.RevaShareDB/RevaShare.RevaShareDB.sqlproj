@@ -64,4 +64,8 @@
   <ItemGroup>
     <Build Include="Script.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="RevaShare.RevaShareDB.publish.xml" />
+    <None Include="RevaShare_1.RevaShareDB.publish.xml" />
+  </ItemGroup>
 </Project>
