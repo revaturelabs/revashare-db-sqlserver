@@ -9,8 +9,7 @@ namespace RevaShare.DataAccess.Data
   public partial class RevaShareData
   {
     public List<RideRider> GetRideRiders()
-    {
-      
+    {      
       return context.RideRiders.ToList();
     }
 
@@ -49,10 +48,15 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
 
-    public List<RideRider> GetRideRiderByID(string id)
+    public RideRider GetRideRiderByID(string id)
     {
-      var result = context.RideRiders.Where(a => a.RiderID == id);
-      return result.ToList();
+      var result = context.RideRiders.Where(a => a.RiderID == id && a.Active).FirstOrDefault();
+      return result;
+    }
+
+    public RideRider GetRideRiderByName(string name)
+    {
+      return context.RideRiders.FirstOrDefault(a => a.AspNetUser.Name == name && a.Active);
     }
   }
 }

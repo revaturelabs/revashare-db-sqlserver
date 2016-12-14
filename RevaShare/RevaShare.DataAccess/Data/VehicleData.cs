@@ -58,10 +58,10 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
 
-    public List<Vehicle> GetVehicleByID(int id)
+    public Vehicle GetVehicleByID(int id)
     {
-      var result = context.Vehicles.Where(a => a.ID == id);
-      return result.ToList();
+      var result = context.Vehicles.Where(a => a.ID == id && a.Active).FirstOrDefault();
+      return result;
     }
   }
 }
