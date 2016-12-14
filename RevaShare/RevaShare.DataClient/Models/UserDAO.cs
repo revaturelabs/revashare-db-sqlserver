@@ -19,5 +19,7 @@ namespace RevaShare.DataClient.Models
         public string PhoneNumber { get; set; }
         [DataMember]
         public ApartmentDAO Apartment { get; set; }
+        [DataMember]
+        public IEnumerable<RoleDAO> Roles { get; set; }
     }
 }
