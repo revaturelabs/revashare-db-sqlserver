@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApartmentMapper.cs" />
+    <Compile Include="FlagMapper.cs" />
     <Compile Include="IRevaShareDataService.cs" />
     <Compile Include="Models\ApartmentDAO.cs" />
     <Compile Include="Models\FlagDAO.cs" />

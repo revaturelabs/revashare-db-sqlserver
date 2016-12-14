@@ -13,8 +13,9 @@ namespace RevaShare.DataAccess.Data
       return context.RideRiders.ToList();
     }
 
-    public bool AddRideRider(Ride ride, RideRider riderider)
-    {     
+    public bool AddRideRider(AspNetUser user, Ride ride)
+    {
+      var riderider = new RideRider();   
       riderider.RideID = ride.ID;
       //v.ID = r.VehicleID;
       

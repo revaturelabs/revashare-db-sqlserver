@@ -73,7 +73,7 @@ namespace RevaShare.DataClient
     [OperationContract]
     RideRidersDAO passRideRider();
     [OperationContract]
-    bool AddRideRiders(RideDAO ride, RideRidersDAO rideriders);
+    bool AddRideRiders(UserDAO user, RideDAO ride);
     [OperationContract]
     bool UpdateRideRider(RideRidersDAO riderider);
     [OperationContract]
