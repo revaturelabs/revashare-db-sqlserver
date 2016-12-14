@@ -72,6 +72,7 @@
     <Compile Include="Models\Identity.cs" />
     <Compile Include="Models\RideDAO.cs" />
     <Compile Include="Models\RideRidersDAO.cs" />
+    <Compile Include="Models\RoleDAO.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\UserDAO.cs" />
     <Compile Include="Models\VehicleDAO.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RideMapper.cs" />
     <Compile Include="RideRiderMapper.cs" />
+    <Compile Include="RoleMapper.cs" />
     <Compile Include="UserMapper.cs" />
     <Compile Include="VehicleMapper.cs" />
   </ItemGroup>

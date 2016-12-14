@@ -19,7 +19,12 @@ namespace RevaShare.DataClient
       u.PhoneNumber = user.PhoneNumber;
       
       u.Apartment = ApartmentMapper.MapToApartmentDAO(user.Apartment);
-     
+      
+      List<RoleDAO> roles = new List<RoleDAO>();
+      foreach (AspNetRole role in user.AspNetRoles) {
+                roles.Add(RoleMapper.MapToRoleDAO(role));
+      }
+      u.Roles = roles;
 
       return u;
     }
