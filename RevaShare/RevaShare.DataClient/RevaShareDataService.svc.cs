@@ -1,3 +1,5 @@
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 ﻿using RevaShare.DataAccess.Data;
 using RevaShare.DataClient.Models;
 using System;

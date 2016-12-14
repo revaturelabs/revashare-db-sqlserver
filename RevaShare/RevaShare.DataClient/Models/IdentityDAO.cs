@@ -7,7 +7,7 @@ using System.Web;
 namespace RevaShare.DataClient.Models
 {
     [DataContract]
-    public class Identity
+    public class IdentityDAO
     {
         [DataMember]
         public int IdentityID { get; set; }

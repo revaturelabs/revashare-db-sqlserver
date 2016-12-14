@@ -10,6 +10,8 @@ namespace RevaShare.DataClient.Models
     public class ApartmentDAO
     {
         [DataMember]
+        public string Name { get; set; }
+        [DataMember]
         public int ApartmentID { get; set; }
         [DataMember]
         public string Latitude { get; set; }
