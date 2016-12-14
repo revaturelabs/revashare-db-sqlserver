@@ -79,6 +79,8 @@
       <DependentUpon>RevaShareDataService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RideMapper.cs" />
+    <Compile Include="RideRiderMapper.cs" />
     <Compile Include="UserMapper.cs" />
     <Compile Include="VehicleMapper.cs" />
   </ItemGroup>
