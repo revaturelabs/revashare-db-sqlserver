@@ -20,8 +20,5 @@ namespace RevaShare.DataAccess
         public string Type { get; set; }
         public string Message { get; set; }
         public bool Active { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
-        public virtual AspNetUser AspNetUser1 { get; set; }
     }
 }

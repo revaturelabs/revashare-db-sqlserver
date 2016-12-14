@@ -33,7 +33,8 @@ namespace RevaShare.DataAccess.Data {
         /// <param name="apartmentId">The Id of the Apartment to get Rides from.</param>
         /// <returns>The List of Rides.</returns>
         public List<Ride> ListRidesAtApartment(int apartmentId) {
-            return context.Rides.Where(r => r.Vehicle.AspNetUser.Apartment.ID == apartmentId && r.Active).ToList();
+            //return context.Rides.Where(r => r.Vehicle.AspNetUser.Apartment.ID == apartmentId && r.Active).ToList();
+            return new List<Ride>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace RevaShare.DataClient
     {
       var c = new VehicleDAO();
       c.VehicleID = vehicle.ID;
-      c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
+      //c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
       c.Make = vehicle.Make;
       c.Model = vehicle.Model;
       c.Color = vehicle.Color;
@@ -27,7 +27,7 @@ namespace RevaShare.DataClient
     {
       var c = new Vehicle();
       c.ID = vehicle.VehicleID;
-      c.AspNetUser = UserMapper.MapToUser(vehicle.Owner);
+      //c.AspNetUser = UserMapper.MapToUser(vehicle.Owner);
       c.Make = vehicle.Make;
       c.Model = vehicle.Model;
       c.Color = vehicle.Color;

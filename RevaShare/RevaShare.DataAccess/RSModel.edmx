@@ -15,59 +15,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="AspNetRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogins">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUserRoles">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AspNetUsers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="ApartmentID" Type="int" />
-          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
-          <Property Name="PasswordHash" Type="nvarchar(max)" />
-          <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
         <EntityType Name="Flag">
           <Key>
             <PropertyRef Name="ID" />
@@ -113,102 +60,6 @@
           <Property Name="Capacity" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-          <End Role="Apartment" Type="Self.Apartment" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Apartment">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AspNetUsers">
-              <PropertyRef Name="ApartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Flag">
-              <PropertyRef Name="DriverID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Flag">
-              <PropertyRef Name="RiderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_Ride_dbo_Vehicle_VehicleID">
           <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -220,18 +71,6 @@
             </Principal>
             <Dependent Role="Ride">
               <PropertyRef Name="VehicleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="RideRiders" Type="Self.RideRiders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RideRiders">
-              <PropertyRef Name="RiderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -249,74 +88,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Vehicle_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Vehicle">
-              <PropertyRef Name="OwnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="RevaShareDBModelStoreContainer">
           <EntitySet Name="Apartment" EntityType="Self.Apartment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flag" EntityType="Self.Flag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ride" EntityType="Self.Ride" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RideRiders" EntityType="Self.RideRiders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" Association="Self.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-            <End Role="Apartment" EntitySet="Apartment" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId" Association="Self.FK_dbo_Flag_dbo_AspNetUsers_DriverId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Flag" EntitySet="Flag" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId" Association="Self.FK_dbo_Flag_dbo_AspNetUsers_RiderId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Flag" EntitySet="Flag" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="Self.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicle" />
             <End Role="Ride" EntitySet="Ride" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="RideRiders" EntitySet="RideRiders" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_RideRiders_dbo_Ride_ID" Association="Self.FK_dbo_RideRiders_dbo_Ride_ID">
             <End Role="Ride" EntitySet="Ride" />
             <End Role="RideRiders" EntitySet="RideRiders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Vehicle_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_Vehicle_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Vehicle" EntitySet="Vehicle" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -324,43 +108,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="RevaShareDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RevaShareDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Apartments" EntityType="RevaShareDBModel.Apartment" />
-          <EntitySet Name="AspNetRoles" EntityType="RevaShareDBModel.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="RevaShareDBModel.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="RevaShareDBModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="RevaShareDBModel.AspNetUser" />
           <EntitySet Name="Flags" EntityType="RevaShareDBModel.Flag" />
           <EntitySet Name="Rides" EntityType="RevaShareDBModel.Ride" />
           <EntitySet Name="RideRiders" EntityType="RevaShareDBModel.RideRider" />
           <EntitySet Name="Vehicles" EntityType="RevaShareDBModel.Vehicle" />
-          <AssociationSet Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" Association="RevaShareDBModel.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-            <End Role="Apartment" EntitySet="Apartments" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Flag" EntitySet="Flags" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Flag" EntitySet="Flags" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="RideRider" EntitySet="RideRiders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Vehicle_dbo_AspNetUsers_UserId" Association="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Vehicle" EntitySet="Vehicles" />
-          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="Ride" EntitySet="Rides" />
@@ -369,78 +120,8 @@
             <End Role="Ride" EntitySet="Rides" />
             <End Role="RideRider" EntitySet="RideRiders" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="RevaShareDBModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Apartment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="RevaShareDBModel.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" FromRole="Apartment" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="RevaShareDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetUser">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="ApartmentID" Type="Int32" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Apartment" Relationship="RevaShareDBModel.FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId" FromRole="AspNetUser" ToRole="Apartment" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="RevaShareDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="RevaShareDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Flags" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId" FromRole="AspNetUser" ToRole="Flag" />
-          <NavigationProperty Name="Flags1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId" FromRole="AspNetUser" ToRole="Flag" />
-          <NavigationProperty Name="RideRiders" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="RideRider" />
-          <NavigationProperty Name="Vehicles" Relationship="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="Vehicle" />
-          <NavigationProperty Name="AspNetRoles" Relationship="RevaShareDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
-        </EntityType>
+          <EntitySet Name="Apartments" EntityType="RevaShareDBModel.Apartment" />
+          </EntityContainer>
         <EntityType Name="Flag">
           <Key>
             <PropertyRef Name="ID" />
@@ -451,9 +132,7 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_DriverId" FromRole="Flag" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUser1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_AspNetUsers_RiderId" FromRole="Flag" ToRole="AspNetUser" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Ride">
           <Key>
             <PropertyRef Name="ID" />
@@ -476,7 +155,6 @@
           <Property Name="RiderID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_AspNetUsers_UserId" FromRole="RideRider" ToRole="AspNetUser" />
           <NavigationProperty Name="Ride" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" FromRole="RideRider" ToRole="Ride" />
         </EntityType>
         <EntityType Name="Vehicle">
@@ -491,103 +169,8 @@
           <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Capacity" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="RevaShareDBModel.FK_dbo_Vehicle_dbo_AspNetUsers_UserId" FromRole="Vehicle" ToRole="AspNetUser" />
           <NavigationProperty Name="Rides" Relationship="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" FromRole="Vehicle" ToRole="Ride" />
         </EntityType>
-        <Association Name="FK_dbo_AspNetUsers_dbo_Apartments_ApartmentId">
-          <End Type="RevaShareDBModel.Apartment" Role="Apartment" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Apartment">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AspNetUser">
-              <PropertyRef Name="ApartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RevaShareDBModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaim">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RevaShareDBModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogin">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_DriverId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Flag">
-              <PropertyRef Name="DriverID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Flag_dbo_AspNetUsers_RiderId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Flag">
-              <PropertyRef Name="RiderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_RideRiders_dbo_AspNetUsers_UserId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="RevaShareDBModel.RideRider" Role="RideRider" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RideRider">
-              <PropertyRef Name="RiderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_Vehicle_dbo_AspNetUsers_UserId">
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="RevaShareDBModel.Vehicle" Role="Vehicle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Vehicle">
-              <PropertyRef Name="OwnerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_dbo_Ride_dbo_Vehicle_VehicleID">
           <End Type="RevaShareDBModel.Vehicle" Role="Vehicle" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -616,74 +199,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="RevaShareDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="RevaShareDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-        </Association>
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RevaShareDBModelStoreContainer" CdmEntityContainer="RevaShareDBEntities">
-          <EntitySetMapping Name="Apartments">
-            <EntityTypeMapping TypeName="RevaShareDBModel.Apartment">
-              <MappingFragment StoreEntitySet="Apartment">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="RevaShareDBModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="RevaShareDBModel.AspNetUserClaim">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="RevaShareDBModel.AspNetUserLogin">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="RevaShareDBModel.AspNetUser">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="ApartmentID" ColumnName="ApartmentID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Flags">
             <EntityTypeMapping TypeName="RevaShareDBModel.Flag">
               <MappingFragment StoreEntitySet="Flag">
@@ -732,15 +263,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="RevaShareDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Apartments">
+            <EntityTypeMapping TypeName="RevaShareDBModel.Apartment">
+              <MappingFragment StoreEntitySet="Apartment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
