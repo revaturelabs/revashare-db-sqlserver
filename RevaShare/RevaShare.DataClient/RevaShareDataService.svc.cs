@@ -21,14 +21,20 @@ namespace RevaShare.DataClient
       return ApartmentMapper.MapToApartmentDAO(data.GetApartment(id));
     }
 
-    public RideRidersDAO GetRideRiderById(int id)
+    public RideRidersDAO GetRideRiderById(string id)
     {
-      throw new NotImplementedException();
+      return RideRiderMapper.MapToRideRiderDAO(data.GetRideRiderByID(id));
     }
 
-    public RideRidersDAO GetRideRiders()
+    public List<RideRidersDAO> GetRideRiders()
     {
-      throw new NotImplementedException();
+      var r = new List<RideRidersDAO>();
+
+      foreach (var rider in data.GetRideRiders())
+      {
+        r.Add(RideRiderMapper.MapToRideRiderDAO(rider));
+      }
+      return r;      
     }
 
     public VehicleDAO GetVehicleById(int id)
@@ -64,6 +70,56 @@ namespace RevaShare.DataClient
     public UserDAO register()
     {
       throw new NotImplementedException();
+    }
+
+    public bool AddRide(RideDAO ride)
+    {
+      throw new NotImplementedException();
+    }
+
+    public bool UpdateRide(RideDAO ride)
+    {
+      throw new NotImplementedException();
+    }
+
+    public bool DeleteRide(string id)
+    {
+      throw new NotImplementedException();
+    }
+
+    public bool AddRideRiders(RideDAO ride, RideRidersDAO rideriders)
+    {
+      return data.AddRideRider(RideMapper.MapToRide(ride),RideRiderMapper.MapToRideRider(rideriders));
+    }
+
+    public bool UpdateRideRider(RideRidersDAO riderider)
+    {
+      return data.UpdateRideRider(RideRiderMapper.MapToRideRider(riderider));
+    }
+
+    public bool DeleteRideRider(string id)
+    {
+      return data.DeleteRideRider(id);
+    }
+
+    public bool AddVehicle(VehicleDAO vehicle)
+    {
+      return data.AddVehicle(VehicleMapper.MapToVehicle(vehicle));
+    }
+
+    public bool UpdateVehicle(VehicleDAO vehicle)
+    {
+      return data.UpdateVehicle(VehicleMapper.MapToVehicle(vehicle));
+    }
+
+    public bool DeleteVehicle(int id)
+    {
+      return data.DeleteVehicle(id);
+    }
+
+    public VehicleDAO GetVehicleByID(int id)
+    {
+      return VehicleMapper.MapToVehicleDAO(data.GetVehicleByID(id));
     }
   }
 }
