@@ -80,7 +80,7 @@ namespace RevaShare.DataClient
       throw new NotImplementedException();
     }
 
-    public bool DeleteRide(string id)
+    public bool DeleteRide(RideDAO ride)
     {
       throw new NotImplementedException();
     }
@@ -95,9 +95,9 @@ namespace RevaShare.DataClient
       return data.UpdateRideRider(RideRiderMapper.MapToRideRider(riderider));
     }
 
-    public bool DeleteRideRider(string id)
+    public bool DeleteRideRider(RideRidersDAO rider)
     {
-      return data.DeleteRideRider(id);
+      return data.DeleteRideRider(RideRiderMapper.MapToRideRider(rider));
     }
 
     public bool AddVehicle(VehicleDAO vehicle)
@@ -110,14 +110,40 @@ namespace RevaShare.DataClient
       return data.UpdateVehicle(VehicleMapper.MapToVehicle(vehicle));
     }
 
-    public bool DeleteVehicle(int id)
+    public bool DeleteVehicle(VehicleDAO vehicle)
     {
-      return data.DeleteVehicle(id);
+      return data.DeleteVehicle(VehicleMapper.MapToVehicle(vehicle));
     }
 
     public VehicleDAO GetVehicleByID(int id)
     {
       return VehicleMapper.MapToVehicleDAO(data.GetVehicleByID(id));
+    }
+
+    public bool AddApartment(ApartmentDAO apartment)
+    {
+      return data.CreateApartment(ApartmentMapper.MapToApartment( apartment));
+    }
+
+    public List<ApartmentDAO> ListApartments()
+    {
+      var r = new List<ApartmentDAO>();
+
+      foreach (var apartment in data.ListApartments())
+      {
+        r.Add(ApartmentMapper.MapToApartmentDAO(apartment));
+      }
+      return r;
+    }
+
+    public bool UpdateApartment(ApartmentDAO apartment)
+    {
+      return data.UpdateApartment(ApartmentMapper.MapToApartment(apartment));
+    }
+
+    public bool DeleteApartment(ApartmentDAO apartment)
+    {
+      return data.DeleteApartment(ApartmentMapper.MapToApartment(apartment));
     }
   }
 }
