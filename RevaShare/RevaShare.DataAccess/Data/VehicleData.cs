@@ -6,5 +6,6 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data {
     public partial class RevaShareData {
+
     }
 }

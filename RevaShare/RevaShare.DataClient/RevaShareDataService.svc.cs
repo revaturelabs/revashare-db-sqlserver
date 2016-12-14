@@ -1,4 +1,6 @@
-﻿using RevaShare.DataClient.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +29,21 @@ namespace RevaShare.DataClient
         {
             return new UserDAO();
         }
+
+        private static UserStore<IdentityUser> credentials = new UserStore<IdentityUser>();
+
+        public bool Signup(IdentityDAO account)
+        {
+            var user = new IdentityUser { UserName = account.Username };
+            var manager = new UserManager<IdentityUser>(credentials);
+            var result = manager.Create(user, account.Password);
+            if (result.Succeeded)
+            {
+                //Roles.AddUserToRole(account.Username, "admin");
+                return true;
+            }
+            return false;
+        }
+
     }
 }

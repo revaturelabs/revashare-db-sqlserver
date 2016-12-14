@@ -25,7 +25,7 @@ namespace RevaShare.DataAccess
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("RevaShareDB", throwIfV1Schema: false)
+            : base("RevaShareDBEntities", throwIfV1Schema: false)
         {
         }
 

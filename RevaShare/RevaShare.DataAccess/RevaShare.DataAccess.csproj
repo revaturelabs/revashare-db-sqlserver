@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Data\ApartmentData.cs" />
     <Compile Include="Data\FlagData.cs" />
+    <Compile Include="Data\IdentityControlls.cs" />
     <Compile Include="Data\RevaShareData.cs" />
     <Compile Include="Data\RideData.cs" />
     <Compile Include="Data\RideRiderData.cs" />

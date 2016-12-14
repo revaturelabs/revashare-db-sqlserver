@@ -16,6 +16,8 @@ namespace RevaShare.DataClient.Models
         [DataMember]
         public DateTime StartOfWeek { get; set; }
         [DataMember]
+        public TimeSpan DepartureTime { get; set; }
+        [DataMember]
         public bool IsOnTime { get; set; }
     }
 }
