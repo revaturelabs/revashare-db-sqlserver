@@ -12,30 +12,78 @@ namespace RevaShare.DataClient
   [ServiceContract]
   public interface IRevaShareDataService
   {
-
-    [OperationContract]
-    RideDAO passRide();
+    /// <summary>
+    /// User section
+    /// </summary>
+    /// <returns></returns>
+    
     [OperationContract]
     UserDAO passUser();
-    [OperationContract]
-    RideRidersDAO passRideRider();
+    
     [OperationContract]
     UserDAO logIn();
     [OperationContract]
     UserDAO register();
 
+    /// <summary>
+    /// Apartment section
+    /// </summary>
+    
     [OperationContract]
     ApartmentDAO GetApartment(int id);
     [OperationContract]
     ApartmentDAO GetApartmentByName(string name);
 
-    [OperationContract]
-    RideRidersDAO GetRideRiders();
-    [OperationContract]
-    RideRidersDAO GetRideRiderById(int id);
+    /// <summary>
+    /// Flag section
+    /// </summary>
 
+
+
+
+    /// <summary>
+    /// Ride section
+    /// </summary>
+    [OperationContract]
+    RideDAO passRide();
+    [OperationContract]
+    bool AddRide(RideDAO ride);
+    [OperationContract]
+    bool UpdateRide(RideDAO ride);
+    [OperationContract]
+    bool DeleteRide(string id);
+
+    /// <summary>
+    /// RideRider section
+    /// </summary>
+    [OperationContract]
+    List<RideRidersDAO> GetRideRiders();
+    [OperationContract]
+    RideRidersDAO GetRideRiderById(string id);
+    [OperationContract]
+    RideRidersDAO passRideRider();
+    [OperationContract]
+    bool AddRideRiders(RideDAO ride, RideRidersDAO rideriders);
+    [OperationContract]
+    bool UpdateRideRider(RideRidersDAO riderider);
+    [OperationContract]
+    bool DeleteRideRider(string id);
+
+
+    /// <summary>
+    /// Vehicle section
+    /// </summary>    
     [OperationContract]
     VehicleDAO GetVehicleById(int id);
+
+    [OperationContract]
+    bool AddVehicle(VehicleDAO vehicle);
+
+    [OperationContract]
+    bool UpdateVehicle(VehicleDAO vehicle);
+    [OperationContract]
+    bool DeleteVehicle(int id);
+   
 
 
 
