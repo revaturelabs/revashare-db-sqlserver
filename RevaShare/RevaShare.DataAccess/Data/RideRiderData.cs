@@ -41,10 +41,9 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
 
-    public bool DeleteRideRider(string id)
+    public bool DeleteRideRider(RideRider riderider)
     {
-      var riderider = context.RideRiders.Where(x => x.RiderID == id).FirstOrDefault();
-      context.RideRiders.Remove(riderider);
+      riderider.Active = false;
       return context.SaveChanges() > 0;
     }
 

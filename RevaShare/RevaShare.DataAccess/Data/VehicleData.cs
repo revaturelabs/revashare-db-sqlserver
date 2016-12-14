@@ -52,10 +52,9 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
     
-    public bool DeleteVehicle(int id)
+    public bool DeleteVehicle(Vehicle vehicle)
     {
-      var vehicle = context.Vehicles.Where(x => x.ID == id).FirstOrDefault();
-      context.Vehicles.Remove(vehicle);
+      vehicle.Active = false;
       return context.SaveChanges() > 0;
     }
 
