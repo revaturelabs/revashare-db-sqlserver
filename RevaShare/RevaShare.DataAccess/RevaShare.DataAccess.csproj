@@ -128,6 +128,7 @@
     <Compile Include="Data\FlagData.cs" />
     <Compile Include="Data\IdentityControlls.cs" />
     <Compile Include="Data\RevaShareData.cs" />
+    <Compile Include="Data\RevaShareIdentity.cs" />
     <Compile Include="Data\RideData.cs" />
     <Compile Include="Data\RideRiderData.cs" />
     <Compile Include="Data\UserData.cs" />
