@@ -52,7 +52,11 @@ namespace RevaShare.DataAccess.Data {
         /// <param name="apartment">The Apartment to update.</param>
         /// <returns>True if the update was successful.</returns>
         public bool UpdateApartment(Apartment apartment) {
-            DbEntityEntry<Apartment> entry = context.Entry(apartment);
+            var actualApartment = GetApartmentByName(apartment.Name);
+            actualApartment.Latitude = apartment.Latitude;
+            actualApartment.Longitude = apartment.Longitude;
+            actualApartment.Name = apartment.Name;
+            DbEntityEntry<Apartment> entry = context.Entry(actualApartment);
             entry.State = System.Data.Entity.EntityState.Modified;
             return context.SaveChanges() > 0;
         }
@@ -63,7 +67,8 @@ namespace RevaShare.DataAccess.Data {
         /// </summary>
         /// <param name="apartment">The Apartment to delete.</param>
         /// <returns>True if the deletion was successful.</returns>
-        public bool DeleteApartment(Apartment apartment) {
+        public bool DeleteApartment(string apartmentName) {
+            var apartment = GetApartmentByName(apartmentName);
             apartment.Active = false;
             return UpdateApartment(apartment);
         }
