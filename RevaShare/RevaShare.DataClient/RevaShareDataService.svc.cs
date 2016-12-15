@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using RevaShare.DataAccess;
 using RevaShare.DataAccess.Data;
 using RevaShare.DataClient.Mappers;
+
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,12 @@ namespace RevaShare.DataClient
   // NOTE: In order to launch WCF Test Client for testing this service, please select RevaShareDataService.svc or RevaShareDataService.svc.cs at the Solution Explorer and start debugging.
   public class RevaShareDataService : IRevaShareDataService
   {
+    private RevaShareDBEntities _context;
+    public RevaShareDataService(RevaShareDBEntities context)
+    {
+      _context = context;
+    }
+
     RevaShareData data = new RevaShareData();
 
         public bool CreateFlag (FlagDAO flag)
@@ -110,14 +117,20 @@ namespace RevaShare.DataClient
       throw new NotImplementedException();
     }
 
-    public bool DeleteRide(string id)
+    public bool DeleteRide(RideDAO ride)
     {
       throw new NotImplementedException();
     }
 
-    public bool AddRideRiders(RideDAO ride, RideRidersDAO rideriders)
+    public bool AddRideRiders(UserDAO user, RideDAO ride)
     {
-      return data.AddRideRider(RideMapper.MapToRide(ride),RideRiderMapper.MapToRideRider(rideriders));
+      // return data.AddRideRider(UserMapper.MapToUser(user) ,RideMapper.MapToRide(ride));
+      return false;
+    }
+
+    public bool Accept(RideRidersDAO riderider)
+    {
+      return data.AcceptRider(RideRiderMapper.MapToRideRider(riderider));
     }
 
     public bool UpdateRideRider(RideRidersDAO riderider)
@@ -125,9 +138,9 @@ namespace RevaShare.DataClient
       return data.UpdateRideRider(RideRiderMapper.MapToRideRider(riderider));
     }
 
-    public bool DeleteRideRider(string id)
+    public bool DeleteRideRider(RideRidersDAO rider)
     {
-      return data.DeleteRideRider(id);
+      return data.DeleteRideRider(RideRiderMapper.MapToRideRider(rider));
     }
 
     public bool AddVehicle(VehicleDAO vehicle)
@@ -140,14 +153,66 @@ namespace RevaShare.DataClient
       return data.UpdateVehicle(VehicleMapper.MapToVehicle(vehicle));
     }
 
-    public bool DeleteVehicle(int id)
+    public bool DeleteVehicle(VehicleDAO vehicle)
     {
-      return data.DeleteVehicle(id);
+      return data.DeleteVehicle(VehicleMapper.MapToVehicle(vehicle));
     }
 
     public VehicleDAO GetVehicleByID(int id)
     {
       return VehicleMapper.MapToVehicleDAO(data.GetVehicleByID(id));
+    }
+
+    public bool AddApartment(ApartmentDAO apartment)
+    {
+      return data.CreateApartment(ApartmentMapper.MapToApartment( apartment));
+    }
+
+    public List<ApartmentDAO> ListApartments()
+    {
+      var r = new List<ApartmentDAO>();
+
+      foreach (var apartment in data.ListApartments())
+      {
+        r.Add(ApartmentMapper.MapToApartmentDAO(apartment));
+      }
+      return r;
+    }
+
+    public bool UpdateApartment(ApartmentDAO apartment)
+    {
+      return data.UpdateApartment(ApartmentMapper.MapToApartment(apartment));
+    }
+
+    public bool DeleteApartment(ApartmentDAO apartment)
+    {
+      return data.DeleteApartment(ApartmentMapper.MapToApartment(apartment));
+    }
+
+    public bool Create(FlagDAO flag)
+    {
+      return data.Create(FlagMapper.MapToFlag(flag));
+    }
+
+    public FlagDAO GetFlag(int id)
+    {
+      return FlagMapper.MapToFlagDAO(data.GetFlag(id));
+    }
+
+    public List<FlagDAO> ListFlags()
+    {
+      var r = new List<FlagDAO>();
+
+      foreach (var flag in data.ListFlags())
+      {
+        r.Add(FlagMapper.MapToFlagDAO(flag));
+      }
+      return r;
+    }
+
+    public bool MarkFlagAsRead(FlagDAO flag)
+    {
+      return data.MarkFlagAsRead(FlagMapper.MapToFlag(flag));
     }
   }
 }

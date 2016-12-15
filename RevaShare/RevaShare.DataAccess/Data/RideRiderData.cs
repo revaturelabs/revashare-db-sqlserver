@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace RevaShare.DataAccess.Data
     {      
       return context.RideRiders.ToList();
     }
+    private static UserStore<IdentityUser> credentials = new UserStore<IdentityUser>(new Q());
 
-    public bool AddRideRider(Ride ride, RideRider riderider)
-    {     
+    public bool AddRideRider(IdentityUser user, Ride ride)
+    {
+      var riderider = new RideRider();
       riderider.RideID = ride.ID;
       //v.ID = r.VehicleID;
-      
+
       context.RideRiders.Add(riderider);
       return context.SaveChanges() > 0;
     }
@@ -41,10 +44,16 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
 
-    public bool DeleteRideRider(string id)
+    public bool AcceptRider(RideRider riderider)
     {
-      var riderider = context.RideRiders.Where(x => x.RiderID == id).FirstOrDefault();
-      context.RideRiders.Remove(riderider);
+      riderider.Accepted = true;
+      UpdateRideRider(riderider);
+      return context.SaveChanges() > 0;
+    }
+
+    public bool DeleteRideRider(RideRider riderider)
+    {
+      riderider.Active = false;
       return context.SaveChanges() > 0;
     }
 

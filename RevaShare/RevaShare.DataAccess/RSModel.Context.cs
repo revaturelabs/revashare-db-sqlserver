@@ -25,10 +25,11 @@ namespace RevaShare.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Apartment> Apartments { get; set; }
         public virtual DbSet<Flag> Flags { get; set; }
         public virtual DbSet<Ride> Rides { get; set; }
         public virtual DbSet<RideRider> RideRiders { get; set; }
+        public virtual DbSet<UserInfo> UserInfoes { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
-        public virtual DbSet<Apartment> Apartments { get; set; }
     }
 }
