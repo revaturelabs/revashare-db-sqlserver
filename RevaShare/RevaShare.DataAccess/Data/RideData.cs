@@ -38,15 +38,7 @@ namespace RevaShare.DataAccess.Data
     /// <returns>The List of Rides.</returns>
     public List<Ride> ListRidesAtApartment(string name)
     {
-      //return context.Rides.Where(r => r.Vehicle.AspNetUser.Apartment.ID == apartmentId && r.Active).ToList();
-      //var apid = GetApartmentByName(name).ID;
-      //var drivers = context.UserInfoes.Select(c => c.ApartmentID == apid);
-      //foreach (var item in drivers)
-      //{
-      //  var a = context.Rides.Join(context.UserInfoes, r => r.Vehicle.OwnerID, r => r.UserID, new {  });
-      //}
-
-      return new List<Ride>();
+      return context.Rides.Where(r => r.Vehicle.UserInfo.Apartment.Name == name && r.Active).ToList();
     }
 
     public bool UpdateRide(Ride ride)
