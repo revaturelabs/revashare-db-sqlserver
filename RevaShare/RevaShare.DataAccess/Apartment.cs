@@ -14,10 +14,19 @@ namespace RevaShare.DataAccess
     
     public partial class Apartment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Apartment()
+        {
+            this.UserInfoes = new HashSet<UserInfo>();
+        }
+    
         public int ID { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string Name { get; set; }
         public bool Active { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserInfo> UserInfoes { get; set; }
     }
 }

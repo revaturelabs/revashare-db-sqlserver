@@ -89,7 +89,8 @@ namespace RevaShare.DataClient
 
     public bool AddRideRiders(UserDAO user, RideDAO ride)
     {
-      return data.AddRideRider(UserMapper.MapToUser(user) ,RideMapper.MapToRide(ride));
+      // return data.AddRideRider(UserMapper.MapToUser(user) ,RideMapper.MapToRide(ride));
+      return false;
     }
 
     public bool UpdateRideRider(RideRidersDAO riderider)
