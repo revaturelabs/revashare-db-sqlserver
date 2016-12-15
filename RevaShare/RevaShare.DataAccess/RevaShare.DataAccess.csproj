@@ -121,6 +121,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apartment.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\ApartmentData.cs" />
     <Compile Include="Data\FlagData.cs" />
     <Compile Include="Data\IdentityControlls.cs" />
@@ -129,9 +132,18 @@
     <Compile Include="Data\RideRiderData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Data\VehicleData.cs" />
+    <Compile Include="Flag.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ride.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RideRider.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RSModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,6 +161,12 @@
     </Compile>
     <Compile Include="Startup.Auth.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vehicle.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
