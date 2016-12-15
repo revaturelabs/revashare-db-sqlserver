@@ -2,6 +2,8 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using RevaShare.DataAccess;
 using RevaShare.DataAccess.Data;
+using RevaShare.DataClient.Mappers;
+
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,32 @@ namespace RevaShare.DataClient
     }
 
     RevaShareData data = new RevaShareData();
+
+        public bool CreateFlag (FlagDAO flag)
+        {
+            return data.Create(FlagMapper.MapToFlag(flag));
+        }
+
+        public FlagDAO GetFlagByID(int id)
+        {
+            return FlagMapper.MapToFlagDAO(data.GetFlag(id));
+        }
+
+        public List<FlagDAO> GetAllFlags()
+        {
+            List<FlagDAO> flags = new List<FlagDAO>();
+            foreach (var item in data.ListFlags())
+            {
+                flags.Add(FlagMapper.MapToFlagDAO(item));
+            }
+            return flags;
+        }
+
+        public bool MarkFlagAsRead(FlagDAO flag)
+        {
+            return data.MarkFlagAsRead(FlagMapper.MapToFlag(flag));
+        }
+
     public ApartmentDAO GetApartment(int id)
     {
       return ApartmentMapper.MapToApartmentDAO(data.GetApartment(id));

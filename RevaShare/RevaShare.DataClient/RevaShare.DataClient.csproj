@@ -121,6 +121,7 @@
     <Compile Include="ApartmentMapper.cs" />
     <Compile Include="FlagMapper.cs" />
     <Compile Include="IRevaShareDataService.cs" />
+    <Compile Include="Mappers\FlagMapper.cs" />
     <Compile Include="Models\ApartmentDAO.cs" />
     <Compile Include="Models\FlagDAO.cs" />
     <Compile Include="Models\IdentityDAO.cs" />
@@ -134,11 +135,11 @@
       <DependentUpon>RevaShareDataService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RideMapper.cs" />
-    <Compile Include="RideRiderMapper.cs" />
-    <Compile Include="RoleMapper.cs" />
-    <Compile Include="UserMapper.cs" />
-    <Compile Include="VehicleMapper.cs" />
+    <Compile Include="Mappers\RideMapper.cs" />
+    <Compile Include="Mappers\RideRiderMapper.cs" />
+    <Compile Include="Mappers\RoleMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
+    <Compile Include="Mappers\VehicleMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

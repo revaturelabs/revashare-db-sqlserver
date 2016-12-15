@@ -100,8 +100,15 @@ namespace RevaShare.DataClient
     bool UpdateVehicle(VehicleDAO vehicle);
     [OperationContract]
     bool DeleteVehicle(VehicleDAO vehicle);
-   
 
+        [OperationContract]
+        bool CreateFlag(FlagDAO flag);
+        [OperationContract]
+        FlagDAO GetFlagByID(int id);
+        [OperationContract]
+        List<FlagDAO> GetAllFlags();
+        [OperationContract]
+        bool MarkFlagAsRead(FlagDAO flag);
 
 
   }
