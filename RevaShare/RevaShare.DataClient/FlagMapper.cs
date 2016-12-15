@@ -7,25 +7,28 @@ using System.Web;
 
 namespace RevaShare.DataClient
 {
-  public class ApartmentMapper
+  public class FlagMapper
   {
-    public static ApartmentDAO MapToApartmentDAO(Apartment apartment)
+    public static FlagDAO MapToFlagDAO(Flag flag)
     {
-      var c = new ApartmentDAO();
-      c.ApartmentID = apartment.ID;
-      c.Name = apartment.Name;
-      c.Latitude = apartment.Latitude;
-      c.Longitude = apartment.Longitude;
-     
+      var c = new FlagDAO();
+      c.FlagID = flag.ID;
+      c.DriverID = flag.DriverID;
+      c.RiderID = flag.RiderID;
+      c.Type = flag.Type;
+      c.Message = flag.Message;      
+
       return c;
     }
 
-    public static Apartment MapToApartment(ApartmentDAO apartment)
+    public static Flag MapToFlag(FlagDAO flag)
     {
-      var c = new Apartment();
-      c.ID = apartment.ApartmentID;
-      c.Latitude = apartment.Latitude;
-      c.Longitude = apartment.Longitude;
+      var c = new Flag();
+      c.ID = flag.FlagID;
+      c.DriverID = flag.DriverID;
+      c.RiderID = flag.RiderID;
+      c.Type = flag.Type;
+      c.Message = flag.Message;
 
       return c;
     }

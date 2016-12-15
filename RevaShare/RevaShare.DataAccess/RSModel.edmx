@@ -47,6 +47,16 @@
           <Property Name="Accepted" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ApartmentID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="ID" />
@@ -88,11 +98,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
+          <End Role="Apartment" Type="Self.Apartment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="ApartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RevaShareDBModelStoreContainer">
           <EntitySet Name="Apartment" EntityType="Self.Apartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flag" EntityType="Self.Flag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ride" EntityType="Self.Ride" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RideRiders" EntityType="Self.RideRiders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="Self.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicle" />
@@ -102,16 +127,26 @@
             <End Role="Ride" EntitySet="Ride" />
             <End Role="RideRiders" EntitySet="RideRiders" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId" Association="Self.FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
+            <End Role="Apartment" EntitySet="Apartment" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RevaShareDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RevaShareDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Apartments" EntityType="RevaShareDBModel.Apartment" />
           <EntitySet Name="Flags" EntityType="RevaShareDBModel.Flag" />
           <EntitySet Name="Rides" EntityType="RevaShareDBModel.Ride" />
           <EntitySet Name="RideRiders" EntityType="RevaShareDBModel.RideRider" />
+          <EntitySet Name="UserInfoes" EntityType="RevaShareDBModel.UserInfo" />
           <EntitySet Name="Vehicles" EntityType="RevaShareDBModel.Vehicle" />
+          <AssociationSet Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId" Association="RevaShareDBModel.FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
+            <End Role="Apartment" EntitySet="Apartments" />
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="Ride" EntitySet="Rides" />
@@ -120,8 +155,18 @@
             <End Role="Ride" EntitySet="Rides" />
             <End Role="RideRider" EntitySet="RideRiders" />
           </AssociationSet>
-          <EntitySet Name="Apartments" EntityType="RevaShareDBModel.Apartment" />
-          </EntityContainer>
+        </EntityContainer>
+        <EntityType Name="Apartment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserInfoes" Relationship="RevaShareDBModel.FK_dbo_UserInfo_dbo_Apartments_ApartmentId" FromRole="Apartment" ToRole="UserInfo" />
+        </EntityType>
         <EntityType Name="Flag">
           <Key>
             <PropertyRef Name="ID" />
@@ -132,7 +177,7 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          </EntityType>
+        </EntityType>
         <EntityType Name="Ride">
           <Key>
             <PropertyRef Name="ID" />
@@ -157,6 +202,17 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Ride" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" FromRole="RideRider" ToRole="Ride" />
         </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ApartmentID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Apartment" Relationship="RevaShareDBModel.FK_dbo_UserInfo_dbo_Apartments_ApartmentId" FromRole="UserInfo" ToRole="Apartment" />
+        </EntityType>
         <EntityType Name="Vehicle">
           <Key>
             <PropertyRef Name="ID" />
@@ -171,6 +227,20 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Rides" Relationship="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" FromRole="Vehicle" ToRole="Ride" />
         </EntityType>
+        <Association Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
+          <End Type="RevaShareDBModel.Apartment" Role="Apartment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RevaShareDBModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Apartment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="ApartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Ride_dbo_Vehicle_VehicleID">
           <End Type="RevaShareDBModel.Vehicle" Role="Vehicle" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -199,22 +269,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Apartment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Latitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Longitude" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RevaShareDBModelStoreContainer" CdmEntityContainer="RevaShareDBEntities">
+          <EntitySetMapping Name="Apartments">
+            <EntityTypeMapping TypeName="RevaShareDBModel.Apartment">
+              <MappingFragment StoreEntitySet="Apartment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Flags">
             <EntityTypeMapping TypeName="RevaShareDBModel.Flag">
               <MappingFragment StoreEntitySet="Flag">
@@ -249,6 +320,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserInfoes">
+            <EntityTypeMapping TypeName="RevaShareDBModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ApartmentID" ColumnName="ApartmentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vehicles">
             <EntityTypeMapping TypeName="RevaShareDBModel.Vehicle">
               <MappingFragment StoreEntitySet="Vehicle">
@@ -263,18 +345,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Apartments">
-            <EntityTypeMapping TypeName="RevaShareDBModel.Apartment">
-              <MappingFragment StoreEntitySet="Apartment">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

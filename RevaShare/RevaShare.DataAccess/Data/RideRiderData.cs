@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace RevaShare.DataAccess.Data
     {      
       return context.RideRiders.ToList();
     }
+    private static UserStore<IdentityUser> credentials = new UserStore<IdentityUser>(new Q());
 
-    public bool AddRideRider(Ride ride, RideRider riderider)
-    {     
+    public bool AddRideRider(IdentityUser user, Ride ride)
+    {
+      var riderider = new RideRider();
       riderider.RideID = ride.ID;
       //v.ID = r.VehicleID;
-      
+
       context.RideRiders.Add(riderider);
       return context.SaveChanges() > 0;
     }
