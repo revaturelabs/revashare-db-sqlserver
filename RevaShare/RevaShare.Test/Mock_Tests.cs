@@ -23,7 +23,7 @@ namespace RevaShare.Test
       mockContext.Setup(m => m.Apartments).Returns(mockSet.Object);
 
       var service = new RevaShareDataService(mockContext.Object);
-      var apartment = new ApartmentDAO { Name="Test", ApartmentID = 1, Latitude = "34.5", Longitude = "170.1" };
+      var apartment = new ApartmentDAO { Name="Test", Latitude = "34.5", Longitude = "170.1" };
       service.AddApartment(apartment);
 
       mockSet.Verify(m => m.Add(It.IsAny<Apartment>()), Times.Once());
