@@ -12,7 +12,7 @@ namespace RevaShare.DataClient.Mappers
         public static Flag MapToFlag(FlagDAO flag)
         {
             var u = new Flag();
-            u.ID = flag.FlagID;
+            u.ID = (flag.FlagID - 2) / 3;
             u.DriverID = flag.DriverID;
             u.RiderID = flag.RiderID;
             u.Type = flag.Type;
@@ -24,7 +24,7 @@ namespace RevaShare.DataClient.Mappers
         public static FlagDAO MapToFlagDAO(Flag flag)
         {
             var u = new FlagDAO();
-            u.FlagID = flag.ID;
+            u.FlagID = (flag.ID * 3) + 2;
             u.DriverID = flag.DriverID;
             u.RiderID = flag.RiderID;
             u.Type = flag.Type;
