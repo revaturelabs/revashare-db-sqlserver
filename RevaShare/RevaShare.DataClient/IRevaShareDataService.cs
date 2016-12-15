@@ -52,7 +52,7 @@ namespace RevaShare.DataClient
         [OperationContract]
         bool UpdateApartment(ApartmentDAO apartment);
         [OperationContract]
-        bool DeleteApartment(ApartmentDAO apartment);
+        bool DeleteApartment(string apartment);
 
         /// <summary>
         /// Ride section
