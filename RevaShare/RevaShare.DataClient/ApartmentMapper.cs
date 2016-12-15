@@ -24,6 +24,7 @@ namespace RevaShare.DataClient
     {
       var c = new Apartment();
       c.ID = apartment.ApartmentID;
+      c.Name = apartment.Name;
       c.Latitude = apartment.Latitude;
       c.Longitude = apartment.Longitude;
 
