@@ -148,5 +148,31 @@ namespace RevaShare.DataClient
     {
       return data.DeleteApartment(ApartmentMapper.MapToApartment(apartment));
     }
+
+    public bool Create(FlagDAO flag)
+    {
+      return data.Create(FlagMapper.MapToFlag(flag));
+    }
+
+    public FlagDAO GetFlag(int id)
+    {
+      return FlagMapper.MapToFlagDAO(data.GetFlag(id));
+    }
+
+    public List<FlagDAO> ListFlags()
+    {
+      var r = new List<FlagDAO>();
+
+      foreach (var flag in data.ListFlags())
+      {
+        r.Add(FlagMapper.MapToFlagDAO(flag));
+      }
+      return r;
+    }
+
+    public bool MarkFlagAsRead(FlagDAO flag)
+    {
+      return data.MarkFlagAsRead(FlagMapper.MapToFlag(flag));
+    }
   }
 }

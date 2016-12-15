@@ -47,10 +47,15 @@ namespace RevaShare.DataClient
     /// <summary>
     /// Flag section
     /// </summary>
-
-
-
-
+    [OperationContract]
+    bool Create(FlagDAO flag);
+    [OperationContract]
+    FlagDAO GetFlag(int id);
+    [OperationContract]
+    List<FlagDAO> ListFlags();
+    [OperationContract]
+    bool MarkFlagAsRead(FlagDAO flag);
+ 
     /// <summary>
     /// Ride section
     /// </summary>
