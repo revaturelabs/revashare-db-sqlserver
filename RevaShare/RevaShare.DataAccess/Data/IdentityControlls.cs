@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data
 {
-    public class Q : IdentityDbContext
+    public class Q : IdentityDbContext<IdentityUser>
     {
-        public Q() : base("RevaShareDBEntities")
+        public Q() : base("IdentityDBEntities")
         {
 
         }
