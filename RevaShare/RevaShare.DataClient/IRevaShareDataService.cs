@@ -82,6 +82,8 @@ namespace RevaShare.DataClient
     [OperationContract]
     bool UpdateRideRider(RideRidersDAO riderider);
     [OperationContract]
+    bool Accept(RideRidersDAO riderider);
+    [OperationContract]
     bool DeleteRideRider(RideRidersDAO riderider);
 
 
