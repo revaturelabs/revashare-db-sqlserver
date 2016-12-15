@@ -51,7 +51,10 @@ namespace RevaShare.DataClient
       return new UserDAO();
     }
 
-    public bool DeleteApartment(ApartmentDAO apartment)
+
+    public List<RideDAO> ApartmentRides()
+
+  
     {
       throw new NotImplementedException();
     }

@@ -65,6 +65,8 @@ namespace RevaShare.DataClient
         bool UpdateRide(RideDAO ride);
         [OperationContract]
         bool DeleteRide(RideDAO ride);
+        [OperationContract]
+        List<RideDAO> ApartmentRides();
 
         /// <summary>
         /// RideRider section
@@ -98,7 +100,6 @@ namespace RevaShare.DataClient
         bool UpdateVehicle(VehicleDAO vehicle);
         [OperationContract]
         bool DeleteVehicle(VehicleDAO vehicle);
-
         [OperationContract]
         bool CreateFlag(FlagDAO flag);
         [OperationContract]

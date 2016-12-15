@@ -31,5 +31,6 @@ namespace RevaShare.DataAccess
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ride> Rides { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

@@ -20,5 +20,8 @@ namespace RevaShare.DataAccess
         public string Type { get; set; }
         public string Message { get; set; }
         public bool Active { get; set; }
+    
+        public virtual UserInfo UserInfo { get; set; }
+        public virtual UserInfo UserInfo1 { get; set; }
     }
 }

@@ -20,5 +20,6 @@ namespace RevaShare.DataAccess
         public bool Active { get; set; }
     
         public virtual Ride Ride { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

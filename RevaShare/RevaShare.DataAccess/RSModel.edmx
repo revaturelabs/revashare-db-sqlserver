@@ -70,6 +70,32 @@
           <Property Name="Capacity" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_dbo_Flag_dbo_UserInfo_DriverId">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_UserInfo_RiderId">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Flag" Type="Self.Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Ride_dbo_Vehicle_VehicleID">
           <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -98,6 +124,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_RideRiders_dbo_UserInfo_UserId">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="RideRiders" Type="Self.RideRiders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="RideRiders">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
           <End Role="Apartment" Type="Self.Apartment" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -112,6 +150,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Vehicle_dbo_UserInfo_UserId">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RevaShareDBModelStoreContainer">
           <EntitySet Name="Apartment" EntityType="Self.Apartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Flag" EntityType="Self.Flag" Schema="dbo" store:Type="Tables" />
@@ -119,6 +171,14 @@
           <EntitySet Name="RideRiders" EntityType="Self.RideRiders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Flag_dbo_UserInfo_DriverId" Association="Self.FK_dbo_Flag_dbo_UserInfo_DriverId">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Flag" EntitySet="Flag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_UserInfo_RiderId" Association="Self.FK_dbo_Flag_dbo_UserInfo_RiderId">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Flag" EntitySet="Flag" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="Self.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicle" />
             <End Role="Ride" EntitySet="Ride" />
@@ -127,9 +187,17 @@
             <End Role="Ride" EntitySet="Ride" />
             <End Role="RideRiders" EntitySet="RideRiders" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_RideRiders_dbo_UserInfo_UserId" Association="Self.FK_dbo_RideRiders_dbo_UserInfo_UserId">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="RideRiders" EntitySet="RideRiders" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId" Association="Self.FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
             <End Role="Apartment" EntitySet="Apartment" />
             <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vehicle_dbo_UserInfo_UserId" Association="Self.FK_dbo_Vehicle_dbo_UserInfo_UserId">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -147,6 +215,14 @@
             <End Role="Apartment" EntitySet="Apartments" />
             <End Role="UserInfo" EntitySet="UserInfoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_UserInfo_DriverId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_DriverId">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flag" EntitySet="Flags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Flag_dbo_UserInfo_RiderId" Association="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_RiderId">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Flag" EntitySet="Flags" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Ride_dbo_Vehicle_VehicleID" Association="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID">
             <End Role="Vehicle" EntitySet="Vehicles" />
             <End Role="Ride" EntitySet="Rides" />
@@ -154,6 +230,14 @@
           <AssociationSet Name="FK_dbo_RideRiders_dbo_Ride_ID" Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID">
             <End Role="Ride" EntitySet="Rides" />
             <End Role="RideRider" EntitySet="RideRiders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_RideRiders_dbo_UserInfo_UserId" Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_UserInfo_UserId">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="RideRider" EntitySet="RideRiders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Vehicle_dbo_UserInfo_UserId" Association="RevaShareDBModel.FK_dbo_Vehicle_dbo_UserInfo_UserId">
+            <End Role="UserInfo" EntitySet="UserInfoes" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Apartment">
@@ -177,6 +261,8 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserInfo" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_DriverId" FromRole="Flag" ToRole="UserInfo" />
+          <NavigationProperty Name="UserInfo1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_RiderId" FromRole="Flag" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Ride">
           <Key>
@@ -201,6 +287,7 @@
           <Property Name="Accepted" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Ride" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" FromRole="RideRider" ToRole="Ride" />
+          <NavigationProperty Name="UserInfo" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_UserInfo_UserId" FromRole="RideRider" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -212,6 +299,10 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Apartment" Relationship="RevaShareDBModel.FK_dbo_UserInfo_dbo_Apartments_ApartmentId" FromRole="UserInfo" ToRole="Apartment" />
+          <NavigationProperty Name="Flags" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_DriverId" FromRole="UserInfo" ToRole="Flag" />
+          <NavigationProperty Name="Flags1" Relationship="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_RiderId" FromRole="UserInfo" ToRole="Flag" />
+          <NavigationProperty Name="RideRiders" Relationship="RevaShareDBModel.FK_dbo_RideRiders_dbo_UserInfo_UserId" FromRole="UserInfo" ToRole="RideRider" />
+          <NavigationProperty Name="Vehicles" Relationship="RevaShareDBModel.FK_dbo_Vehicle_dbo_UserInfo_UserId" FromRole="UserInfo" ToRole="Vehicle" />
         </EntityType>
         <EntityType Name="Vehicle">
           <Key>
@@ -226,6 +317,7 @@
           <Property Name="Capacity" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Rides" Relationship="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" FromRole="Vehicle" ToRole="Ride" />
+          <NavigationProperty Name="UserInfo" Relationship="RevaShareDBModel.FK_dbo_Vehicle_dbo_UserInfo_UserId" FromRole="Vehicle" ToRole="UserInfo" />
         </EntityType>
         <Association Name="FK_dbo_UserInfo_dbo_Apartments_ApartmentId">
           <End Type="RevaShareDBModel.Apartment" Role="Apartment" Multiplicity="1">
@@ -238,6 +330,32 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="ApartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_UserInfo_DriverId">
+          <End Type="RevaShareDBModel.UserInfo" Role="UserInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="DriverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Flag_dbo_UserInfo_RiderId">
+          <End Type="RevaShareDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="RevaShareDBModel.Flag" Role="Flag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Flag">
+              <PropertyRef Name="RiderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -266,6 +384,32 @@
             </Principal>
             <Dependent Role="RideRider">
               <PropertyRef Name="RideID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_RideRiders_dbo_UserInfo_UserId">
+          <End Type="RevaShareDBModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="RevaShareDBModel.RideRider" Role="RideRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="RideRider">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Vehicle_dbo_UserInfo_UserId">
+          <End Type="RevaShareDBModel.UserInfo" Role="UserInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RevaShareDBModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="OwnerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
