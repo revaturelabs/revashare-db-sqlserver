@@ -16,7 +16,7 @@ namespace RevaShare.Test
         public void Signup_Test()
         {
             var expected = true;
-            var actual = control.Signup("Ryan5", "ASDasd123");
+            var actual = control.Signup("Ryan", "ASDasd123");
 
             Assert.Equal(expected, actual);
         }
