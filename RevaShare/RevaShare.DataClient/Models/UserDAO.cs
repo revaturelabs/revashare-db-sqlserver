@@ -10,6 +10,8 @@ namespace RevaShare.DataClient.Models
     public class UserDAO
     {
         [DataMember]
+        public string UserName { get; set; }
+        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public string Email { get; set; }
