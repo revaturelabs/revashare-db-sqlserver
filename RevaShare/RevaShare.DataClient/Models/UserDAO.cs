@@ -10,7 +10,7 @@ namespace RevaShare.DataClient.Models
     public class UserDAO
     {
         [DataMember]
-        public string UserID { get; set; }
+        public string UserName { get; set; }
         [DataMember]
         public string Name { get; set; }
         [DataMember]

@@ -10,8 +10,6 @@ namespace RevaShare.DataClient.Models
     public class RideDAO
     {
         [DataMember]
-        public int RideID { get; set; }
-        [DataMember]
         public VehicleDAO Vehicle { get; set; }
         [DataMember]
         public DateTime StartOfWeek { get; set; }

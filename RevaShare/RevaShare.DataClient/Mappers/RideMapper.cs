@@ -12,7 +12,6 @@ namespace RevaShare.DataClient
     public static RideDAO MapToRideDAO(Ride ride)
     {
       var u = new RideDAO();
-      u.RideID = ride.ID;
       u.Vehicle = VehicleMapper.MapToVehicleDAO(ride.Vehicle);
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeek = ride.StartOfWeekDate;
@@ -24,7 +23,6 @@ namespace RevaShare.DataClient
     public static Ride MapToRide(RideDAO ride)
     {
       var u = new Ride();
-      u.ID = ride.RideID;
       u.Vehicle = VehicleMapper.MapToVehicle(ride.Vehicle);
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeekDate = ride.StartOfWeek;

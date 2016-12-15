@@ -30,7 +30,6 @@ namespace RevaShare.DataAccess.Data
             var result = manager.Create(user, password);
             if (result.Succeeded)
             {
-                //Roles.AddUserToRole(account.Username, "admin");
                 return true;
             }
             return false;
@@ -44,9 +43,15 @@ namespace RevaShare.DataAccess.Data
             {
                 return false;
             }
+            var pass = manager.CheckPassword(user, password);
+            if (!pass)
+            {
+                return false;
+            }
             return true;
         }
-
     }
+    
+
     
 }

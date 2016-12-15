@@ -10,8 +10,6 @@ namespace RevaShare.DataClient.Models
     public class VehicleDAO
     {
         [DataMember]
-        public int VehicleID { get; set; }
-        [DataMember]
         public UserDAO Owner { get; set; }
         [DataMember]
         public string Make { get; set; }

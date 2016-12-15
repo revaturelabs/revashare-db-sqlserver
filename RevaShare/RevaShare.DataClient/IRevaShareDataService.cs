@@ -28,9 +28,7 @@ namespace RevaShare.DataClient
     /// <summary>
     /// Apartment section
     /// </summary>
-    
-    [OperationContract]
-    ApartmentDAO GetApartment(int id);
+
     [OperationContract]
     ApartmentDAO GetApartmentByName(string name);
 
@@ -43,18 +41,6 @@ namespace RevaShare.DataClient
     bool UpdateApartment(ApartmentDAO apartment);
     [OperationContract]
     bool DeleteApartment(ApartmentDAO apartment);
-
-    /// <summary>
-    /// Flag section
-    /// </summary>
-    [OperationContract]
-    bool Create(FlagDAO flag);
-    [OperationContract]
-    FlagDAO GetFlag(int id);
-    [OperationContract]
-    List<FlagDAO> ListFlags();
-    [OperationContract]
-    bool MarkFlagAsRead(FlagDAO flag);
  
     /// <summary>
     /// Ride section
@@ -73,8 +59,8 @@ namespace RevaShare.DataClient
     /// </summary>
     [OperationContract]
     List<RideRidersDAO> GetRideRiders();
-    [OperationContract]
-    RideRidersDAO GetRideRiderById(string id);
+    //[OperationContract]
+    //RideRidersDAO GetRideRiderById(string id);
     [OperationContract]
     RideRidersDAO passRideRider();
     [OperationContract]
@@ -90,8 +76,8 @@ namespace RevaShare.DataClient
     /// <summary>
     /// Vehicle section
     /// </summary>    
-    [OperationContract]
-    VehicleDAO GetVehicleById(int id);
+    //[OperationContract]
+    //VehicleDAO GetVehicleById(int id);
 
     [OperationContract]
     bool AddVehicle(VehicleDAO vehicle);
@@ -100,8 +86,13 @@ namespace RevaShare.DataClient
     bool UpdateVehicle(VehicleDAO vehicle);
     [OperationContract]
     bool DeleteVehicle(VehicleDAO vehicle);
-   
 
+        [OperationContract]
+        bool CreateFlag(FlagDAO flag);
+        [OperationContract]
+        FlagDAO GetFlagByID(int id);
+        [OperationContract]
+        List<FlagDAO> GetAllFlags();
 
 
   }
