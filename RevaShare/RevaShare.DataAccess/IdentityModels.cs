@@ -10,7 +10,7 @@ namespace RevaShare.DataAccess
     public class ApplicationUser : IdentityUser
     {
     //this is where we add stuff to our user model
-      public int ApartmentID { get; set; }
+      //public int ApartmentID { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

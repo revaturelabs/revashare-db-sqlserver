@@ -25,14 +25,10 @@ namespace RevaShare.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Apartment> Apartments { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Flag> Flags { get; set; }
         public virtual DbSet<Ride> Rides { get; set; }
         public virtual DbSet<RideRider> RideRiders { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<Apartment> Apartments { get; set; }
     }
 }

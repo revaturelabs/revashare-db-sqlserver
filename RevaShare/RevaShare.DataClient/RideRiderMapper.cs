@@ -13,7 +13,7 @@ namespace RevaShare.DataClient
     {
       var u = new RideRidersDAO();
       u.Ride = RideMapper.MapToRideDAO(riderider.Ride);
-      u.Rider = UserMapper.MapToUserDAO(riderider.AspNetUser);
+      //u.Rider = UserMapper.MapToUserDAO(riderider.AspNetUser);
       u.Accepted = riderider.Accepted;
       
 
@@ -24,7 +24,7 @@ namespace RevaShare.DataClient
     {
       var u = new RideRider();
       u.Ride = RideMapper.MapToRide(riderider.Ride);
-      u.AspNetUser = UserMapper.MapToUser(riderider.Rider);
+      //u.AspNetUser = UserMapper.MapToUser(riderider.Rider);
       u.Accepted = riderider.Accepted;
 
       return u;
