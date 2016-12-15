@@ -12,8 +12,6 @@ namespace RevaShare.DataClient.Models
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public int ApartmentID { get; set; }
-        [DataMember]
         public string Latitude { get; set; }
         [DataMember]
         public string Longitude { get; set; }

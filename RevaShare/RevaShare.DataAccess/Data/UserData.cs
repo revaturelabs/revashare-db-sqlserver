@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data {
     public partial class RevaShareData {
+        private const string ROLE_UNASSIGNED = "Unassigned",
+            ROLE_RIDER = "Rider",
+            ROLE_DRIVER = "Driver",
+            ROLE_REQUEST_DRIVER = "RequestDriver";
+
         /// <summary>
         /// Create a User.
         /// </summary>
@@ -29,7 +34,7 @@ namespace RevaShare.DataAccess.Data {
             }
 
             user = RevaShareIdentity.Instance.Manager.FindByName(username);
-            RevaShareIdentity.Instance.Manager.AddToRole(user.Id, "Unassigned");
+            RevaShareIdentity.Instance.Manager.AddToRole(user.Id, ROLE_UNASSIGNED);
 
             context.UserInfoes.Add(userInfo);
             return context.SaveChanges() > 0;
@@ -43,6 +48,68 @@ namespace RevaShare.DataAccess.Data {
         public UserInfo GetUser(string username) {
             IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
             return context.UserInfoes.FirstOrDefault(u => u.UserID == user.Id);
+        }
+
+        /// <summary>
+        /// Get a user's Id.
+        /// </summary>
+        /// <param name="username">The username to get the Id from.</param>
+        /// <returns>The Id or empty string if the user does not exist.</returns>
+        public string GetUserId(string username) {
+            IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
+            return user == null ? string.Empty : user.Id;
+        }
+
+        /// <summary>
+        /// List all of the users in the given role.
+        /// </summary>
+        /// <param name="role">The role to List users from.</param>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListUsersInRole(string role) {
+            List<UserInfo> users = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users) {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, role)) {
+                    users.Add(GetUser(user.UserName));
+                }
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// List all the users who have registered but have not been approved
+        /// to use the system.
+        /// </summary>
+        /// <returns>The List of unnapproved users.</returns>
+        public List<UserInfo> ListUsersWithPendingApproval() {
+            return ListUsersInRole(ROLE_UNASSIGNED);
+        }
+
+        /// <summary>
+        /// List all the users who are pending approval to become a driver.
+        /// </summary>
+        /// <returns>The List of riders wanting to be drivers.</returns>
+        public List<UserInfo> ListUsersWithDriverApprovalPending() {
+            return ListUsersInRole(ROLE_REQUEST_DRIVER);
+        }
+
+        /// <summary>
+        /// Approve a user and bring them into the system.
+        /// </summary>
+        /// <param name="username">The username of the user to approve.</param>
+        /// <returns>True if the modification was successful.</returns>
+        public bool ApproveUserRegistration(string username) {
+            return UpdateUserRole(username, ROLE_RIDER);
+        }
+
+        /// <summary>
+        /// Approve a rider's request to become a driver.
+        /// </summary>
+        /// <param name="username">The username of the user to approve.</param>
+        /// <returns>True if the modification was successful.</returns>
+        public bool ApproveUserDriverRequest(string username) {
+            return UpdateUserRole(username, ROLE_DRIVER);
         }
 
         /// <summary>
