@@ -10,17 +10,17 @@ namespace RevaShare.DataClient
     {
         public bool AddRide(RideDAO ride)
         {
-            throw new NotImplementedException();
+            return data.CreateRide(RideMapper.MapToRide(ride));
         }
 
         public bool UpdateRide(RideDAO ride)
         {
-            throw new NotImplementedException();
+            return data.UpdateRide(RideMapper.MapToRide(ride));
         }
 
         public bool DeleteRide(RideDAO ride)
         {
-            throw new NotImplementedException();
+            return data.DeleteRide(RideMapper.MapToRide(ride));
         }
     }
 }

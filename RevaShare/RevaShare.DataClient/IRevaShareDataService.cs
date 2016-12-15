@@ -53,6 +53,8 @@ namespace RevaShare.DataClient
     bool UpdateRide(RideDAO ride);
     [OperationContract]
     bool DeleteRide(RideDAO ride);
+    [OperationContract]
+    List<RideDAO> ApartmentRides();
 
     /// <summary>
     /// RideRider section

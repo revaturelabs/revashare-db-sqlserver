@@ -14,6 +14,15 @@ namespace RevaShare.DataAccess
     
     public partial class UserInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserInfo()
+        {
+            this.Flags = new HashSet<Flag>();
+            this.Flags1 = new HashSet<Flag>();
+            this.RideRiders = new HashSet<RideRider>();
+            this.Vehicles = new HashSet<Vehicle>();
+        }
+    
         public string UserID { get; set; }
         public int ApartmentID { get; set; }
         public string Name { get; set; }
@@ -21,5 +30,13 @@ namespace RevaShare.DataAccess
         public string Phone { get; set; }
     
         public virtual Apartment Apartment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Flag> Flags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Flag> Flags1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RideRider> RideRiders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }
