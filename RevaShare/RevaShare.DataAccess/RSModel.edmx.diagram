@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0485ffe2c93f4393a691c2468db732b6" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="RevaShareDBModel.Apartment" Width="1.5" PointX="3.5" PointY="3.375" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Flag" Width="1.5" PointX="10.625" PointY="1.375" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Ride" Width="1.5" PointX="13" PointY="7.875" />
+        <EntityTypeShape EntityType="RevaShareDBModel.RideRider" Width="1.5" PointX="13.125" PointY="3.875" />
+        <EntityTypeShape EntityType="RevaShareDBModel.UserInfo" Width="1.5" PointX="5.75" PointY="3" />
+        <EntityTypeShape EntityType="RevaShareDBModel.Vehicle" Width="1.5" PointX="8" PointY="7.625" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_UserInfo_dbo_Apartments_ApartmentId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_DriverId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Flag_dbo_UserInfo_RiderId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_Ride_ID" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_RideRiders_dbo_UserInfo_UserId" />
+        <AssociationConnector Association="RevaShareDBModel.FK_dbo_Vehicle_dbo_UserInfo_UserId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
