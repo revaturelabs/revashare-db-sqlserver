@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-﻿using RevaShare.DataAccess.Data;
+using RevaShare.DataAccess;
+using RevaShare.DataAccess.Data;
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,12 @@ namespace RevaShare.DataClient
   // NOTE: In order to launch WCF Test Client for testing this service, please select RevaShareDataService.svc or RevaShareDataService.svc.cs at the Solution Explorer and start debugging.
   public class RevaShareDataService : IRevaShareDataService
   {
+    private RevaShareDBEntities _context;
+    public RevaShareDataService(RevaShareDBEntities context)
+    {
+      _context = context;
+    }
+
     RevaShareData data = new RevaShareData();
     public ApartmentDAO GetApartment(int id)
     {
@@ -93,6 +100,11 @@ namespace RevaShare.DataClient
       return false;
     }
 
+    public bool Accept(RideRidersDAO riderider)
+    {
+      return data.AcceptRider(RideRiderMapper.MapToRideRider(riderider));
+    }
+
     public bool UpdateRideRider(RideRidersDAO riderider)
     {
       return data.UpdateRideRider(RideRiderMapper.MapToRideRider(riderider));
@@ -147,6 +159,32 @@ namespace RevaShare.DataClient
     public bool DeleteApartment(ApartmentDAO apartment)
     {
       return data.DeleteApartment(ApartmentMapper.MapToApartment(apartment));
+    }
+
+    public bool Create(FlagDAO flag)
+    {
+      return data.Create(FlagMapper.MapToFlag(flag));
+    }
+
+    public FlagDAO GetFlag(int id)
+    {
+      return FlagMapper.MapToFlagDAO(data.GetFlag(id));
+    }
+
+    public List<FlagDAO> ListFlags()
+    {
+      var r = new List<FlagDAO>();
+
+      foreach (var flag in data.ListFlags())
+      {
+        r.Add(FlagMapper.MapToFlagDAO(flag));
+      }
+      return r;
+    }
+
+    public bool MarkFlagAsRead(FlagDAO flag)
+    {
+      return data.MarkFlagAsRead(FlagMapper.MapToFlag(flag));
     }
   }
 }

@@ -47,10 +47,15 @@ namespace RevaShare.DataClient
     /// <summary>
     /// Flag section
     /// </summary>
-
-
-
-
+    [OperationContract]
+    bool Create(FlagDAO flag);
+    [OperationContract]
+    FlagDAO GetFlag(int id);
+    [OperationContract]
+    List<FlagDAO> ListFlags();
+    [OperationContract]
+    bool MarkFlagAsRead(FlagDAO flag);
+ 
     /// <summary>
     /// Ride section
     /// </summary>
@@ -76,6 +81,8 @@ namespace RevaShare.DataClient
     bool AddRideRiders(UserDAO user, RideDAO ride);
     [OperationContract]
     bool UpdateRideRider(RideRidersDAO riderider);
+    [OperationContract]
+    bool Accept(RideRidersDAO riderider);
     [OperationContract]
     bool DeleteRideRider(RideRidersDAO riderider);
 

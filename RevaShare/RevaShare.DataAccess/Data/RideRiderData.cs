@@ -44,6 +44,13 @@ namespace RevaShare.DataAccess.Data
       return context.SaveChanges() > 0;
     }
 
+    public bool AcceptRider(RideRider riderider)
+    {
+      riderider.Accepted = true;
+      UpdateRideRider(riderider);
+      return context.SaveChanges() > 0;
+    }
+
     public bool DeleteRideRider(RideRider riderider)
     {
       riderider.Active = false;
