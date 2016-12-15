@@ -132,18 +132,6 @@
     <Compile Include="Data\RideRiderData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Data\VehicleData.cs" />
-    <Compile Include="AspNetRole.cs">
-      <DependentUpon>RSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUser.cs">
-      <DependentUpon>RSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserClaim.cs">
-      <DependentUpon>RSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AspNetUserLogin.cs">
-      <DependentUpon>RSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Flag.cs">
       <DependentUpon>RSModel.tt</DependentUpon>
     </Compile>

@@ -55,7 +55,8 @@ namespace RevaShare.DataAccess.Data
 
     public RideRider GetRideRiderByName(string name)
     {
-      return context.RideRiders.FirstOrDefault(a => a.AspNetUser.Name == name && a.Active);
+            //return context.RideRiders.FirstOrDefault(a => a.AspNetUser.Name == name && a.Active);
+            return new RideRider();
     }
   }
 }
