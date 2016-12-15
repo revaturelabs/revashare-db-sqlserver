@@ -12,9 +12,9 @@ namespace RevaShare.DataClient.Models
         [DataMember]
         public int FlagID { get; set; }
         [DataMember]
-        public int DriverID { get; set; }
+        public string DriverID { get; set; }
         [DataMember]
-        public int RiderID { get; set; }
+        public string RiderID { get; set; }
         [DataMember]
         public string Type { get; set; }
         [DataMember]
