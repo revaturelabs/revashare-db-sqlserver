@@ -118,9 +118,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApartmentMapper.cs" />
-    <Compile Include="FlagMapper.cs" />
     <Compile Include="IRevaShareDataService.cs" />
+    <Compile Include="Mappers\ApartmentMapper.cs" />
     <Compile Include="Mappers\FlagMapper.cs" />
     <Compile Include="Models\ApartmentDAO.cs" />
     <Compile Include="Models\FlagDAO.cs" />
@@ -140,6 +139,12 @@
     <Compile Include="Mappers\RoleMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Mappers\VehicleMapper.cs" />
+    <Compile Include="Services\ApartmentServices.cs" />
+    <Compile Include="Services\FlagService.cs" />
+    <Compile Include="Services\RideRiders.cs" />
+    <Compile Include="Services\RideServices.cs" />
+    <Compile Include="Services\UserServices.cs" />
+    <Compile Include="Services\VehicleServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

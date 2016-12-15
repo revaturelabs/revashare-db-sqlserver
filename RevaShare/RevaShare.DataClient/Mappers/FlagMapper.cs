@@ -1,4 +1,5 @@
 ﻿using RevaShare.DataAccess;
+using RevaShare.DataAccess.Data;
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,13 @@ namespace RevaShare.DataClient.Mappers
 {
     public class FlagMapper
     {
+        private static RevaShareData data = new RevaShareData();
         public static Flag MapToFlag(FlagDAO flag)
         {
             var u = new Flag();
             u.ID = (flag.FlagID - 2) / 3;
-            u.DriverID = flag.DriverID;
-            u.RiderID = flag.RiderID;
+            //u.DriverID = data.GetUserID(flag.Driver);
+            //u.RiderID = data.GetUserID(flag.Rider);
             u.Type = flag.Type;
             u.Message = flag.Message;
 
@@ -25,8 +27,7 @@ namespace RevaShare.DataClient.Mappers
         {
             var u = new FlagDAO();
             u.FlagID = (flag.ID * 3) + 2;
-            u.DriverID = flag.DriverID;
-            u.RiderID = flag.RiderID;
+            //u.Rider = flag.RiderID;
             u.Type = flag.Type;
             u.Message = flag.Message;
 
