@@ -12,7 +12,6 @@ namespace RevaShare.DataClient
         public static ApartmentDAO MapToApartmentDAO(Apartment apartment)
         {
             var c = new ApartmentDAO();
-            c.ApartmentID = apartment.ID;
             c.Name = apartment.Name;
             c.Latitude = apartment.Latitude;
             c.Longitude = apartment.Longitude;
@@ -23,7 +22,7 @@ namespace RevaShare.DataClient
         public static Apartment MapToApartment(ApartmentDAO apartment)
         {
             var c = new Apartment();
-            c.ID = apartment.ApartmentID;
+            c.Name = apartment.Name;
             c.Latitude = apartment.Latitude;
             c.Longitude = apartment.Longitude;
 

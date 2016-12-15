@@ -12,7 +12,6 @@ namespace RevaShare.DataClient
     public static VehicleDAO MapToVehicleDAO(Vehicle vehicle)
     {
       var c = new VehicleDAO();
-      c.VehicleID = vehicle.ID;
       //c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
       c.Make = vehicle.Make;
       c.Model = vehicle.Model;
@@ -26,7 +25,6 @@ namespace RevaShare.DataClient
     public static Vehicle MapToVehicle(VehicleDAO vehicle)
     {
       var c = new Vehicle();
-      c.ID = vehicle.VehicleID;
       //c.AspNetUser = UserMapper.MapToUser(vehicle.Owner);
       c.Make = vehicle.Make;
       c.Model = vehicle.Model;
