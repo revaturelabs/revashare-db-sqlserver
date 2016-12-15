@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RevaShare.DataClient.RevaShareDataService" CodeBehind="RevaShareDataService.svc.cs" %>
