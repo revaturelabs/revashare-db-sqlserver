@@ -40,6 +40,10 @@ namespace RevaShare.DataAccess.Data {
             return context.SaveChanges() > 0;
         }
 
+        public IdentityUser GetIdentityUser(string id)
+        {
+            return RevaShareIdentity.Instance.Manager.FindById(id);
+        }
         /// <summary>
         /// Get a User by username.
         /// </summary>

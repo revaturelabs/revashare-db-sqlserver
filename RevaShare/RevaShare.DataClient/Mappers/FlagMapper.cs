@@ -15,8 +15,8 @@ namespace RevaShare.DataClient.Mappers
         {
             var u = new Flag();
             u.ID = (flag.FlagID - 2) / 3;
-            //u.DriverID = data.GetUserID(flag.Driver);
-            //u.RiderID = data.GetUserID(flag.Rider);
+            u.DriverID = data.GetUserId(flag.Driver.UserName);
+            u.RiderID = data.GetUserId(flag.Rider.UserName);
             u.Type = flag.Type;
             u.Message = flag.Message;
 
@@ -25,9 +25,16 @@ namespace RevaShare.DataClient.Mappers
 
         public static FlagDAO MapToFlagDAO(Flag flag)
         {
+            var driver = data.GetIdentityUser(flag.DriverID);
+            var driverInfo = data.GetUser(driver.UserName);
+
+            var rider = data.GetIdentityUser(flag.RiderID);
+            var riderInfo = data.GetUser(rider.UserName);
+
             var u = new FlagDAO();
             u.FlagID = (flag.ID * 3) + 2;
-            //u.Rider = flag.RiderID;
+            u.Driver = UserMapper.MapToUserDAO(driver, driverInfo);
+            u.Rider = UserMapper.MapToUserDAO(rider, riderInfo);
             u.Type = flag.Type;
             u.Message = flag.Message;
 
