@@ -36,6 +36,10 @@ namespace RevaShare.DataClient
         List<UserDAO> PendingRegistrations();
         [OperationContract]
         List<UserDAO> PendingDriverApprovals();
+        [OperationContract]
+        bool UpdateUser(UserDAO user);
+        [OperationContract]
+        bool UpdatePassword(string username, string currentPassword, string newPassword);
 
         /// <summary>
         /// Apartment section
@@ -67,6 +71,8 @@ namespace RevaShare.DataClient
         bool DeleteRide(RideDAO ride);
         [OperationContract]
         List<RideDAO> ApartmentRides();
+        [OperationContract]
+        int GetOpenSeats(string username, DateTime startOfWeekDate);
 
         /// <summary>
         /// RideRider section

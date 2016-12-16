@@ -134,6 +134,17 @@ namespace RevaShare.DataAccess.Data {
         }
 
         /// <summary>
+        /// Update a user's info.
+        /// </summary>
+        /// <param name="info">The UserInfo to update.</param>
+        /// <returns>True if the update was successful.</returns>
+        public bool UpdateUserInfo(UserInfo info) {
+            DbEntityEntry<UserInfo> entry = context.Entry(info);
+            entry.State = System.Data.Entity.EntityState.Modified;
+            return context.SaveChanges() > 0;
+        }
+
+        /// <summary>
         /// Delete a User from the database.
         /// </summary>
         /// <param name="username">The username of the user to delete.</param>
