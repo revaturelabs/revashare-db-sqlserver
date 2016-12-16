@@ -13,7 +13,7 @@ namespace RevaShare.DataAccess.Data {
             ROLE_RIDER = "Rider",
             ROLE_DRIVER = "Driver",
             ROLE_REQUEST_DRIVER = "RequestDriver";
-
+   
         /// <summary>
         /// Create a User.
         /// </summary>
