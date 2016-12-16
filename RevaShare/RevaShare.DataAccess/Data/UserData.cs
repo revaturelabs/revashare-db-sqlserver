@@ -13,7 +13,7 @@ namespace RevaShare.DataAccess.Data {
             ROLE_RIDER = "Rider",
             ROLE_DRIVER = "Driver",
             ROLE_REQUEST_DRIVER = "RequestDriver";
-
+   
         /// <summary>
         /// Create a User.
         /// </summary>
@@ -108,6 +108,15 @@ namespace RevaShare.DataAccess.Data {
         }
 
         /// <summary>
+        /// Have a rider request to become a driver.
+        /// </summary>
+        /// <param name="username">The username of the user sending the request.</param>
+        /// <returns>True if the modification was successful.</returns>
+        public bool RequestToBeDriver(string username) {
+            return UpdateUserRole(username, ROLE_REQUEST_DRIVER);
+        }
+
+        /// <summary>
         /// Approve a rider's request to become a driver.
         /// </summary>
         /// <param name="username">The username of the user to approve.</param>
@@ -131,6 +140,17 @@ namespace RevaShare.DataAccess.Data {
 
             IdentityResult result = RevaShareIdentity.Instance.Manager.AddToRole(user.Id, role);
             return result.Succeeded;
+        }
+
+        /// <summary>
+        /// Update a user's info.
+        /// </summary>
+        /// <param name="info">The UserInfo to update.</param>
+        /// <returns>True if the update was successful.</returns>
+        public bool UpdateUserInfo(UserInfo info) {
+            DbEntityEntry<UserInfo> entry = context.Entry(info);
+            entry.State = System.Data.Entity.EntityState.Modified;
+            return context.SaveChanges() > 0;
         }
 
         /// <summary>

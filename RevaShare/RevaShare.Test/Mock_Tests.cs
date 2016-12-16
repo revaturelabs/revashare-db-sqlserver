@@ -1,5 +1,6 @@
 ﻿using Moq;
 using RevaShare.DataAccess;
+using RevaShare.DataAccess.MoqRepo;
 using RevaShare.DataClient;
 using RevaShare.DataClient.Models;
 using System;
@@ -24,7 +25,7 @@ namespace RevaShare.Test
 
       var service = new RevaShareDataService(mockContext.Object);
       var apartment = new ApartmentDAO { Name="Test", Latitude = "34.5", Longitude = "170.1" };
-      service.AddApartment(apartment);
+      service.ListApartments();
 
       mockSet.Verify(m => m.Add(It.IsAny<Apartment>()), Times.Never());
       mockContext.Verify(m => m.SaveChanges(), Times.Never());
@@ -77,18 +78,44 @@ namespace RevaShare.Test
 
     [Fact]
     public void Ride_Test1()
+    {         
+      var ride = new RideDAO
+      { Vehicle = new VehicleDAO
+      { Owner = new UserDAO
+      { Name = "Ryan",
+        Email = "test",
+        PhoneNumber = "fake number" },
+        Make = "Toyota",
+        Model = "Tacoma",
+        Color = "Grey",
+        LicensePlate = "123-abc",
+        Capacity = 2 },
+        IsOnTime = true,
+        StartOfWeek = DateTime.Parse("12/12/2016"),
+        DepartureTime = TimeSpan.Parse("09:00")};
+      var mockRideBuilder = new Mock<IRide>();
+      var mockUserRepo = new Mock<IUserInfo>();
+
+      mockRideBuilder.Setup(x => x.Equals(It.IsAny<RideDAO>())).Returns(() => false);
+
+      var service = new RevaShareDataService(
+        
+        );
+
+      service.AddRide(ride);
+
+      mockRideBuilder.Verify(m => m.Equals(It.IsAny<Ride>()), Times.Never());
+      mockUserRepo.Verify(m => m.ListUsers(), Times.Never());
+    }
+
+    /// <summary>
+    /// test users in this section
+    /// </summary>
+    [Fact]
+    public void Test_User()
     {
-      var mockSet = new Mock<DbSet<Ride>>();
+      
 
-      var mockContext = new Mock<RevaShareDBEntities>();
-      mockContext.Setup(m => m.Rides).Returns(mockSet.Object);
-
-      var service = new RevaShareDataService(mockContext.Object);
-      var apartment = new RideDAO { Vehicle = new VehicleDAO { Owner = new UserDAO { Name = "Ryan5", Email = "test", PhoneNumber = "fake number" }, Make = "Ford", Model = "Pinto", Color = "Orange", LicensePlate = "123-abc", Capacity = 2 }, IsOnTime = true, StartOfWeek = DateTime.Parse("12/12/2016"), DepartureTime = TimeSpan.Parse("09:00")};
-      service.AddRide(apartment);
-
-      mockSet.Verify(m => m.Add(It.IsAny<Ride>()), Times.Never());
-      mockContext.Verify(m => m.SaveChanges(), Times.Never());
     }
   }
 }

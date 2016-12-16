@@ -134,6 +134,11 @@
     </Compile>
     <Compile Include="Data\ApartmentData.cs" />
     <Compile Include="Data\FlagData.cs" />
+    <Compile Include="Data\IdentityControlls.cs" />
+    <Compile Include="MoqRepo\ApartmentRepo.cs" />
+    <Compile Include="MoqRepo\FlagRepo.cs" />
+    <Compile Include="MoqRepo\IRide.cs" />
+    <Compile Include="MoqRepo\IRideRider.cs" />
     <Compile Include="Data\RevaShareData.cs" />
     <Compile Include="Data\RevaShareIdentity.cs" />
     <Compile Include="Data\RideData.cs" />
@@ -145,6 +150,14 @@
     </Compile>
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="MoqRepo\IApartment.cs" />
+    <Compile Include="MoqRepo\IFlag.cs" />
+    <Compile Include="MoqRepo\IUserInfo.cs" />
+    <Compile Include="MoqRepo\IVehicle.cs" />
+    <Compile Include="MoqRepo\RideRepo.cs" />
+    <Compile Include="MoqRepo\RideRiderRepo.cs" />
+    <Compile Include="MoqRepo\UserRepo.cs" />
+    <Compile Include="MoqRepo\VehicleRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ride.cs">
       <DependentUpon>RSModel.tt</DependentUpon>
