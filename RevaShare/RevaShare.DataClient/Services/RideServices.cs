@@ -19,6 +19,16 @@ namespace RevaShare.DataClient {
             return data.DeleteRide(RideMapper.MapToRide(ride));
         }
 
+        public List<RideDAO> ListRidesAtApartment(string apartmentName) {
+            List<RideDAO> rides = new List<RideDAO>();
+
+            foreach (Ride ride in data.ListRidesAtApartment(apartmentName)) {
+                rides.Add(RideMapper.MapToRideDAO(ride));
+            }
+
+            return rides;
+        }
+
         public int GetOpenSeats(string username, DateTime startOfWeekDate) {
             string userId = data.GetUserId(username);
             Ride ride = data.GetRide(userId, startOfWeekDate);

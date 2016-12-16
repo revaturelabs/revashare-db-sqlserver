@@ -108,6 +108,15 @@ namespace RevaShare.DataAccess.Data {
         }
 
         /// <summary>
+        /// Have a rider request to become a driver.
+        /// </summary>
+        /// <param name="username">The username of the user sending the request.</param>
+        /// <returns>True if the modification was successful.</returns>
+        public bool RequestToBeDriver(string username) {
+            return UpdateUserRole(username, ROLE_REQUEST_DRIVER);
+        }
+
+        /// <summary>
         /// Approve a rider's request to become a driver.
         /// </summary>
         /// <param name="username">The username of the user to approve.</param>

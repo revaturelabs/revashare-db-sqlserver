@@ -28,10 +28,6 @@ namespace RevaShare.DataClient {
             return data.DeleteUser(username);
         }
 
-        public bool UpdateUserRole(string username, string role) {
-            return data.UpdateUserRole(username, role);
-        }
-
         public bool ApproveDriver(string username) {
             return data.ApproveUserDriverRequest(username);
         }
@@ -63,7 +59,7 @@ namespace RevaShare.DataClient {
             IdentityUser identityUser = data.GetIdentityUser(userId);
             identityUser.Email = user.Email;
             identityUser.PhoneNumber = user.PhoneNumber;
-            
+
             IdentityResult result = RevaShareIdentity.Instance.Manager.UpdateAsync(identityUser).Result;
 
             if (!result.Succeeded) {
@@ -86,6 +82,10 @@ namespace RevaShare.DataClient {
 
         public bool UpdatePassword(string username, string currentPassword, string newPassword) {
             return RevaShareIdentity.Instance.Manager.ChangePassword(data.GetUserId(username), currentPassword, newPassword).Succeeded;
+        }
+
+        public bool RequestToBeDriver(string username) {
+            return data.RequestToBeDriver(username);
         }
     }
 }
