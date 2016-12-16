@@ -15,7 +15,7 @@ namespace RevaShare.DataAccess.Data
     }
     private static UserStore<IdentityUser> credentials = new UserStore<IdentityUser>(new Q());
 
-    public bool AddRideRider(IdentityUser user, Ride ride)
+    public bool AddRideRider(UserInfo user, Ride ride)
     {
       var riderider = new RideRider();
       riderider.RideID = ride.ID;
@@ -65,8 +65,7 @@ namespace RevaShare.DataAccess.Data
 
     public RideRider GetRideRiderByName(string name)
     {
-            //return context.RideRiders.FirstOrDefault(a => a.AspNetUser.Name == name && a.Active);
-            return new RideRider();
+            return context.RideRiders.FirstOrDefault(a => a.UserInfo.Name == name && a.Active);           
     }
   }
 }

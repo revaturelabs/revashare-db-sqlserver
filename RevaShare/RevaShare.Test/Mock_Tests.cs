@@ -114,8 +114,13 @@ namespace RevaShare.Test
     [Fact]
     public void Test_User()
     {
-      
+      var data = new UserRepo();
 
+      var expected = data.ListUsers().Where(a =>a.UserID == "user1");
+
+      Assert.NotNull(expected);
     }
+
+    
   }
 }

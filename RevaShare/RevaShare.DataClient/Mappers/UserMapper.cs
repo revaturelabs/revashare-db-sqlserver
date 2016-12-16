@@ -31,21 +31,21 @@ namespace RevaShare.DataClient {
             return u;
         }
 
-        //public static AspNetUser MapToUser(UserDAO user)
-        //{
-        //  var u = new AspNetUser();
-        //  u.Id = user.UserID;
-        //  u.Email = user.Email;
-        //  u.Name = user.Name;
+    public static UserInfo MapToUser(UserDAO user)
+    {
+      var u = new UserInfo();
+      u.Phone = user.PhoneNumber;
+      u.Email = user.Email;
+      u.Name = user.Name;
 
-        //  u.Apartment = ApartmentMapper.MapToApartment(user.Apartment);
+      u.Apartment = ApartmentMapper.MapToApartment(user.Apartment);
 
-        //  return u;
-        //}
+      return u;
+    }
 
 
-        // this is an example of "Reflection"
-        public static object MapTo(object o) {
+    // this is an example of "Reflection"
+    public static object MapTo(object o) {
             var properties = o.GetType().GetProperties();
             var ob = new object();
 
