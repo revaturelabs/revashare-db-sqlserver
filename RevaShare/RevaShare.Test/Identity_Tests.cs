@@ -1,4 +1,6 @@
 ﻿using RevaShare.DataAccess.Data;
+using RevaShare.DataClient;
+using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +35,16 @@ namespace RevaShare.Test
 
             Assert.Equal(expected2, actual2);
         }
+
+        [Fact]
+        public void CreateApartment_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            var expected = true;
+            var actual = svc.AddApartment(new ApartmentDAO { Name = "Townes", Latitude = "31", Longitude = "32" });
+
+            Assert.Equal(expected, actual);
+        }
+
     }
 }
