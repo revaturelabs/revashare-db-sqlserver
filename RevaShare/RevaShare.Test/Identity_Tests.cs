@@ -1,4 +1,5 @@
-﻿using RevaShare.DataAccess.Data;
+﻿using RevaShare.DataAccess;
+using RevaShare.DataAccess.Data;
 using RevaShare.DataClient;
 using RevaShare.DataClient.Models;
 using System;
@@ -12,13 +13,15 @@ namespace RevaShare.Test
 {
     public class Identity_Tests
     {
-        IdentityControlls control = new IdentityControlls();
+        //IdentityControlls control = new IdentityControlls();
+      RevaShareData Data = new RevaShareData();
+
 
         [Fact]
         public void Signup_Test()
         {
             var expected = true;
-            var actual = control.Signup("Ryan", "ASDasd123");
+            var actual = Data.CreateUser(new UserInfo { Email = "asd", Name = "Ryan McKennon", Phone = "123"},"Ryan33", "ASDasd123");
 
             Assert.Equal(expected, actual);
         }
@@ -27,11 +30,11 @@ namespace RevaShare.Test
         public void Login_Test()
         {
             var expected = true;
-            var actual = control.Login("Ryan", "ASDasd123");
+            var actual = Data.TryLogin("Ryan", "ASDasd123");
             Assert.Equal(expected, actual);
 
             var expected2 = false;
-            var actual2 = control.Login("Ryan", "ASD123");
+            var actual2 = Data.TryLogin("Ryan", "ASD123");
 
             Assert.Equal(expected2, actual2);
         }

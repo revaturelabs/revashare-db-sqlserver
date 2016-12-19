@@ -34,6 +34,7 @@
           <Property Name="VehicleID" Type="int" Nullable="false" />
           <Property Name="StartOfWeekDate" Type="date" Nullable="false" />
           <Property Name="DepartureTime" Type="time" Precision="7" />
+          <Property Name="IsAmRide" Type="bit" Nullable="false" />
           <Property Name="IsOnTime" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
@@ -272,6 +273,7 @@
           <Property Name="VehicleID" Type="Int32" Nullable="false" />
           <Property Name="StartOfWeekDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DepartureTime" Type="Time" Precision="7" />
+          <Property Name="IsAmRide" Type="Boolean" Nullable="false" />
           <Property Name="IsOnTime" Type="Boolean" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Vehicle" Relationship="RevaShareDBModel.FK_dbo_Ride_dbo_Vehicle_VehicleID" FromRole="Ride" ToRole="Vehicle" />
@@ -447,6 +449,7 @@
               <MappingFragment StoreEntitySet="Ride">
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="IsOnTime" ColumnName="IsOnTime" />
+                <ScalarProperty Name="IsAmRide" ColumnName="IsAmRide" />
                 <ScalarProperty Name="DepartureTime" ColumnName="DepartureTime" />
                 <ScalarProperty Name="StartOfWeekDate" ColumnName="StartOfWeekDate" />
                 <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />

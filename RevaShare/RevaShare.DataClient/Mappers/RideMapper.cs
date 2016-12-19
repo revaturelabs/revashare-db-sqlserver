@@ -16,6 +16,7 @@ namespace RevaShare.DataClient
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeek = ride.StartOfWeekDate;
       u.IsOnTime = ride.IsOnTime;
+      u.IsAmRide = ride.IsAmRide;
 
       return u;
     }
@@ -27,6 +28,7 @@ namespace RevaShare.DataClient
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeekDate = ride.StartOfWeek;
       u.IsOnTime = ride.IsOnTime;
+      u.IsAmRide = ride.IsAmRide;
 
       return u;
     }
