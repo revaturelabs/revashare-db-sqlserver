@@ -12,6 +12,7 @@ namespace RevaShare.DataAccess.Data {
         private const string ROLE_UNASSIGNED = "Unassigned",
             ROLE_RIDER = "Rider",
             ROLE_DRIVER = "Driver",
+            ROLE_ADMIN = "Admin",
             ROLE_REQUEST_DRIVER = "RequestDriver";
    
         /// <summary>
@@ -62,6 +63,44 @@ namespace RevaShare.DataAccess.Data {
         public string GetUserId(string username) {
             IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
             return user == null ? string.Empty : user.Id;
+        }
+
+        /// <summary>
+        /// List all of the users that are either riders or drivers.
+        /// </summary>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListRidersAndDrivers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_RIDER) || RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_DRIVER))
+                {
+                    allUsers.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allUsers;
+        }
+
+        /// <summary>
+        /// List all of the users that are either riders or drivers.
+        /// </summary>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListAdmins()
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_ADMIN))
+                {
+                    allAdmins.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allAdmins;
         }
 
         /// <summary>

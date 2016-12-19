@@ -16,13 +16,24 @@ namespace RevaShare.DataClient
         /// User section
         /// </summary>
         /// <returns></returns>
-
+        
+        //User CRUD
         [OperationContract]
-        bool Login(string username, string password);
+        bool RegisterUser(UserDAO user, string username, string password);
         [OperationContract]
-        bool register(UserDAO user, string username, string password);
+        List<UserDAO> GetRidersAndDrivers();
+        [OperationContract]
+        List<UserDAO> GetAdmins();
+        [OperationContract]
+        UserDAO GetAdminByUsername(string username);
+        [OperationContract]
+        bool UpdateUser(UserDAO user);
         [OperationContract]
         bool DeleteUser(string username);
+
+        //Other User Related Methods
+        [OperationContract]
+        bool Login(string username, string password);
         [OperationContract]
         bool ApproveDriver(string username);
         [OperationContract]
@@ -34,9 +45,8 @@ namespace RevaShare.DataClient
         [OperationContract]
         List<UserDAO> PendingDriverApprovals();
         [OperationContract]
-        bool UpdateUser(UserDAO user);
-        [OperationContract]
         bool UpdatePassword(string username, string currentPassword, string newPassword);
+
 
         /// <summary>
         /// Apartment section
@@ -52,6 +62,7 @@ namespace RevaShare.DataClient
         [OperationContract]
         bool DeleteApartment(string apartment);
 
+
         /// <summary>
         /// Ride section
         /// </summary>
@@ -65,6 +76,7 @@ namespace RevaShare.DataClient
         List<RideDAO> ListRidesAtApartment(string apartmentName);
         [OperationContract]
         int GetOpenSeats(string username, DateTime startOfWeekDate);
+
 
         /// <summary>
         /// RideRider section

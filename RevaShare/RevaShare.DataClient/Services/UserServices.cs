@@ -15,13 +15,68 @@ namespace RevaShare.DataClient {
         }
 
 
-        public bool register(UserDAO user, string username, string password) {
+        public bool RegisterUser(UserDAO user, string username, string password) {
             UserInfo info = new UserInfo();
             info.Name = user.Name;
             info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
             info.Phone = user.PhoneNumber;
             info.Email = user.Email;
             return data.CreateUser(info, username, password);
+        }
+
+        public List<UserDAO> GetRidersAndDrivers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListRidersAndDrivers();
+
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+            }
+
+            return usersDAO;
+        }
+        
+        public List<UserDAO> GetAdmins()
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
+
+            List<UserDAO> adminsDAO = new List<UserDAO>();
+
+            foreach (UserInfo admin in allAdmins)
+            {
+                adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            }
+
+            return adminsDAO;
+        }
+
+        public UserDAO GetAdminByUsername(string username)
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
+
+            List<UserDAO> adminsDAO = new List<UserDAO>();
+
+            foreach (UserInfo admin in allAdmins)
+            {
+                adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            }
+
+            var adminRequested = adminsDAO.Where(a => a.UserName == username);
+
+            if (adminRequested.Count() > 0)
+            {
+                return adminRequested.First();
+            }
+
+            else
+            {
+                return null;
+            }
         }
 
         public bool DeleteUser(string username) {
