@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\RevaShare.pubxml" />
     <None Include="Properties\PublishProfiles\TeamDB-RevaShare.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
