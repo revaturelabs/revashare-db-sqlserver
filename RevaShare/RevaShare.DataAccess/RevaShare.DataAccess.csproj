@@ -135,6 +135,9 @@
     <Compile Include="Data\ApartmentData.cs" />
     <Compile Include="Data\FlagData.cs" />
     <Compile Include="Data\IdentityControlls.cs" />
+    <Compile Include="Flag.cs">
+      <DependentUpon>RSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MoqRepo\ApartmentRepo.cs" />
     <Compile Include="MoqRepo\FlagRepo.cs" />
     <Compile Include="MoqRepo\IRide.cs" />
@@ -145,9 +148,6 @@
     <Compile Include="Data\RideRiderData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="Data\VehicleData.cs" />
-    <Compile Include="Flag.cs">
-      <DependentUpon>RSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="MoqRepo\IApartment.cs" />
@@ -214,6 +214,9 @@
       <DependentUpon>RSModel.edmx</DependentUpon>
       <LastGenOutput>RSModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

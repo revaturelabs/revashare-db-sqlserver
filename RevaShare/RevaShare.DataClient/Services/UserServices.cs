@@ -14,14 +14,99 @@ namespace RevaShare.DataClient {
             return data.TryLogin(username, password);
         }
 
+        public List<UserDAO> GetAllUsers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
 
-        public bool register(UserDAO user, string username, string password) {
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
+            }
+
+            return usersDAO;
+        }
+
+        public UserDAO GetUserByUsername(string username)
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
+
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
+            }
+
+            var userRequested = usersDAO.Where(a => a.UserName == username);
+
+            if (userRequested.Count() > 0)
+            {
+                return userRequested.First();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
+
+        public bool RegisterUser(UserDAO user, string username, string password) {
             UserInfo info = new UserInfo();
             info.Name = user.Name;
             info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
             info.Phone = user.PhoneNumber;
             info.Email = user.Email;
             return data.CreateUser(info, username, password);
+        }
+
+        public List<UserDAO> GetAdmins()
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
+
+            List<UserDAO> adminsDAO = new List<UserDAO>();
+
+            foreach (UserInfo admin in allAdmins)
+            {
+                adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            }
+
+            return adminsDAO;
+        }
+
+        public UserDAO GetAdminByUsername(string username)
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
+
+            List<UserDAO> adminsDAO = new List<UserDAO>();
+
+            foreach (UserInfo admin in allAdmins)
+            {
+                adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            }
+
+            var adminRequested = adminsDAO.Where(a => a.UserName == username);
+
+            if (adminRequested.Count() > 0)
+            {
+                return adminRequested.First();
+            }
+
+            else
+            {
+                return null;
+            }
         }
 
         public bool DeleteUser(string username) {
@@ -68,15 +153,14 @@ namespace RevaShare.DataClient {
 
             Apartment apartment = data.GetApartmentByName(user.Apartment.Name);
 
-            UserInfo info = new UserInfo {
-                UserID = userId,
-                Email = user.Email,
-                Apartment = apartment,
-                ApartmentID = apartment.ID,
-                Name = user.Name,
-                Phone = user.PhoneNumber
-            };
-
+            UserInfo info = data.ListUserByUserId(userId);
+            info.UserID = userId;
+            info.Email = user.Email;
+            info.Apartment = apartment;
+            info.ApartmentID = apartment.ID;
+            info.Name = user.Name;
+            info.Phone = user.PhoneNumber;
+            
             return data.UpdateUserInfo(info);
         }
 

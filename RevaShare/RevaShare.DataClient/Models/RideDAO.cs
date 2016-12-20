@@ -17,5 +17,7 @@ namespace RevaShare.DataClient.Models
         public TimeSpan? DepartureTime { get; set; }
         [DataMember]
         public bool IsOnTime { get; set; }
-    }
+        [DataMember]
+        public bool IsAmRide { get; set; }
+   }
 }
