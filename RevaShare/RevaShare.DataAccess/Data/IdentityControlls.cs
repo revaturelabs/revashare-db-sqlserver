@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace RevaShare.DataAccess.Data
 {
     public class Q : IdentityDbContext<IdentityUser>
-    {//fix for Ryan
+    {
         public Q() : base("IdentityDBEntities")
         {
 

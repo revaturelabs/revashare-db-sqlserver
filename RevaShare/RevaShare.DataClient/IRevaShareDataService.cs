@@ -8,14 +8,9 @@ using System.Text;
 
 namespace RevaShare.DataClient
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IRevaShareDataService" in both code and config file together.
     [ServiceContract]
     public interface IRevaShareDataService
     {
-        /// <summary>
-        /// User section
-        /// </summary>
-        /// <returns></returns>
         
         //User CRUD
         [OperationContract]
@@ -50,9 +45,7 @@ namespace RevaShare.DataClient
         bool UpdatePassword(string username, string currentPassword, string newPassword);
 
 
-        /// <summary>
         /// Apartment section
-        /// </summary>
         [OperationContract]
         ApartmentDAO GetApartmentByName(string name);
         [OperationContract]
@@ -65,9 +58,7 @@ namespace RevaShare.DataClient
         bool DeleteApartment(string apartment);
 
 
-        /// <summary>
         /// Ride section
-        /// </summary>
         [OperationContract]
         bool AddRide(RideDAO ride);
         [OperationContract]
@@ -80,9 +71,7 @@ namespace RevaShare.DataClient
         int GetOpenSeats(string username, DateTime startOfWeekDate);
 
 
-        /// <summary>
         /// RideRider section
-        /// </summary>
         [OperationContract]
         List<RideRidersDAO> GetRideRiders();
         [OperationContract]
@@ -95,15 +84,16 @@ namespace RevaShare.DataClient
         bool DeleteRideRider(RideRidersDAO riderider);
 
 
-        /// <summary>
         /// Vehicle section
-        /// </summary>    
         [OperationContract]
         bool AddVehicle(VehicleDAO vehicle);
         [OperationContract]
         bool UpdateVehicle(VehicleDAO vehicle);
         [OperationContract]
         bool DeleteVehicle(VehicleDAO vehicle);
+
+
+        //Flag Section
         [OperationContract]
         bool CreateFlag(FlagDAO flag);
         [OperationContract]

@@ -10,11 +10,6 @@ namespace RevaShare.DataAccess.Data
 {
    public partial class RevaShareData
    {
-      /// <summary>
-      /// Create an Apartment.
-      /// </summary>
-      /// <param name="apartment">The apartment to create.</param>
-      /// <returns>True if the addition was successful.</returns>
       public bool CreateApartment(Apartment apartment)
       {
          apartment.Active = true;
@@ -22,41 +17,21 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      /// <summary>
-      /// Get a single Apartment object.
-      /// </summary>
-      /// <param name="apartmentId">The Id of the Apartment.</param>
-      /// <returns>The Apartment object if it exists or null if it does not.</returns>
       public Apartment GetApartment(int apartmentId)
       {
          return context.Apartments.FirstOrDefault(a => a.ID == apartmentId && a.Active);
       }
 
-      /// <summary>
-      /// Get a single Apartment object by its name.
-      /// </summary>
-      /// <param name="name">The name of the Apartment.</param>
-      /// <returns>The Apartment object if it exists or null if it does not.</returns>
       public Apartment GetApartmentByName(string name)
       {
          return context.Apartments.FirstOrDefault(a => a.Name == name && a.Active);
       }
 
-      /// <summary>
-      /// List all of the Apartment objects.
-      /// </summary>
-      /// <returns>The List of Apartments.</returns>
       public List<Apartment> ListApartments()
       {
          return context.Apartments.Where(a => a.Active).ToList();
       }
 
-      /// <summary>
-      /// Update an Apartment. Make sure to get the original Apartment using
-      /// GetApartment or GetApartmentByName.
-      /// </summary>
-      /// <param name="apartment">The Apartment to update.</param>
-      /// <returns>True if the update was successful.</returns>
       public bool UpdateApartment(Apartment apartment)
       {
          var actualApartment = GetApartmentByName(apartment.Name);
@@ -69,12 +44,6 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      /// <summary>
-      /// Delete an Apartment. Make sure to get the original Apartment using
-      /// GetApartment or GetApartmentByName.
-      /// </summary>
-      /// <param name="apartment">The Apartment to delete.</param>
-      /// <returns>True if the deletion was successful.</returns>
       public bool DeleteApartment(string apartmentName)
       {
          var apartment = GetApartmentByName(apartmentName);

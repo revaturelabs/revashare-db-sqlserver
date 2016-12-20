@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data {
       public partial class RevaShareData {
-      /// <summary>
-      /// Create a Flag object.
-      /// </summary>
-      /// <param name="flag">The Flag to create.</param>
-      /// <returns>True if the creation was successful or false if it was not.</returns>
       public bool Create(Flag flag)
       {
          flag.Active = true;
@@ -19,31 +14,17 @@ namespace RevaShare.DataAccess.Data {
          return context.SaveChanges() > 0;
       }
 
-      /// <summary>
-      /// Get a Flag object.
-      /// </summary>
-      /// <param name="id">The ID of the Flag.</param>
-      /// <returns>Returns the Flag object if it exists, null if it does not.</returns>
       public Flag GetFlag(int id)
       {
          return context.Flags.FirstOrDefault(f => f.ID == id && f.Active);
       }
 
-      /// <summary>
-      /// List the unread Flags.
-      /// </summary>
-      /// <returns>A List of all unread Flags.</returns>
       public List<Flag> ListFlags()
       {
          return context.Flags.Where(f => f.Active).ToList();
       }
 
-      /// <summary>
-      /// Mark a Flag as read.
-      /// </summary>
-      /// <param name="flag">The Flag object to mark as read, get it by using GetFlag.</param>
-      /// <returns>True if the marking was successful, false otherwise.</returns>
-      public bool MarkFlagAsRead(Flag flag)
+     public bool MarkFlagAsRead(Flag flag)
       {
          DbEntityEntry<Flag> entry = context.Entry(flag);
          flag.Active = false;
