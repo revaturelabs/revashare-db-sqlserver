@@ -82,14 +82,51 @@ namespace RevaShare.DataAccess.Data
          return user == null ? string.Empty : user.Id;
       }
 
-      /// <summary>
-      /// List all of the users in the given role.
-      /// </summary>
-      /// <param name="role">The role to List users from.</param>
-      /// <returns>The List of users.</returns>
-      public List<UserInfo> ListUsersInRole(string role)
-      {
-         List<UserInfo> users = new List<UserInfo>();
+        /// <summary>
+        /// List all of the users that are either riders or drivers.
+        /// </summary>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListRidersAndDrivers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_RIDER) || RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_DRIVER))
+                {
+                    allUsers.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allUsers;
+        }
+
+        /// <summary>
+        /// List all of the users that are either riders or drivers.
+        /// </summary>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListAdmins()
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_ADMIN))
+                {
+                    allAdmins.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allAdmins;
+        }
+
+        /// <summary>
+        /// List all of the users in the given role.
+        /// </summary>
+        /// <param name="role">The role to List users from.</param>
+        /// <returns>The List of users.</returns>
+        public List<UserInfo> ListUsersInRole(string role) {
+            List<UserInfo> users = new List<UserInfo>();
 
          foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
          {

@@ -9,10 +9,13 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]          
 --------------------------------------------------------------------------------------
 */
---insert into dbo.AspNetUsers(Id, Name, Email, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount, UserName) values
---(N'754a9286-5759-47ae-9178-767d30720301', N'Admin',N'fred@revature.com', 1, 1, 0, 0, 0, N'fred@revature.com');
---GO
---insert into dbo.AspNetRoles(Id, Name) values (1, N'Admin');
---GO
---insert into dbo.AspNetUserRoles(UserId, RoleId) values (N'754a9286-5759-47ae-9178-767d30720301', 1);
---GO
+
+insert into dbo.AspNetUsers(Id, Name, Email, EmailConfirmed, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount, UserName) values
+(N'754a9286-5759-47ae-9178-767d30720301', N'Admin',N'fred@revature.com', 1, 1, 0, 0, 0, N'fred@revature.com');
+GO
+
+insert into dbo.AspNetRoles(Id, Name) values (1, N'Admin');
+GO
+
+insert into dbo.AspNetUserRoles(UserId, RoleId) values (N'754a9286-5759-47ae-9178-767d30720301', 1);
+GO
