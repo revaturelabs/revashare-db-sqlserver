@@ -14,9 +14,8 @@ namespace RevaShare.DataAccess.Data {
             public RevaShareIdentityContext() : base("IdentityDBEntities") { }
         }
 
-        /// <summary>
-        /// Get the Instance of RevaShareIdentity.
-        /// </summary>
+
+        //Get the Instance of RevaShareIdentity.
         public static RevaShareIdentity Instance {
             get {
                 if (_instance == null) {
@@ -30,9 +29,7 @@ namespace RevaShare.DataAccess.Data {
         public UserStore<IdentityUser> Credentials { get; private set; }
         public UserManager<IdentityUser> Manager { get; private set; }
 
-        /// <summary>
-        /// Singleton for the Identity UserManager.
-        /// </summary>
+        //Singleton for the Identity UserManager.
         private RevaShareIdentity() {
             Credentials = new UserStore<IdentityUser>(new RevaShareIdentityContext());
             Manager = new UserManager<IdentityUser>(Credentials);

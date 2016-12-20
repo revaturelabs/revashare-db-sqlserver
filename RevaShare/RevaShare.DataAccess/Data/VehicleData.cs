@@ -8,29 +8,15 @@ using System.Threading.Tasks;
 namespace RevaShare.DataAccess.Data {
     public partial class RevaShareData {
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
         public List<Vehicle> GetVehicles() {
             return context.Vehicles.ToList();
         }
 
-    /// <summary>
-    /// Create a new vehicle
-    /// </summary>
-    /// <param name="vehicle"></param>
-    /// <returns></returns>
         public bool AddVehicle(Vehicle vehicle) {
             context.Vehicles.Add(vehicle);
             return context.SaveChanges() > 0;
         }
 
-    /// <summary>
-    /// Modify a vehicle
-    /// </summary>
-    /// <param name="vehicle"></param>
-    /// <returns></returns>
         public bool UpdateVehicle(Vehicle vehicle) {
             var result = context.Vehicles.SingleOrDefault(x => x.ID == vehicle.ID);
 

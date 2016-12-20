@@ -24,6 +24,7 @@ namespace RevaShare.DataAccess
         public int VehicleID { get; set; }
         public System.DateTime StartOfWeekDate { get; set; }
         public Nullable<System.TimeSpan> DepartureTime { get; set; }
+        public bool IsAmRide { get; set; }
         public bool IsOnTime { get; set; }
         public bool Active { get; set; }
     

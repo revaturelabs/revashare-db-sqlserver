@@ -27,6 +27,7 @@ CREATE TABLE[dbo].[Ride](
   [VehicleID] INT NOT NULL,
   [StartOfWeekDate] DATE  NOT NULL,
   [DepartureTime] TIME    NULL,
+  [IsAmRide] BIT NOT NULL,
   [IsOnTime]  BIT         Default 1   NOT NULL,
   [Active]    BIT     DEFAULT 1 NOT NULL
 );
