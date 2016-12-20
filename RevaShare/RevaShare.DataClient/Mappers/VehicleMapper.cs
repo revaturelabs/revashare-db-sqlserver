@@ -9,22 +9,22 @@ using System.Web;
 
 namespace RevaShare.DataClient
 {
-  public class VehicleMapper
-  {
-    public static VehicleDAO MapToVehicleDAO(Vehicle vehicle)
-    {
-      RevaShareDataService svc = new RevaShareDataService();
+   public class VehicleMapper
+   {
+      public static VehicleDAO MapToVehicleDAO(Vehicle vehicle)
+      {
+         RevaShareDataService svc = new RevaShareDataService();
 
-      var c = new VehicleDAO();
-      //c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
-      c.Make = vehicle.Make;
-      c.Model = vehicle.Model;
-      c.Color = vehicle.Color;
-      c.Capacity = vehicle.Capacity;
-      c.LicensePlate = vehicle.LicensePlate;
-      c.Owner = svc.GetUserByUsername(vehicle.UserInfo.Name);
-      return c;
-    }
+         var c = new VehicleDAO();
+         //c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
+         c.Make = vehicle.Make;
+         c.Model = vehicle.Model;
+         c.Color = vehicle.Color;
+         c.Capacity = vehicle.Capacity;
+         c.LicensePlate = vehicle.LicensePlate;
+         c.Owner = svc.GetUserByUsername(vehicle.UserInfo.Name);
+         return c;
+      }
       public static Vehicle MapToVehicle(VehicleDAO vehicle)
       {
          RevaShareDataService svc = new RevaShareDataService();
@@ -38,10 +38,5 @@ namespace RevaShare.DataClient
          //c.ID = svc.GetVehicles().Where(m => m.LicensePlate.Equals(vehicle.LicensePlate)).FirstOrDefault().;
          return c;
       }
-
-      
-
-
-    
-  }
+   }
 }
