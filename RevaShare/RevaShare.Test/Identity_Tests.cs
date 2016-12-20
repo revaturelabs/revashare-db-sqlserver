@@ -18,14 +18,26 @@ namespace RevaShare.Test
       private RevaShareDataService svc = new RevaShareDataService();
 
       [Fact]
-      public void Signup_Test()
+      public void Signup_Test_using_data()
       {
          var expected = true;
          var apt = new Apartment() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
-         var actual = Data.CreateUser(new UserInfo { Email = "a@b.c", Name = "Zombie Slayer", Phone = "9876543210", Apartment=apt }, "zombiehoard", "thehoardiscoming");
+         var actual = Data.CreateUser(new UserInfo { Email = "a@b.c", Name = "jim bob", Phone = "9876543210", Apartment=apt }, "jimbob", "jimbob");
 
          Assert.Equal(expected, actual);
       }
+
+      [Fact]
+      public void Signup_Test_using_service()
+      {
+         var expected = true;
+         var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
+         
+         var actual = svc.register(new UserDAO { Email = "a@b.c", Name = "jim bob", PhoneNumber= "9876543210", Apartment = apt, UserName="jimbob" }, "jimbob", "jimbob");
+
+         Assert.Equal(expected, actual);
+      }
+
 
       [Fact]
       public void Login_Test()
