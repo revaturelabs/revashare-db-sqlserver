@@ -8,15 +8,9 @@ using System.Text;
 
 namespace RevaShare.DataClient
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IRevaShareDataService" in both code and config file together.
     [ServiceContract]
     public interface IRevaShareDataService
-    {
-        /// <summary>
-        /// User section
-        /// </summary>
-        /// <returns></returns>
-        
+    { 
         //User CRUD
         [OperationContract]
         bool RegisterUser(UserDAO user, string username, string password);
@@ -32,6 +26,7 @@ namespace RevaShare.DataClient
         bool UpdateUser(UserDAO user);
         [OperationContract]
         bool DeleteUser(string username);
+
 
         //Other User Related Methods
         [OperationContract]
@@ -50,9 +45,7 @@ namespace RevaShare.DataClient
         bool UpdatePassword(string username, string currentPassword, string newPassword);
 
 
-        /// <summary>
-        /// Apartment section
-        /// </summary>
+        //Apartment section
         [OperationContract]
         ApartmentDAO GetApartmentByName(string name);
         [OperationContract]
@@ -65,9 +58,7 @@ namespace RevaShare.DataClient
         bool DeleteApartment(string apartment);
 
 
-        /// <summary>
-        /// Ride section
-        /// </summary>
+        //Ride section
         [OperationContract]
         bool AddRide(RideDAO ride);
         [OperationContract]
@@ -80,9 +71,7 @@ namespace RevaShare.DataClient
         int GetOpenSeats(string username, DateTime startOfWeekDate);
 
 
-        /// <summary>
-        /// RideRider section
-        /// </summary>
+        //RideRider section
         [OperationContract]
         List<RideRidersDAO> GetRideRiders();
         [OperationContract]
@@ -95,9 +84,7 @@ namespace RevaShare.DataClient
         bool DeleteRideRider(RideRidersDAO riderider);
 
 
-        /// <summary>
-        /// Vehicle section
-        /// </summary>    
+        //Vehicle section
         [OperationContract]
         bool AddVehicle(VehicleDAO vehicle);
         [OperationContract]

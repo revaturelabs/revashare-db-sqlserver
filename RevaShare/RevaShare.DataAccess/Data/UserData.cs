@@ -11,18 +11,13 @@ namespace RevaShare.DataAccess.Data
 {
    public partial class RevaShareData
    {
+      //Constants to be used for inputing the different roles. 
       private const string ROLE_UNASSIGNED = "Unassigned",
           ROLE_RIDER = "Rider",
           ROLE_DRIVER = "Driver",
           ROLE_REQUEST_DRIVER = "RequestDriver",
           ROLE_ADMIN = "Admin";
 
-      /// <summary>
-      /// Create a User.
-      /// </summary>
-      /// <param name="username">The new user's username.</param>
-      /// <param name="password">The new user's password.</param>
-      /// <returns>True if the creation was successful.</returns>
       public bool CreateUser(UserInfo userInfo, string username, string password)
       {
          IdentityUser user = new IdentityUser
@@ -51,42 +46,24 @@ namespace RevaShare.DataAccess.Data
       {
          return RevaShareIdentity.Instance.Manager.FindById(id);
       }
-      /// <summary>
-      /// Get a User by username.
-      /// </summary>
-      /// <param name="username">The username to get the user by.</param>
-      /// <returns>The UserInfo or null if the user does not exist.</returns>
+
       public UserInfo GetUser(string username)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          return context.UserInfoes.FirstOrDefault(u => u.UserID == user.Id);
       }
 
-      /// <summary>
-      /// get a list of user infoes
-      /// </summary>
-      /// <returns>list of user infoes</returns>
       public List<UserInfo> ListUserInfoes()
       {
          return context.UserInfoes.ToList();
       }
 
-
-      /// <summary>
-      /// Get a user's Id.
-      /// </summary>
-      /// <param name="username">The username to get the Id from.</param>
-      /// <returns>The Id or empty string if the user does not exist.</returns>
       public string GetUserId(string username)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          return user == null ? string.Empty : user.Id;
       }
 
-        /// <summary>
-        /// List all of the users that are either riders or drivers.
-        /// </summary>
-        /// <returns>The List of users.</returns>
         public List<UserInfo> ListRidersAndDrivers()
         {
             List<UserInfo> allUsers = new List<UserInfo>();
@@ -102,10 +79,6 @@ namespace RevaShare.DataAccess.Data
             return allUsers;
         }
 
-        /// <summary>
-        /// List all of the users that are either riders or drivers.
-        /// </summary>
-        /// <returns>The List of users.</returns>
         public List<UserInfo> ListAdmins()
         {
             List<UserInfo> allAdmins = new List<UserInfo>();
@@ -121,11 +94,6 @@ namespace RevaShare.DataAccess.Data
             return allAdmins;
         }
 
-        /// <summary>
-        /// List all of the users in the given role.
-        /// </summary>
-        /// <param name="role">The role to List users from.</param>
-        /// <returns>The List of users.</returns>
         public List<UserInfo> ListUsersInRole(string role) {
             List<UserInfo> users = new List<UserInfo>();
 
@@ -139,7 +107,6 @@ namespace RevaShare.DataAccess.Data
 
          return users;
       }
-
 
         public List<UserInfo> ListUsers()
         {
@@ -158,60 +125,30 @@ namespace RevaShare.DataAccess.Data
             return context.UserInfoes.Find(userId);
         }
 
-        /// <summary>
-        /// List all the users who have registered but have not been approved
-        /// to use the system.
-        /// </summary>
-        /// <returns>The List of unnapproved users.</returns>
         public List<UserInfo> ListUsersWithPendingApproval() {
             return ListUsersInRole(ROLE_UNASSIGNED);
         }
 
-      /// <summary>
-      /// List all the users who are pending approval to become a driver.
-      /// </summary>
-      /// <returns>The List of riders wanting to be drivers.</returns>
       public List<UserInfo> ListUsersWithDriverApprovalPending()
       {
          return ListUsersInRole(ROLE_REQUEST_DRIVER);
       }
 
-      /// <summary>
-      /// Approve a user and bring them into the system.
-      /// </summary>
-      /// <param name="username">The username of the user to approve.</param>
-      /// <returns>True if the modification was successful.</returns>
       public bool ApproveUserRegistration(string username)
       {
          return UpdateUserRole(username, ROLE_RIDER);
       }
 
-      /// <summary>
-      /// Have a rider request to become a driver.
-      /// </summary>
-      /// <param name="username">The username of the user sending the request.</param>
-      /// <returns>True if the modification was successful.</returns>
       public bool RequestToBeDriver(string username)
       {
          return UpdateUserRole(username, ROLE_REQUEST_DRIVER);
       }
 
-      /// <summary>
-      /// Approve a rider's request to become a driver.
-      /// </summary>
-      /// <param name="username">The username of the user to approve.</param>
-      /// <returns>True if the modification was successful.</returns>
       public bool ApproveUserDriverRequest(string username)
       {
          return UpdateUserRole(username, ROLE_DRIVER);
       }
 
-      /// <summary>
-      /// Update a User's role.
-      /// </summary>
-      /// <param name="username">The user's username.</param>
-      /// <param name="role">The new role.</param>
-      /// <returns>True if the role was successfully updated.</returns>
       public bool UpdateUserRole(string username, string role)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
@@ -225,11 +162,6 @@ namespace RevaShare.DataAccess.Data
          return result.Succeeded;
       }
 
-      /// <summary>
-      /// Update a user's info.
-      /// </summary>
-      /// <param name="info">The UserInfo to update.</param>
-      /// <returns>True if the update was successful.</returns>
       public bool UpdateUserInfo(UserInfo info)
       {
          DbEntityEntry<UserInfo> entry = context.Entry(info);
@@ -237,11 +169,6 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      /// <summary>
-      /// Delete a User from the database.
-      /// </summary>
-      /// <param name="username">The username of the user to delete.</param>
-      /// <returns>True if the deletion was successful.</returns>
       public bool DeleteUser(string username)
       {
          DbEntityEntry entry = context.Entry(GetUser(username));
@@ -258,12 +185,6 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      /// <summary>
-      /// Test to see if the username/password combination exists.
-      /// </summary>
-      /// <param name="username">The username to check.</param>
-      /// <param name="password">The password to check.</param>
-      /// <returns>True if the username/password combination exists.</returns>
       public bool TryLogin(string username, string password)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
