@@ -33,9 +33,9 @@ namespace RevaShare.DataAccess.Data {
                 return false;
             }
 
-            user = RevaShareIdentity.Instance.Manager.FindByName(username);
+            user = RevaShareIdentity.Instance.Manager.FindByName(username);            
             RevaShareIdentity.Instance.Manager.AddToRole(user.Id, ROLE_UNASSIGNED);
-
+            userInfo.UserID = user.Id;
             context.UserInfoes.Add(userInfo);
             return context.SaveChanges() > 0;
         }

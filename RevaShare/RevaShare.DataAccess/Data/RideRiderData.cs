@@ -19,7 +19,8 @@ namespace RevaShare.DataAccess.Data
     {
       var riderider = new RideRider();
       riderider.RideID = ride.ID;
-      //v.ID = r.VehicleID;
+      //riderider.RiderID = user.UserID;
+      
 
       context.RideRiders.Add(riderider);
       return context.SaveChanges() > 0;
