@@ -25,7 +25,7 @@ namespace RevaShare.DataAccess.Data {
          return context.Flags.Where(f => f.Active).ToList();
       }
 
-      public bool MarkFlagAsRead(Flag flag)
+     public bool MarkFlagAsRead(Flag flag)
       {
          DbEntityEntry<Flag> entry = context.Entry(flag);
          flag.Active = false;
