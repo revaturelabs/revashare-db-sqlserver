@@ -14,8 +14,8 @@ namespace RevaShare.DataAccess.Data
       private const string ROLE_UNASSIGNED = "Unassigned",
           ROLE_RIDER = "Rider",
           ROLE_DRIVER = "Driver",
-          ROLE_REQUEST_DRIVER = "RequestDriver";
-
+          ROLE_REQUEST_DRIVER = "RequestDriver",
+          ROLE_ADMIN = "Admin";
       /// <summary>
       /// Create a User.
       /// </summary>
