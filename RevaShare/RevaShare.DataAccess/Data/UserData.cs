@@ -38,7 +38,6 @@ namespace RevaShare.DataAccess.Data
          RevaShareIdentity.Instance.Manager.AddToRole(user.Id, ROLE_UNASSIGNED);
          userInfo.UserID = user.Id;
          context.UserInfoes.Add(userInfo);
-         //context.Entry(userInfo.Apartment).State = System.Data.Entity.EntityState.Unchanged;
          return context.SaveChanges() > 0;
       }
 
