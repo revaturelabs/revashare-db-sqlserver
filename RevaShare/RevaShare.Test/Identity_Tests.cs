@@ -22,7 +22,7 @@ namespace RevaShare.Test
       {
          var expected = true;
          var apt = new Apartment() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
-         var actual = Data.CreateUser(new UserInfo { Email = "a@b.c", Name = "jim bob", Phone = "9876543210", Apartment=apt }, "jimbob", "jimbob");
+         var actual = Data.CreateUser(new UserInfo { Email = "a@b.c", Name = "jane bob", Phone = "9876543210", Apartment=apt }, "janebob", "janebob");
 
          Assert.Equal(expected, actual);
       }
@@ -33,7 +33,7 @@ namespace RevaShare.Test
          var expected = true;
          var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
          
-         var actual = svc.register(new UserDAO { Email = "a@b.c", Name = "jim bob", PhoneNumber= "9876543210", Apartment = apt, UserName="jimbob" }, "jimbob", "jimbob");
+         var actual = svc.register(new UserDAO { Email = "a@b.c", Name = "john bob", PhoneNumber= "9876543210", Apartment = apt, UserName="johnbob" }, "johnbob", "jimbob");
 
          Assert.Equal(expected, actual);
       }
@@ -96,8 +96,8 @@ namespace RevaShare.Test
       {
          RevaShareDataService svc = new RevaShareDataService();
          var flag = new FlagDAO();
-         var rider = new UserDAO() {UserName="zombieslayer" };
-         var driver = new UserDAO() {UserName="zombiehoard" };
+         var rider = new UserDAO() {UserName="johnbob" };
+         var driver = new UserDAO() {UserName="jimbob" };
          flag.Driver = rider;
          flag.Rider = driver;
          flag.Message = "run for your life again";
@@ -109,5 +109,18 @@ namespace RevaShare.Test
 
       #endregion
 
+      [Fact]
+      public void UpgradeToRider_TEST()
+      {
+         var actual = svc.ApproveUser("janebob");
+         Assert.True(actual);
+      }
+
+      [Fact]
+      public void UpgradeToDriver_TEST()
+      {
+         var actual = svc.ApproveDriver("janebob");
+         Assert.True(actual);
+      }
    }
 }
