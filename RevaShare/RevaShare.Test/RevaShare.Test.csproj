@@ -79,6 +79,7 @@
     <Compile Include="Identity_Tests.cs" />
     <Compile Include="Mock_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserCRUD.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -14,6 +14,48 @@ namespace RevaShare.DataClient {
             return data.TryLogin(username, password);
         }
 
+        public List<UserDAO> GetAllUsers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
+
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
+            }
+
+            return usersDAO;
+        }
+
+        public UserDAO GetUserByUsername(string username)
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
+
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+            }
+
+            var userRequested = usersDAO.Where(a => a.UserName == username);
+
+            if (userRequested.Count() > 0)
+            {
+                return userRequested.First();
+            }
+
+            else
+            {
+                return null;
+            }
+        }
 
         public bool RegisterUser(UserDAO user, string username, string password) {
             UserInfo info = new UserInfo();
@@ -24,21 +66,6 @@ namespace RevaShare.DataClient {
             return data.CreateUser(info, username, password);
         }
 
-        public List<UserDAO> GetRidersAndDrivers()
-        {
-            List<UserInfo> allUsers = new List<UserInfo>();
-            allUsers = data.ListRidersAndDrivers();
-
-            List<UserDAO> usersDAO = new List<UserDAO>();
-
-            foreach (UserInfo user in allUsers)
-            {
-                usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
-            }
-
-            return usersDAO;
-        }
-        
         public List<UserDAO> GetAdmins()
         {
             List<UserInfo> allAdmins = new List<UserInfo>();

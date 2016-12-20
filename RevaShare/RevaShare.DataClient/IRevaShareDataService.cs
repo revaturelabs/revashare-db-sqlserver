@@ -21,7 +21,9 @@ namespace RevaShare.DataClient
         [OperationContract]
         bool RegisterUser(UserDAO user, string username, string password);
         [OperationContract]
-        List<UserDAO> GetRidersAndDrivers();
+        List<UserDAO> GetAllUsers();
+        [OperationContract]
+        UserDAO GetUserByUsername(string username);
         [OperationContract]
         List<UserDAO> GetAdmins();
         [OperationContract]

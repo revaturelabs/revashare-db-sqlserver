@@ -79,6 +79,7 @@ namespace RevaShare.DataAccess.Data {
                 {
                     allUsers.Add(GetUser(user.UserName));
                 }
+
             }
 
             return allUsers;
@@ -115,6 +116,19 @@ namespace RevaShare.DataAccess.Data {
                 if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, role)) {
                     users.Add(GetUser(user.UserName));
                 }
+            }
+
+            return users;
+        }
+
+
+        public List<UserInfo> ListUsers()
+        {
+            List<UserInfo> users = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                users.Add(GetUser(user.UserName));
             }
 
             return users;
