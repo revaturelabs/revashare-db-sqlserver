@@ -16,6 +16,7 @@ namespace RevaShare.DataAccess.Data
           ROLE_DRIVER = "Driver",
           ROLE_REQUEST_DRIVER = "RequestDriver",
           ROLE_ADMIN = "Admin";
+
       /// <summary>
       /// Create a User.
       /// </summary>
@@ -139,15 +140,27 @@ namespace RevaShare.DataAccess.Data
          return users;
       }
 
-      /// <summary>
-      /// List all the users who have registered but have not been approved
-      /// to use the system.
-      /// </summary>
-      /// <returns>The List of unnapproved users.</returns>
-      public List<UserInfo> ListUsersWithPendingApproval()
-      {
-         return ListUsersInRole(ROLE_UNASSIGNED);
-      }
+
+        public List<UserInfo> ListUsers()
+        {
+            List<UserInfo> users = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                users.Add(GetUser(user.UserName));
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// List all the users who have registered but have not been approved
+        /// to use the system.
+        /// </summary>
+        /// <returns>The List of unnapproved users.</returns>
+        public List<UserInfo> ListUsersWithPendingApproval() {
+            return ListUsersInRole(ROLE_UNASSIGNED);
+        }
 
       /// <summary>
       /// List all the users who are pending approval to become a driver.

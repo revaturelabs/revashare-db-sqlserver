@@ -4,6 +4,7 @@ using RevaShare.DataClient;
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace RevaShare.Test
          var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
          
          var actual = svc.RegisterUser(new UserDAO { Email = "a@b.c", Name = "kim bob", PhoneNumber= "9876543210", Apartment = apt, UserName="kimbob" }, "kimbob", "kimbob");
+         var actual = svc.RegisterUser(new UserDAO { Email = "a@b.c", Name = "john bob", PhoneNumber= "9876543210", Apartment = apt, UserName="johnbob" }, "johnbob", "jimbob");
 
          Assert.Equal(expected, actual);
       }
