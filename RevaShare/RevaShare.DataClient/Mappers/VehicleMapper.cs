@@ -21,19 +21,21 @@ namespace RevaShare.DataClient
       
       return c;
     }
+      public static Vehicle MapToVehicle(VehicleDAO vehicle)
+      {
+         RevaShareDataService svc = new RevaShareDataService();
+         var c = new Vehicle();
+         c.OwnerID = svc.GetUsersByUsername(vehicle.Owner.Name).UserName;
+         c.Make = vehicle.Make;
+         c.Model = vehicle.Model;
+         c.Color = vehicle.Color;
+         c.Capacity = vehicle.Capacity;
+         c.LicensePlate = vehicle.LicensePlate;
 
-    public static Vehicle MapToVehicle(VehicleDAO vehicle)
-    {
-      var c = new Vehicle();
-      //c.AspNetUser = UserMapper.MapToUser(vehicle.Owner);
-      c.Make = vehicle.Make;
-      c.Model = vehicle.Model;
-      c.Color = vehicle.Color;
-      c.Capacity = vehicle.Capacity;
-      c.LicensePlate = vehicle.LicensePlate;
+         return c;
+      }
 
-      return c;
-    }
+      
 
 
     // this is an example of "Reflection"
