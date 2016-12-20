@@ -41,7 +41,10 @@ namespace RevaShare.DataClient {
 
             foreach (UserInfo user in allUsers)
             {
-                usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
             }
 
             var userRequested = usersDAO.Where(a => a.UserName == username);
