@@ -91,6 +91,9 @@ namespace RevaShare.DataClient
         bool UpdateVehicle(VehicleDAO vehicle);
         [OperationContract]
         bool DeleteVehicle(VehicleDAO vehicle);
+
+
+        //Flag Section
         [OperationContract]
         bool CreateFlag(FlagDAO flag);
         [OperationContract]
