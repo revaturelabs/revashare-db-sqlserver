@@ -96,7 +96,6 @@ namespace RevaShare.DataAccess.Data
                 {
                     allUsers.Add(GetUser(user.UserName));
                 }
-
             }
 
             return allUsers;
