@@ -153,6 +153,11 @@ namespace RevaShare.DataAccess.Data
             return users;
         }
 
+        public UserInfo ListUserByUserId(string userId)
+        {
+            return context.UserInfoes.Find(userId);
+        }
+
         /// <summary>
         /// List all the users who have registered but have not been approved
         /// to use the system.
@@ -239,6 +244,9 @@ namespace RevaShare.DataAccess.Data
       /// <returns>True if the deletion was successful.</returns>
       public bool DeleteUser(string username)
       {
+         DbEntityEntry entry = context.Entry(GetUser(username));
+         entry.State = System.Data.Entity.EntityState.Deleted;
+
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          IdentityResult result = RevaShareIdentity.Instance.Manager.Delete(user);
 
@@ -247,8 +255,6 @@ namespace RevaShare.DataAccess.Data
             return false;
          }
 
-         DbEntityEntry entry = context.Entry(GetUser(username));
-         entry.State = System.Data.Entity.EntityState.Deleted;
          return context.SaveChanges() > 0;
       }
 

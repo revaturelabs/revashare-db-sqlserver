@@ -36,5 +36,33 @@ namespace RevaShare.Test
             Assert.NotNull(actual);
         }
 
+        [Fact]
+        public void UpdateUser_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            List<UserDAO> allUsers = svc.GetAllUsers();
+            UserDAO userToChange = allUsers.First();
+
+            userToChange.Name = userToChange.Name + " Updated";
+
+            bool actual = svc.UpdateUser(userToChange);
+
+            Assert.True(actual);
+        }
+
+
+        [Fact]
+        public void RegisterUserDeleteUser_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            ApartmentDAO existingApt = svc.ListApartments().First();
+
+            UserDAO testUser = new UserDAO { Name = "ray2 bob", UserName = "ray2bob", Email = "ray2bob@gmail.com", PhoneNumber = "402-283-2816", Apartment = existingApt };
+            bool resultRegister = svc.RegisterUser(testUser, "ray2bob", "ray2123");
+            bool resultDelete = svc.DeleteUser("ray2bob");
+
+            Assert.True(resultRegister && resultDelete);
+        }
+        
     }
 }

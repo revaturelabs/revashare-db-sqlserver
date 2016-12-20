@@ -153,15 +153,14 @@ namespace RevaShare.DataClient {
 
             Apartment apartment = data.GetApartmentByName(user.Apartment.Name);
 
-            UserInfo info = new UserInfo {
-                UserID = userId,
-                Email = user.Email,
-                Apartment = apartment,
-                ApartmentID = apartment.ID,
-                Name = user.Name,
-                Phone = user.PhoneNumber
-            };
-
+            UserInfo info = data.ListUserByUserId(userId);
+            info.UserID = userId;
+            info.Email = user.Email;
+            info.Apartment = apartment;
+            info.ApartmentID = apartment.ID;
+            info.Name = user.Name;
+            info.Phone = user.PhoneNumber;
+            
             return data.UpdateUserInfo(info);
         }
 
