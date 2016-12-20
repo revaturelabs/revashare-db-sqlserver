@@ -7,6 +7,20 @@ using System.Web;
 
 namespace RevaShare.DataClient {
     public partial class RevaShareDataService {
+
+        public List<RideDAO> GetAllRides()
+        {
+            List<Ride> allRides = data.ListAllRides();
+            List<RideDAO> allRidesDAO = new List<RideDAO>();
+
+            foreach (Ride ride in allRides)
+            {
+                allRidesDAO.Add(RideMapper.MapToRideDAO(ride));
+            }
+
+            return allRidesDAO;
+        }
+
         public bool AddRide(RideDAO ride) {
             return data.CreateRide(RideMapper.MapToRide(ride));
         }

@@ -27,7 +27,7 @@ namespace RevaShare.DataClient
       u.Vehicle = VehicleMapper.MapToVehicle(ride.Vehicle);
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeekDate = ride.StartOfWeek;
-      u.IsOnTime = ride.IsOnTime;
+      u.IsOnTime = true;
       u.IsAmRide = ride.IsAmRide;
 
       return u;
