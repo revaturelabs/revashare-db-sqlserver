@@ -10,6 +10,7 @@ namespace RevaShare.DataAccess.Data
 {
    public partial class RevaShareData
    {
+
       public bool CreateApartment(Apartment apartment)
       {
          apartment.Active = true;

@@ -11,13 +11,13 @@ namespace RevaShare.DataAccess.Data
 {
    public partial class RevaShareData
    {
+      //Constants to be used for inputing the different roles. 
       private const string ROLE_UNASSIGNED = "Unassigned",
           ROLE_RIDER = "Rider",
           ROLE_DRIVER = "Driver",
           ROLE_REQUEST_DRIVER = "RequestDriver",
           ROLE_ADMIN = "Admin";
 
-      
       public bool CreateUser(UserInfo userInfo, string username, string password)
       {
          IdentityUser user = new IdentityUser
@@ -45,28 +45,24 @@ namespace RevaShare.DataAccess.Data
       {
          return RevaShareIdentity.Instance.Manager.FindById(id);
       }
-      
+
       public UserInfo GetUser(string username)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          return context.UserInfoes.FirstOrDefault(u => u.UserID == user.Id);
       }
 
-      
       public List<UserInfo> ListUserInfoes()
       {
          return context.UserInfoes.ToList();
       }
 
-
-      
       public string GetUserId(string username)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          return user == null ? string.Empty : user.Id;
       }
 
-       
         public List<UserInfo> ListRidersAndDrivers()
         {
             List<UserInfo> allUsers = new List<UserInfo>();
@@ -82,7 +78,6 @@ namespace RevaShare.DataAccess.Data
             return allUsers;
         }
 
-        
         public List<UserInfo> ListAdmins()
         {
             List<UserInfo> allAdmins = new List<UserInfo>();
@@ -98,7 +93,6 @@ namespace RevaShare.DataAccess.Data
             return allAdmins;
         }
 
-        
         public List<UserInfo> ListUsersInRole(string role) {
             List<UserInfo> users = new List<UserInfo>();
 
@@ -113,7 +107,6 @@ namespace RevaShare.DataAccess.Data
          return users;
       }
 
-
         public List<UserInfo> ListUsers()
         {
             List<UserInfo> users = new List<UserInfo>();
@@ -126,36 +119,35 @@ namespace RevaShare.DataAccess.Data
             return users;
         }
 
-        
+        public UserInfo ListUserByUserId(string userId)
+        {
+            return context.UserInfoes.Find(userId);
+        }
+
         public List<UserInfo> ListUsersWithPendingApproval() {
             return ListUsersInRole(ROLE_UNASSIGNED);
         }
 
-      
       public List<UserInfo> ListUsersWithDriverApprovalPending()
       {
          return ListUsersInRole(ROLE_REQUEST_DRIVER);
       }
 
-     
       public bool ApproveUserRegistration(string username)
       {
          return UpdateUserRole(username, ROLE_RIDER);
       }
 
-     
       public bool RequestToBeDriver(string username)
       {
          return UpdateUserRole(username, ROLE_REQUEST_DRIVER);
       }
 
-      
       public bool ApproveUserDriverRequest(string username)
       {
          return UpdateUserRole(username, ROLE_DRIVER);
       }
 
-      
       public bool UpdateUserRole(string username, string role)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
@@ -169,7 +161,6 @@ namespace RevaShare.DataAccess.Data
          return result.Succeeded;
       }
 
-      
       public bool UpdateUserInfo(UserInfo info)
       {
          DbEntityEntry<UserInfo> entry = context.Entry(info);
@@ -177,9 +168,11 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      
       public bool DeleteUser(string username)
       {
+         DbEntityEntry entry = context.Entry(GetUser(username));
+         entry.State = System.Data.Entity.EntityState.Deleted;
+
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
          IdentityResult result = RevaShareIdentity.Instance.Manager.Delete(user);
 
@@ -188,12 +181,9 @@ namespace RevaShare.DataAccess.Data
             return false;
          }
 
-         DbEntityEntry entry = context.Entry(GetUser(username));
-         entry.State = System.Data.Entity.EntityState.Deleted;
          return context.SaveChanges() > 0;
       }
 
-      
       public bool TryLogin(string username, string password)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);

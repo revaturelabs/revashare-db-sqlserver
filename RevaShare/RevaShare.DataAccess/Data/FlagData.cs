@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data {
       public partial class RevaShareData {
+      
       public bool Create(Flag flag)
       {
          flag.Active = true;
@@ -31,7 +32,6 @@ namespace RevaShare.DataAccess.Data {
          entry.State = System.Data.Entity.EntityState.Modified;
          return context.SaveChanges() > 0;
       }
-
      
       public bool UpdateFlag(Flag flag)
       {
@@ -45,7 +45,7 @@ namespace RevaShare.DataAccess.Data {
          entry.State = System.Data.Entity.EntityState.Modified;
          return context.SaveChanges() > 0;
       }
-
+ 
       public bool DeleteFlag(Flag flag)
       {
          var actualFlag = GetFlag(flag.ID);

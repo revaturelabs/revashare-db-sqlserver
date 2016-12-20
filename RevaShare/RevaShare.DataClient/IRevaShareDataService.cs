@@ -10,8 +10,7 @@ namespace RevaShare.DataClient
 {
     [ServiceContract]
     public interface IRevaShareDataService
-    {
-        
+    { 
         //User CRUD
         [OperationContract]
         bool RegisterUser(UserDAO user, string username, string password);
@@ -27,6 +26,7 @@ namespace RevaShare.DataClient
         bool UpdateUser(UserDAO user);
         [OperationContract]
         bool DeleteUser(string username);
+
 
         //Other User Related Methods
         [OperationContract]
@@ -45,7 +45,7 @@ namespace RevaShare.DataClient
         bool UpdatePassword(string username, string currentPassword, string newPassword);
 
 
-        /// Apartment section
+        //Apartment section
         [OperationContract]
         ApartmentDAO GetApartmentByName(string name);
         [OperationContract]
@@ -58,7 +58,7 @@ namespace RevaShare.DataClient
         bool DeleteApartment(string apartment);
 
 
-        /// Ride section
+        //Ride section
         [OperationContract]
         bool AddRide(RideDAO ride);
         [OperationContract]
@@ -71,7 +71,7 @@ namespace RevaShare.DataClient
         int GetOpenSeats(string username, DateTime startOfWeekDate);
 
 
-        /// RideRider section
+        //RideRider section
         [OperationContract]
         List<RideRidersDAO> GetRideRiders();
         [OperationContract]
@@ -84,7 +84,7 @@ namespace RevaShare.DataClient
         bool DeleteRideRider(RideRidersDAO riderider);
 
 
-        /// Vehicle section
+        //Vehicle section
         [OperationContract]
         bool AddVehicle(VehicleDAO vehicle);
         [OperationContract]

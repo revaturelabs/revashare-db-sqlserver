@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RevaShare.DataAccess.Data {
     public partial class RevaShareData {
-       public bool CreateRide(Ride ride) {
+
+        public bool CreateRide(Ride ride) {
             ride.Active = true;
             context.Rides.Add(ride);
             return context.SaveChanges() > 0;
