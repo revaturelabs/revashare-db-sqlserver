@@ -30,7 +30,7 @@ namespace RevaShare.DataClient
 
         //Other User Related Methods
         [OperationContract]
-        bool Login(string username, string password);
+        UserDAO Login(string username, string password);
         [OperationContract]
         bool ApproveDriver(string username);
         [OperationContract]
