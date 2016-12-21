@@ -179,5 +179,21 @@ namespace RevaShare.Test
          var actual = svc.ListRidesAtApartmentPM("abc");
          Assert.Empty(actual);
       }
+
+      [Fact]
+      public void availableSeats_TEST()
+      {
+         var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();
+         var actual = svc.GetOpenSeats(ride);
+         Assert.InRange<int>(actual,0,ride.Vehicle.Capacity-1);
+      }
+
+      [Fact]
+      public void GetRiders_Tests()
+      {
+         var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();
+         var actual = svc.getRidersInRide(ride);
+         Assert.NotNull(actual);
+      }
    }
 }

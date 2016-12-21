@@ -36,6 +36,24 @@ namespace RevaShare.DataClient
          return rides;
       }
 
+      public int GetOpenSeats(RideDAO ride)
+      {
+         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+         return ride.Vehicle.Capacity - riders.ToList().Count - 1;
+      }
+
+      public List<UserDAO> getRidersInRide(RideDAO ride)
+      {
+         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+         var list = new List<UserDAO>();
+         foreach (var item in riders)
+         {
+            list.Add(item.Rider);
+         }
+         return list;
+      }
+
+   }
       public List<RideDAO> ListRidesAtApartmentAM(string apartmentName)
       {
          return ListRidesAtApartment(apartmentName).Where(m => m.IsAmRide).ToList();
@@ -46,11 +64,6 @@ namespace RevaShare.DataClient
          return ListRidesAtApartment(apartmentName).Where(m => !m.IsAmRide).ToList();
       }
 
-      public int GetOpenSeats(string username, DateTime startOfWeekDate)
-      {
-         string userId = data.GetUserId(username);
-         Ride ride = data.GetRide(userId, startOfWeekDate);
-         return ride.Vehicle.Capacity - ride.RideRiders.ToList().Count - 1;
-      }
+      
    }
 }

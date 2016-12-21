@@ -86,6 +86,8 @@ namespace RevaShare.DataClient
       bool Accept(RideRidersDAO riderider);
       [OperationContract]
       bool DeleteRideRider(RideRidersDAO riderider);
+      [OperationContract]
+      List<UserDAO> getRidersInRide(RideDAO ride);
 
 
       //Vehicle section
