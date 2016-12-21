@@ -41,17 +41,21 @@ namespace RevaShare.Test
 
 
       [Fact]
-      public void Login_Test()
+      public void Login_Test_positive()
       {
-         var expected = true;
-         var actual = Data.TryLogin("Ryan", "ASDasd123");
-         Assert.Equal(expected, actual);
+         var actual = svc.Login("jimbob", "jimbob");
+         Assert.NotNull(actual);
 
-         var expected2 = false;
-         var actual2 = Data.TryLogin("Ryan", "ASD123");
-
-         Assert.Equal(expected2, actual2);
+         
       }
+      [Fact]
+      public void Login_Test_negative()
+      {
+         var actual = svc.Login("Ryan", "ASD123");
+         Assert.Null(actual);
+      }
+
+
       #region ApartmentService Tests
 
       [Fact]
