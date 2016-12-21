@@ -22,7 +22,7 @@ namespace RevaShare.DataClient
          else return null;
 
       }
-
+    
       public List<UserDAO> GetAllUsers()
       {
          List<UserInfo> allUsers = new List<UserInfo>();
@@ -102,33 +102,63 @@ namespace RevaShare.DataClient
          }
 
          return adminsDAO;
-      }
+        }
 
-      public UserDAO GetAdminByUsername(string username)
-      {
-         List<UserInfo> allAdmins = new List<UserInfo>();
-         allAdmins = data.ListAdmins();
+        public List<UserDAO> GetRiders()
+        {
+            List<UserInfo> allRiders = new List<UserInfo>();
+            allRiders = data.ListRiders();
 
-         List<UserDAO> adminsDAO = new List<UserDAO>();
+            List<UserDAO> ridersDAO = new List<UserDAO>();
 
-         foreach (UserInfo admin in allAdmins)
-         {
-            adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            foreach (UserInfo rider in allRiders)
+            {
+                ridersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(rider.UserID), rider));
+            }
+
+            return ridersDAO;
+        }
+
+        public List<UserDAO> GetDrivers()
+        {
+            List<UserInfo> allDrivers = new List<UserInfo>();
+            allDrivers = data.ListAdmins();
+
+            List<UserDAO> driversDAO = new List<UserDAO>();
+
+            foreach (UserInfo driver in allDrivers)
+            {
+                driversDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(driver.UserID), driver));
+            }
+
+            return driversDAO;
+        }
+
+        public UserDAO GetAdminByUsername(string username)
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
+
+            List<UserDAO> adminsDAO = new List<UserDAO>();
+
+            foreach (UserInfo admin in allAdmins)
+            {
+               adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+            }
+
+            var adminRequested = adminsDAO.Where(a => a.UserName == username);
+
+            if (adminRequested.Count() > 0)
+            {
+               return adminRequested.First();
+            }
+
+            else
+            {
+               return null;
+            }
          }
-
-         var adminRequested = adminsDAO.Where(a => a.UserName == username);
-
-         if (adminRequested.Count() > 0)
-         {
-            return adminRequested.First();
-         }
-
-         else
-         {
-            return null;
-         }
-      }
-
+    
       public bool DeleteUser(string username)
       {
          return data.DeleteUser(username);
@@ -139,23 +169,30 @@ namespace RevaShare.DataClient
          return data.ApproveUserDriverRequest(username);
       }
 
-      public bool ApproveUser(string username)
+      public bool ApproveRider(string username)
       {
          return data.ApproveUserRegistration(username);
       }
 
-      public List<UserDAO> PendingRegistrations()
+      public bool RemoveDriverPrivileges(string username)
+      {
+          return data.RemoveDriverPrivilegesRequest(username);
+      }
+
+      public List<UserDAO> GetPendingRiders()
       {
          List<UserDAO> users = new List<UserDAO>();
          var pendings = data.ListUsersWithPendingApproval();
+
          foreach (var item in pendings)
          {
             users.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(item.UserID), item));
          }
+
          return users;
       }
 
-      public List<UserDAO> PendingDriverApprovals()
+      public List<UserDAO> GetPendingDrivers()
       {
          List<UserDAO> users = new List<UserDAO>();
          var pendings = data.ListUsersWithDriverApprovalPending();

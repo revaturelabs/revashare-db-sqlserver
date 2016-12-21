@@ -44,19 +44,20 @@ namespace RevaShare.DataClient
       bool ApproveDriver(string username);
 
       [OperationContract]
-      bool ApproveUser(string username);
+      bool ApproveRider(string username);
 
       [OperationContract]
       bool RequestToBeDriver(string username);
 
       [OperationContract]
-      List<UserDAO> PendingRegistrations();
+      List<UserDAO> GetPendingRiders();
 
       [OperationContract]
-      List<UserDAO> PendingDriverApprovals();
+      List<UserDAO> GetPendingDrivers();
 
       [OperationContract]
       bool UpdatePassword(string username, string currentPassword, string newPassword);
+
 
       //Apartment section
       [OperationContract]
@@ -96,6 +97,7 @@ namespace RevaShare.DataClient
 
       [OperationContract]
       List<RideDAO> ListRidesAtApartmentPM(string apartmentName);
+
 
       //RideRider section
       [OperationContract]
