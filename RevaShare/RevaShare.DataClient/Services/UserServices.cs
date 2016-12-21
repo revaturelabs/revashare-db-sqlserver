@@ -47,7 +47,7 @@ namespace RevaShare.DataClient {
                 }
             }
 
-            var userRequested = usersDAO.Where(a => a.UserName == username);
+            var userRequested = usersDAO.Where(a => a.Name.Equals(username));
 
             if (userRequested.Count() > 0)
             {
