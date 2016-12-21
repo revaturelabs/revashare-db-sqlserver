@@ -116,6 +116,36 @@ namespace RevaShare.DataAccess.Data
             return allAdmins;
         }
 
+        public List<UserInfo> ListRiders()
+        {
+            List<UserInfo> allRiders = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_RIDER))
+                {
+                    allRiders.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allRiders;
+        }
+
+        public List<UserInfo> ListDrivers()
+        {
+            List<UserInfo> allDrivers = new List<UserInfo>();
+
+            foreach (IdentityUser user in RevaShareIdentity.Instance.Manager.Users)
+            {
+                if (RevaShareIdentity.Instance.Manager.IsInRole(user.Id, ROLE_DRIVER))
+                {
+                    allDrivers.Add(GetUser(user.UserName));
+                }
+            }
+
+            return allDrivers;
+        }
+
         public List<UserInfo> ListUsersInRole(string role) {
             List<UserInfo> users = new List<UserInfo>();
 
@@ -171,7 +201,12 @@ namespace RevaShare.DataAccess.Data
          return UpdateUserRole(username, ROLE_DRIVER);
       }
 
-      public bool UpdateUserRole(string username, string role)
+        public bool RemoveDriverPrivilegesRequest(string username)
+        {
+            return UpdateUserRole(username, ROLE_RIDER);
+        }
+
+        public bool UpdateUserRole(string username, string role)
       {
          IdentityUser user = RevaShareIdentity.Instance.Manager.FindByName(username);
 

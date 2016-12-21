@@ -8,138 +8,142 @@ using System.Text;
 
 namespace RevaShare.DataClient
 {
-  [ServiceContract]
-  public interface IRevaShareDataService
-  {
-    //User CRUD
-    [OperationContract]
-    bool RegisterUser(UserDAO user, string username, string password);
+    [ServiceContract]
+    public interface IRevaShareDataService
+    { 
+      //User CRUD
+      [OperationContract]
+      bool RegisterUser(UserDAO user, string username, string password);
 
-    [OperationContract]
-    List<UserDAO> GetAllUsers();
+      [OperationContract]
+      List<UserDAO> GetAllUsers();
 
-    [OperationContract]
-    UserDAO GetUserByUsername(string username);
+      [OperationContract]
+      UserDAO GetUserByUsername(string username);
 
-    [OperationContract]
-    List<UserDAO> GetAdmins();
+      [OperationContract]
+      List<UserDAO> GetAdmins();
 
-    [OperationContract]
-    UserDAO GetAdminByUsername(string username);
+      [OperationContract]
+      UserDAO GetAdminByUsername(string username);
 
-    [OperationContract]
-    bool UpdateUser(UserDAO user);
+      [OperationContract]
+      bool UpdateUser(UserDAO user);
 
-    [OperationContract]
-    bool DeleteUser(string username);
+      [OperationContract]
+      bool DeleteUser(string username);
 
-    [OperationContract]
-    bool AddAdmin(UserDAO user, string username, string password);
+      [OperationContract]
+      bool AddAdmin(UserDAO user, string username, string password);
 
-    //Other User Related Methods
-    [OperationContract]
-    UserDAO Login(string username, string password);
+    
+      //Other User Related Methods
+      [OperationContract]
+      UserDAO Login(string username, string password);
 
-    [OperationContract]
-    bool ApproveDriver(string username);
+      [OperationContract]
+      bool ApproveDriver(string username);
 
-    [OperationContract]
-    bool ApproveUser(string username);
+      [OperationContract]
+      bool ApproveRider(string username);
 
-    [OperationContract]
-    bool RequestToBeDriver(string username);
+      [OperationContract]
+      bool RequestToBeDriver(string username);
 
-    [OperationContract]
-    List<UserDAO> PendingRegistrations();
+      [OperationContract]
+      List<UserDAO> GetPendingRiders();
 
-    [OperationContract]
-    List<UserDAO> PendingDriverApprovals();
+      [OperationContract]
+      List<UserDAO> GetPendingDrivers();
 
-    [OperationContract]
-    bool UpdatePassword(string username, string currentPassword, string newPassword);
+      [OperationContract]
+      bool UpdatePassword(string username, string currentPassword, string newPassword);
 
-    //Apartment section
-    [OperationContract]
-    ApartmentDAO GetApartmentByName(string name);
 
-    [OperationContract]
-    bool AddApartment(ApartmentDAO apartment);
+      //Apartment section
+      [OperationContract]
+      ApartmentDAO GetApartmentByName(string name);
 
-    [OperationContract]
-    List<ApartmentDAO> ListApartments();
+      [OperationContract]
+      bool AddApartment(ApartmentDAO apartment);
 
-    [OperationContract]
-    bool UpdateApartment(ApartmentDAO apartment);
+      [OperationContract]
+      List<ApartmentDAO> ListApartments();
 
-    [OperationContract]
-    bool DeleteApartment(string apartment);
+      [OperationContract]
+      bool UpdateApartment(ApartmentDAO apartment);
 
-    //Ride section
-    [OperationContract]
-    bool AddRide(RideDAO ride);
+      [OperationContract]
+      bool DeleteApartment(string apartment);
 
-    [OperationContract]
-    bool UpdateRide(RideDAO ride);
 
-    [OperationContract]
-    bool DeleteRide(RideDAO ride);
+      //Ride section
+      [OperationContract]
+      bool AddRide(RideDAO ride);
 
-    [OperationContract]
-    List<RideDAO> ListRidesAtApartment(string apartmentName);
+      [OperationContract]
+      bool UpdateRide(RideDAO ride);
 
-    [OperationContract]
-    List<RideDAO> ListRidesAtApartmentAM(string apartmentName);
+      [OperationContract]
+      bool DeleteRide(RideDAO ride);
 
-    [OperationContract]
-    List<RideDAO> ListRidesAtApartmentPM(string apartmentName);
+      [OperationContract]
+      List<RideDAO> ListRidesAtApartment(string apartmentName);
 
-    //RideRider section
-    [OperationContract]
-    List<RideRidersDAO> GetRideRiders();
+      [OperationContract]
+      int GetOpenSeats(RideDAO ride);
 
-    [OperationContract]
-    bool AddRideRiders(UserDAO user, RideDAO ride);
+      [OperationContract]
+      List<RideDAO> ListRidesAtApartmentAM(string apartmentName);
 
-    [OperationContract]
-    bool UpdateRideRider(RideRidersDAO riderider);
+      [OperationContract]
+      List<RideDAO> ListRidesAtApartmentPM(string apartmentName);
 
-    [OperationContract]
-    bool Accept(RideRidersDAO riderider);
 
-    [OperationContract]
-    bool DeleteRideRider(RideRidersDAO riderider);
+      //RideRider section
+      [OperationContract]
+      List<RideRidersDAO> GetRideRiders();
 
-    [OperationContract]
-    List<UserDAO> getRidersInRide(RideDAO ride);
+      [OperationContract]
+      bool AddRideRiders(UserDAO user, RideDAO ride);
 
-    //Vehicle section
-    [OperationContract]
-    bool AddVehicle(VehicleDAO vehicle);
+      [OperationContract]
+      bool UpdateRideRider(RideRidersDAO riderider);
 
-    [OperationContract]
-    bool UpdateVehicle(VehicleDAO vehicle);
+      [OperationContract]
+      bool Accept(RideRidersDAO riderider);
+    
+      [OperationContract]
+      bool DeleteRideRider(RideRidersDAO riderider);
 
-    [OperationContract]
-    bool DeleteVehicle(VehicleDAO vehicle);
+      [OperationContract]
+      List<UserDAO> getRidersInRide(RideDAO ride);
 
-    [OperationContract]
-    List<VehicleDAO> GetVehicles();
 
-    //Flag section
-    [OperationContract]
-    bool CreateFlag(FlagDAO flag);
+      //Vehicle section
+      [OperationContract]
+      bool AddVehicle(VehicleDAO vehicle);
 
-    [OperationContract]
-    FlagDAO GetFlagByID(int id);
+      [OperationContract]
+      bool UpdateVehicle(VehicleDAO vehicle);
 
-    [OperationContract]
-    List<FlagDAO> GetAllFlags();
+      [OperationContract]
+      bool DeleteVehicle(VehicleDAO vehicle);
 
-    [OperationContract]
-    bool MarkFlagAsRead(FlagDAO flag);
+      [OperationContract]
+      List<VehicleDAO> GetVehicles();
 
-    [OperationContract]
-    bool UpdateFlag(FlagDAO flag);
 
-  }
+      //Flag section
+      [OperationContract]
+      bool CreateFlag(FlagDAO flag);
+      [OperationContract]
+      FlagDAO GetFlagByID(int id);
+      [OperationContract]
+      List<FlagDAO> GetAllFlags();
+      [OperationContract]
+      bool MarkFlagAsRead(FlagDAO flag);
+      [OperationContract]
+      bool UpdateFlag(FlagDAO flag);
+   }
 }

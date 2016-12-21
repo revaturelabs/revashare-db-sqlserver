@@ -133,7 +133,7 @@ namespace RevaShare.Test
       [Fact]
       public void UpgradeToRider_TEST()
       {
-         var actual = svc.ApproveUser("kimbob");
+         var actual = svc.ApproveRider("kimbob");
          Assert.True(actual);
       }
 
