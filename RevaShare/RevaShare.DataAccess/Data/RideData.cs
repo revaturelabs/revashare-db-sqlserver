@@ -46,7 +46,9 @@ namespace RevaShare.DataAccess.Data {
 
                 result.Active = ride.Active;
             }
-            return context.SaveChanges() > 0;
+
+            context.SaveChanges();
+            return true;
         }
 
         public bool DeleteRide(Ride ride) {

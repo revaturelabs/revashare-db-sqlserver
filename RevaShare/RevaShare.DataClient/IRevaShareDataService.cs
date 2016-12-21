@@ -26,6 +26,8 @@ namespace RevaShare.DataClient
         bool UpdateUser(UserDAO user);
         [OperationContract]
         bool DeleteUser(string username);
+        [OperationContract]
+        bool AddAdmin(UserDAO user, string username, string password);
 
 
         //Other User Related Methods

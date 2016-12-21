@@ -12,43 +12,23 @@ namespace RevaShare.Test
 {
     public class RideCRUD
     {
-        /*
-            Need to use Jason's methods for getting first vehicle for creating ride.
-
-        */
-
         [Fact]
         public void AddRideRemoveRide_Test()
         {
             RevaShareDataService svc = new RevaShareDataService();
 
             TimeSpan testTime = new TimeSpan(8, 30, 00);
-            DateTime testStartDate = new DateTime(2016, 12, 22);
-            UserDAO testUser = svc.GetUserByUsername("jimbob");
-            VehicleDAO testVehicle = new VehicleDAO { Owner = testUser, Capacity = 4, Color = "purple", LicensePlate = "zxc-vbn", Make = "test make", Model = "test model" };
+            DateTime testStartDate = new DateTime(2016, 11, 22);
+            VehicleDAO testVehicle = svc.GetVehicles().ToList().Where(v => v.Owner.UserName == "jimbob").First();
+            UserDAO testUser = svc.GetUserByUsername(testVehicle.Owner.UserName);
 
-            RideDAO testRide = new RideDAO { DepartureTime = testTime, IsAmRide = true, StartOfWeek =  testStartDate, Vehicle = testVehicle };
+            RideDAO rideToAdd = new RideDAO { DepartureTime = testTime, IsAmRide = true, StartOfWeek = testStartDate, Vehicle = testVehicle };
+            bool resultAddRide = svc.AddRide(rideToAdd);
+            
+            RideDAO rideToRemove = svc.GetAllRides().Where(r => r.Vehicle.Owner.UserName == testUser.UserName && r.StartOfWeek == testStartDate).First();
+            bool resultDeleteRide = svc.DeleteRide(rideToRemove);
 
-            bool actual = svc.AddRide(testRide);
-
-            Assert.True(actual);
-        }
-
-        [Fact]
-        public void RemoveRide_Test()
-        {
-            RevaShareDataService svc = new RevaShareDataService();
-
-            TimeSpan testTime = new TimeSpan(8, 30, 00);
-            DateTime testStartDate = new DateTime(2016, 12, 22);
-            UserDAO testUser = svc.GetUserByUsername("jimbob");
-            VehicleDAO testVehicle = new VehicleDAO { Owner = testUser, Capacity = 4, Color = "white", LicensePlate = "zxc-vbn", Make = "test make", Model = "test model" };
-
-            RideDAO testRide = new RideDAO { DepartureTime = testTime, IsAmRide = true, StartOfWeek = testStartDate, Vehicle = testVehicle };
-
-            bool actual = svc.DeleteRide(testRide);
-
-            Assert.True(actual);
+            Assert.True(resultAddRide);
         }
 
         [Fact]
@@ -63,6 +43,42 @@ namespace RevaShare.Test
             }
 
             Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void ListRidesAtApartment_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            ApartmentDAO existingApt = svc.ListApartments().First();
+
+            var actual = svc.ListRidesAtApartment(existingApt.Name);
+
+            foreach (RideDAO ride in actual)
+            {
+                Debug.WriteLine("Driver: " + ride.Vehicle.Owner.Name + ", Car Model: " + ride.Vehicle.Model + ", Departure Time: " + ride.DepartureTime);
+            }
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void UpdateRide_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+
+            DateTime testStartDate = new DateTime(2017, 1, 14);
+            VehicleDAO testVehicle = svc.GetVehicles().ToList().Where(v => v.Owner.UserName == "jimbob").First();
+            UserDAO testUser = svc.GetUserByUsername(testVehicle.Owner.UserName);
+
+            List<RideDAO> ridesToUpdate = svc.GetAllRides();
+
+            RideDAO rideToUpdate = svc.GetAllRides().Where(r => r.Vehicle.Owner.UserName == testUser.UserName && r.StartOfWeek == testStartDate).First();
+
+            rideToUpdate.DepartureTime = new TimeSpan(7, 45, 00);
+
+            bool actual = svc.UpdateRide(rideToUpdate);
+
+            Assert.True(actual);
         }
     }
 }

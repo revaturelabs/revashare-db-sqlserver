@@ -13,8 +13,9 @@ namespace RevaShare.DataClient
     {
         public static VehicleDAO MapToVehicleDAO(Vehicle vehicle)
         {
+
             var c = new VehicleDAO();
-            //c.Owner = UserMapper.MapToUserDAO(vehicle.AspNetUser);
+            c.Owner = UserMapper.MapToUserDAO(RevaShareIdentity.Instance.Manager.FindById(vehicle.UserInfo.UserID), vehicle.UserInfo);
             c.Make = vehicle.Make;
             c.Model = vehicle.Model;
             c.Color = vehicle.Color;

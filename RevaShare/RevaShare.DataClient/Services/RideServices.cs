@@ -30,7 +30,8 @@ namespace RevaShare.DataClient {
         }
 
         public bool DeleteRide(RideDAO ride) {
-            return data.DeleteRide(RideMapper.MapToRide(ride));
+            Ride rideToDelete = data.GetRide(UserMapper.MapToUser(ride.Vehicle.Owner).UserID, ride.StartOfWeek);
+            return data.DeleteRide(rideToDelete);
         }
 
         public List<RideDAO> ListRidesAtApartment(string apartmentName) {

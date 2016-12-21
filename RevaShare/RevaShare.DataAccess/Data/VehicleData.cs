@@ -68,7 +68,13 @@ namespace RevaShare.DataAccess.Data
          return result;
       }
 
-      public Vehicle GetVehicleByOwner(string username)
+        public Vehicle GetVehicleByLicensePlate(string licensePlateNumber)
+        {
+            Vehicle result = context.Vehicles.Where(v => v.LicensePlate == licensePlateNumber && v.Active).FirstOrDefault();
+            return result;
+        }
+
+        public Vehicle GetVehicleByOwner(string username)
       {
          return context.Vehicles.FirstOrDefault(v => v.OwnerID == GetUserId(username));
       }
