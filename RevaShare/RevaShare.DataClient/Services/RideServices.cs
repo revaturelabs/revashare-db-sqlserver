@@ -5,76 +5,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RevaShare.DataClient {
-    public partial class RevaShareDataService {
+namespace RevaShare.DataClient
+{
+  public partial class RevaShareDataService
+  {
 
-        public List<RideDAO> GetAllRides()
-        {
-            List<Ride> allRides = data.ListAllRides();
-            List<RideDAO> allRidesDAO = new List<RideDAO>();
+    public List<RideDAO> GetAllRides()
+    {
+      List<Ride> allRides = data.ListAllRides();
+      List<RideDAO> allRidesDAO = new List<RideDAO>();
 
-            foreach (Ride ride in allRides)
-            {
-                allRidesDAO.Add(RideMapper.MapToRideDAO(ride));
-            }
-
-            return allRidesDAO;
-        }
-
-        public bool AddRide(RideDAO ride) {
-            return data.CreateRide(RideMapper.MapToRide(ride));
-        }
-
-      public bool UpdateRide(RideDAO ride)
+      foreach (Ride ride in allRides)
       {
-         return data.UpdateRide(RideMapper.MapToRide(ride));
+        allRidesDAO.Add(RideMapper.MapToRideDAO(ride));
       }
 
-        public bool DeleteRide(RideDAO ride) {
-            Ride rideToDelete = data.GetRide(UserMapper.MapToUser(ride.Vehicle.Owner).UserID, ride.StartOfWeek);
-            return data.DeleteRide(rideToDelete);
-        }
+      return allRidesDAO;
+    }
 
-      public List<RideDAO> ListRidesAtApartment(string apartmentName)
+    public bool AddRide(RideDAO ride)
+    {
+      return data.CreateRide(RideMapper.MapToRide(ride));
+    }
+
+    public bool UpdateRide(RideDAO ride)
+    {
+      return data.UpdateRide(RideMapper.MapToRide(ride));
+    }
+
+    public bool DeleteRide(RideDAO ride)
+    {
+      Ride rideToDelete = data.GetRide(UserMapper.MapToUser(ride.Vehicle.Owner).UserID, ride.StartOfWeek);
+      return data.DeleteRide(rideToDelete);
+    }
+
+    public List<RideDAO> ListRidesAtApartment(string apartmentName)
+    {
+      List<RideDAO> rides = new List<RideDAO>();
+
+      foreach (Ride ride in data.ListRidesAtApartment(apartmentName))
       {
-         List<RideDAO> rides = new List<RideDAO>();
-
-         foreach (Ride ride in data.ListRidesAtApartment(apartmentName))
-         {
-            rides.Add(RideMapper.MapToRideDAO(ride));
-         }
-
-         return rides;
+        rides.Add(RideMapper.MapToRideDAO(ride));
       }
 
-      public int GetOpenSeats(RideDAO ride)
-      {
-         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
-         return ride.Vehicle.Capacity - riders.ToList().Count - 1;
-      }
+      return rides;
+    }
 
-      public List<UserDAO> getRidersInRide(RideDAO ride)
-      {
-         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
-         var list = new List<UserDAO>();
-         foreach (var item in riders)
-         {
-            list.Add(item.Rider);
-         }
-         return list;
-      }
+    public int GetOpenSeats(RideDAO ride)
+    {
+      var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+      return ride.Vehicle.Capacity - riders.ToList().Count - 1;
+    }
 
-   }
-      public List<RideDAO> ListRidesAtApartmentAM(string apartmentName)
+    public List<UserDAO> getRidersInRide(RideDAO ride)
+    {
+      var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+      var list = new List<UserDAO>();
+      foreach (var item in riders)
       {
-         return ListRidesAtApartment(apartmentName).Where(m => m.IsAmRide).ToList();
+        list.Add(item.Rider);
       }
+      return list;
+    }
 
-      public List<RideDAO> ListRidesAtApartmentPM(string apartmentName)
-      {
-         return ListRidesAtApartment(apartmentName).Where(m => !m.IsAmRide).ToList();
-      }
+    public List<RideDAO> ListRidesAtApartmentAM(string apartmentName)
+    {
+      return ListRidesAtApartment(apartmentName).Where(m => m.IsAmRide).ToList();
+    }
 
-      
-   }
+    public List<RideDAO> ListRidesAtApartmentPM(string apartmentName)
+    {
+      return ListRidesAtApartment(apartmentName).Where(m => !m.IsAmRide).ToList();
+    }
+
+  }
 }
