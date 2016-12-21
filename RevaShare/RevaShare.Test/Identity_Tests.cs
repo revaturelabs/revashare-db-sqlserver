@@ -121,5 +121,43 @@ namespace RevaShare.Test
          var actual = svc.ApproveDriver("kimbob");
          Assert.True(actual);
       }
+
+      #region Vehicle tests
+
+      [Fact]
+      public void AddVehicle_Test()
+      {
+         var owner = svc.GetAllUsers().FirstOrDefault();
+         var vehicle = new VehicleDAO() { Capacity=4, Color="orange", LicensePlate="qwe-ewq", Make="test make2", Model="test model2", Owner=owner};
+         var actual = svc.AddVehicle(vehicle);
+         Assert.True(actual);
+      }
+
+      [Fact]
+      public void GetVehicles_Test()
+      {
+         var actual = svc.GetVehicles();
+         Assert.NotEmpty(actual);
+      }
+
+      [Fact]
+      public void UpdateVehicle_Test()
+      {
+         var car = svc.GetVehicles().Where(m => m.Color.Equals("orange")).FirstOrDefault();
+         car.Color = "yellow";
+         var actual = svc.UpdateVehicle(car);
+         Assert.True(actual);
+      }
+
+      [Fact]
+      public void DeleteVehicle_Test()
+      {
+         var car = svc.GetVehicles().Where(m => m.Color.Equals("yellow")).FirstOrDefault();
+
+         var actual = svc.DeleteVehicle(car);
+         Assert.True(actual);
+      }
+
+      #endregion
    }
 }
