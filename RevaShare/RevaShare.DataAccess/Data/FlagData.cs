@@ -27,8 +27,9 @@ namespace RevaShare.DataAccess.Data {
 
      public bool MarkFlagAsRead(Flag flag)
       {
-         DbEntityEntry<Flag> entry = context.Entry(flag);
-         flag.Active = false;
+         var actualflag = GetFlag(flag.ID);
+         DbEntityEntry<Flag> entry = context.Entry(actualflag);
+         actualflag.Active = false;
          entry.State = System.Data.Entity.EntityState.Modified;
          return context.SaveChanges() > 0;
       }

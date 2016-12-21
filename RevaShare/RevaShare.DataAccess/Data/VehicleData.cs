@@ -18,6 +18,7 @@ namespace RevaShare.DataAccess.Data
 
       public bool AddVehicle(Vehicle vehicle)
       {
+         vehicle.Active = true;
          context.Vehicles.Add(vehicle);
          return context.SaveChanges() > 0;
       }

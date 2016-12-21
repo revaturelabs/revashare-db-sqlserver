@@ -88,7 +88,7 @@ namespace RevaShare.DataClient
       List<UserDAO> getRidersInRide(RideDAO ride);
 
 
-        //Vehicle section
+      //Vehicle section
       [OperationContract]
       bool AddVehicle(VehicleDAO vehicle);
       [OperationContract]
@@ -97,7 +97,7 @@ namespace RevaShare.DataClient
       bool DeleteVehicle(VehicleDAO vehicle);
 
 
-      //Flag Section
+
       [OperationContract]
       List<VehicleDAO> GetVehicles();
 
@@ -110,5 +110,8 @@ namespace RevaShare.DataClient
       List<FlagDAO> GetAllFlags();
       [OperationContract]
       bool MarkFlagAsRead(FlagDAO flag);
+      [OperationContract]
+      bool UpdateFlag(FlagDAO flag);
+
    }
 }
