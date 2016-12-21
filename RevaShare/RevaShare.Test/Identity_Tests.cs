@@ -183,6 +183,20 @@ namespace RevaShare.Test
       #endregion
 
       [Fact]
+      public void GetRidesByLocationAM_Test()
+      {
+         var actual = svc.ListRidesAtApartmentAM("abc");
+         Assert.NotNull(actual);
+      }
+
+      [Fact]
+      public void GetRidesByLocationPM_Test()
+      {
+         var actual = svc.ListRidesAtApartmentPM("abc");
+         Assert.Empty(actual);
+      }
+
+      [Fact]
       public void availableSeats_TEST()
       {
          var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();

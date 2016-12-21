@@ -70,7 +70,11 @@ namespace RevaShare.DataClient
       [OperationContract]
       List<RideDAO> ListRidesAtApartment(string apartmentName);
       [OperationContract]
-      int GetOpenSeats(RideDAO ride);
+      int GetOpenSeats(string username, DateTime startOfWeekDate);
+      [OperationContract]
+      List<RideDAO> ListRidesAtApartmentAM(string apartmentName);
+      [OperationContract]
+      List<RideDAO> ListRidesAtApartmentPM(string apartmentName);
 
 
       //RideRider section
