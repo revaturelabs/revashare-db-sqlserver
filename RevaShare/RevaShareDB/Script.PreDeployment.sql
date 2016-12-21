@@ -10,14 +10,19 @@
 --------------------------------------------------------------------------------------
 */
 use master;
-
-if(db_id(N'RevaShareDB') is not null)
-begin
-	drop database RevaShareDB;
-end;
-
-create database RevaShareDB;
 go
 
-use RevaShareDB;
+if(db_id(N'RevashareDB_DEV') is not null)
+begin
+	drop database RevashareDB_DEV;
+end;
+
+create database RevashareDB_DEV;
+go
+
+use RevashareDB_DEV;
+go
+
+create user sqlshare for login sqlshare;
+exec sp_addrolemember N'db_owner', N'sqlshare';
 go

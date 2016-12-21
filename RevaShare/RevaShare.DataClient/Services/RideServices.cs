@@ -10,18 +10,18 @@ namespace RevaShare.DataClient
     public partial class RevaShareDataService
     {
 
-        public List<RideDAO> GetAllRides()
-        {
-            List<Ride> allRides = data.ListAllRides();
-            List<RideDAO> allRidesDAO = new List<RideDAO>();
+    public List<RideDAO> GetAllRides()
+    {
+      List<Ride> allRides = data.ListAllRides();
+      List<RideDAO> allRidesDAO = new List<RideDAO>();
 
-            foreach (Ride ride in allRides)
-            {
-                allRidesDAO.Add(RideMapper.MapToRideDAO(ride));
-            }
+      foreach (Ride ride in allRides)
+      {
+        allRidesDAO.Add(RideMapper.MapToRideDAO(ride));
+      }
 
-            return allRidesDAO;
-        }
+      return allRidesDAO;
+    }
 
         public bool AddRide(RideDAO ride)
         {
