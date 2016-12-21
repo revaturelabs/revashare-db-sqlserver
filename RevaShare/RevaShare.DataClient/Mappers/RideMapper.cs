@@ -1,4 +1,5 @@
 ﻿using RevaShare.DataAccess;
+using RevaShare.DataAccess.Data;
 using RevaShare.DataClient.Models;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,23 @@ namespace RevaShare.DataClient
 
     public static Ride MapToRide(RideDAO ride)
     {
+      RevaShareData data = new RevaShareData();
+
       var u = new Ride();
-      u.Vehicle = VehicleMapper.MapToVehicle(ride.Vehicle);
+      
+      //If ride is already in DB, copy over the ride id
+      var rideInDB = data.GetRide(data.GetUser(ride.Vehicle.Owner.UserName).UserID, ride.StartOfWeek);
+      if (rideInDB != null)
+      {
+          u.ID = rideInDB.ID;
+      }
+
+      u.VehicleID = data.GetVehicleByLicensePlate(ride.Vehicle.LicensePlate).ID;
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeekDate = ride.StartOfWeek;
-      u.IsOnTime = ride.IsOnTime;
+      u.IsOnTime = true;
       u.IsAmRide = ride.IsAmRide;
+      u.Active = true;
 
       return u;
     }   

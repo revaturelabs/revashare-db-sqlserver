@@ -8,24 +8,26 @@ using System.Text;
 
 namespace RevaShare.DataClient
 {
-   [ServiceContract]
-   public interface IRevaShareDataService
-   {
-      //User CRUD
-      [OperationContract]
-      bool RegisterUser(UserDAO user, string username, string password);
-      [OperationContract]
-      List<UserDAO> GetAllUsers();
-      [OperationContract]
-      UserDAO GetUserByUsername(string username);
-      [OperationContract]
-      List<UserDAO> GetAdmins();
-      [OperationContract]
-      UserDAO GetAdminByUsername(string username);
-      [OperationContract]
-      bool UpdateUser(UserDAO user);
-      [OperationContract]
-      bool DeleteUser(string username);
+    [ServiceContract]
+    public interface IRevaShareDataService
+    { 
+        //User CRUD
+        [OperationContract]
+        bool RegisterUser(UserDAO user, string username, string password);
+        [OperationContract]
+        List<UserDAO> GetAllUsers();
+        [OperationContract]
+        UserDAO GetUserByUsername(string username);
+        [OperationContract]
+        List<UserDAO> GetAdmins();
+        [OperationContract]
+        UserDAO GetAdminByUsername(string username);
+        [OperationContract]
+        bool UpdateUser(UserDAO user);
+        [OperationContract]
+        bool DeleteUser(string username);
+        [OperationContract]
+        bool AddAdmin(UserDAO user, string username, string password);
 
 
       //Other User Related Methods

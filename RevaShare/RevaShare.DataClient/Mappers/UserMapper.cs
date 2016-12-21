@@ -35,12 +35,15 @@ namespace RevaShare.DataClient
 
       public static UserInfo MapToUser(UserDAO user)
       {
-         var u = new UserInfo();
-         u.Phone = user.PhoneNumber;
-         u.Email = user.Email;
-         u.Name = user.Name;
+            RevaShareData data = new RevaShareData();
 
-         u.Apartment = ApartmentMapper.MapToApartment(user.Apartment);
+            var u = new UserInfo();
+            u.Phone = user.PhoneNumber;
+            u.Email = user.Email;
+            u.Name = user.Name;
+            u.UserID = data.GetUser(user.UserName).UserID;
+
+            u.Apartment = ApartmentMapper.MapToApartment(user.Apartment);
 
          return u;
       }

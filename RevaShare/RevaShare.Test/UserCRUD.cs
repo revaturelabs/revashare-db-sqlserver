@@ -57,12 +57,25 @@ namespace RevaShare.Test
             RevaShareDataService svc = new RevaShareDataService();
             ApartmentDAO existingApt = svc.ListApartments().First();
 
-            UserDAO testUser = new UserDAO { Name = "ray2 bob", UserName = "ray2bob", Email = "ray2bob@gmail.com", PhoneNumber = "402-283-2816", Apartment = existingApt };
-            bool resultRegister = svc.RegisterUser(testUser, "ray2bob", "ray2123");
-            bool resultDelete = svc.DeleteUser("ray2bob");
+            UserDAO testUser = new UserDAO { Name = "ray bob", UserName = "raybob", Email = "raybob@gmail.com", PhoneNumber = "402-283-2816", Apartment = existingApt };
+            bool resultRegisterUser = svc.RegisterUser(testUser, "raybob", "ray2123");
+            bool resultDeleteUser = svc.DeleteUser("raybob");
 
-            Assert.True(resultRegister && resultDelete);
+            Assert.True(resultRegisterUser && resultDeleteUser);
         }
-        
+
+        [Fact]
+        public void AddAdminDeleteUser_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            ApartmentDAO existingApt = svc.ListApartments().First();
+
+            UserDAO testUser = new UserDAO { Name = "ray admin", UserName = "rayadmin", Email = "rayadmin@gmail.com", PhoneNumber = "422-283-2816", Apartment = existingApt };
+            bool resultAddAdmin = svc.AddAdmin(testUser, "rayadmin", "ray2123");
+            bool resultDeleteUser = svc.DeleteUser("rayadmin");
+
+            Assert.True(resultAddAdmin && resultDeleteUser);
+        }
+
     }
 }

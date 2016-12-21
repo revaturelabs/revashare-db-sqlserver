@@ -56,7 +56,7 @@ namespace RevaShare.DataClient
             }
          }
 
-            var userRequested = usersDAO.Where(a => a.UserName.Equals(username));
+            var userRequested = usersDAO.Where(u => u.UserName.Equals(username));
 
          if (userRequested.Count() > 0)
          {
@@ -79,10 +79,20 @@ namespace RevaShare.DataClient
          return data.CreateUser(info, username, password);
       }
 
-      public List<UserDAO> GetAdmins()
-      {
-         List<UserInfo> allAdmins = new List<UserInfo>();
-         allAdmins = data.ListAdmins();
+        public bool AddAdmin(UserDAO user, string username, string password)
+        {
+            UserInfo info = new UserInfo();
+            info.Name = user.Name;
+            info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
+            info.Phone = user.PhoneNumber;
+            info.Email = user.Email;
+            return data.CreateAdmin(info, username, password);
+        }
+
+        public List<UserDAO> GetAdmins()
+        {
+            List<UserInfo> allAdmins = new List<UserInfo>();
+            allAdmins = data.ListAdmins();
 
          List<UserDAO> adminsDAO = new List<UserDAO>();
 

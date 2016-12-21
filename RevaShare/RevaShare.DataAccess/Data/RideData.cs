@@ -17,6 +17,11 @@ namespace RevaShare.DataAccess.Data {
             return context.Rides.FirstOrDefault(r => r.Vehicle.OwnerID == userId && r.StartOfWeekDate == startOfWeek && r.Active);
         }
 
+        public List<Ride> ListAllRides()
+        {
+            return context.Rides.Where(r => r.Active == true).ToList();
+        }
+
         public List<Ride> ListRidesAtApartment(string name) {
             return context.Rides.Where(r => r.Vehicle.UserInfo.Apartment.Name == name && r.Active).ToList();
         }
@@ -41,7 +46,9 @@ namespace RevaShare.DataAccess.Data {
 
                 result.Active = ride.Active;
             }
-            return context.SaveChanges() > 0;
+
+            context.SaveChanges();
+            return true;
         }
 
         public bool DeleteRide(Ride ride) {

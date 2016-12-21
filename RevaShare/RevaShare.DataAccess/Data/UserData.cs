@@ -41,7 +41,30 @@ namespace RevaShare.DataAccess.Data
          return context.SaveChanges() > 0;
       }
 
-      public IdentityUser GetIdentityUser(string id)
+        public bool CreateAdmin(UserInfo userInfo, string username, string password)
+        {
+            IdentityUser user = new IdentityUser
+            {
+                UserName = username,
+                Email = userInfo.Email,
+                PhoneNumber = userInfo.Phone
+            };
+
+            IdentityResult result = RevaShareIdentity.Instance.Manager.Create(user, password);
+
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            user = RevaShareIdentity.Instance.Manager.FindByName(username);
+            RevaShareIdentity.Instance.Manager.AddToRole(user.Id, ROLE_ADMIN);
+            userInfo.UserID = user.Id;
+            context.UserInfoes.Add(userInfo);
+            return context.SaveChanges() > 0;
+        }
+
+        public IdentityUser GetIdentityUser(string id)
       {
          return RevaShareIdentity.Instance.Manager.FindById(id);
       }
