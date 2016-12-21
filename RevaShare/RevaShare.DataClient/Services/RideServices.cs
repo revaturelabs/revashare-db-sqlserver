@@ -64,12 +64,12 @@ namespace RevaShare.DataClient {
          return list;
       }
 
-   }
+   
       public List<RideDAO> ListRidesAtApartmentAM(string apartmentName)
       {
          return ListRidesAtApartment(apartmentName).Where(m => m.IsAmRide).ToList();
       }
-
+      
       public List<RideDAO> ListRidesAtApartmentPM(string apartmentName)
       {
          return ListRidesAtApartment(apartmentName).Where(m => !m.IsAmRide).ToList();

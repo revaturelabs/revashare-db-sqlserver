@@ -70,7 +70,7 @@ namespace RevaShare.DataClient
       [OperationContract]
       List<RideDAO> ListRidesAtApartment(string apartmentName);
       [OperationContract]
-      int GetOpenSeats(string username, DateTime startOfWeekDate);
+      int GetOpenSeats(RideDAO ride);
       [OperationContract]
       List<RideDAO> ListRidesAtApartmentAM(string apartmentName);
       [OperationContract]
@@ -85,7 +85,7 @@ namespace RevaShare.DataClient
       [OperationContract]
       bool UpdateRideRider(RideRidersDAO riderider);
       [OperationContract]
-      bool Accept(RideRidersDAO riderider);
+      bool AcceptRideRequest(RideRidersDAO riderider);
       [OperationContract]
       bool DeleteRideRider(RideRidersDAO riderider);
       [OperationContract]
