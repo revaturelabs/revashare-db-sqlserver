@@ -28,6 +28,56 @@ namespace RevaShare.Test
         }
 
         [Fact]
+        public void Register_Approve_RequestDriver_ApproveDriver_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+
+            //Register Test Rider
+            ApartmentDAO existingApt = svc.ListApartments().First();
+            UserDAO testUser = new UserDAO { Name = "test bob", UserName = "testbob", Email = "testbob@gmail.com", PhoneNumber = "813-283-2816", Apartment = existingApt };
+            bool resultRegisterRider = svc.RegisterUser(testUser, "testbob", "testbob123");
+
+            //Approve Rider
+            bool resultApproveRider = svc.ApproveRider(testUser.UserName);
+
+            //Rider Requests To Be Driver
+            bool resultRequestToBeDriver = svc.RequestToBeDriver(testUser.UserName);
+
+            //Driver Is Approved
+            bool resultApproveDriver = svc.ApproveDriver(testUser.UserName);
+
+            //Delete Test Driver
+            bool resultDriverDeleted = svc.DeleteUser(testUser.UserName);
+
+            Assert.True(
+                resultRegisterRider && 
+                resultApproveRider && 
+                resultRequestToBeDriver && 
+                resultApproveDriver && 
+                resultDriverDeleted
+                );
+        }
+
+        [Fact]
+        public void GetPendingRiders_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            List<UserDAO> actual = svc.GetPendingRiders();
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void GetPendingDrivers_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            List<UserDAO> actual = svc.GetPendingDrivers();
+
+            Assert.NotNull(actual);
+        }
+
+
+        [Fact]
         public void GetUserByUsername_Test()
         {
             RevaShareDataService svc = new RevaShareDataService();
@@ -49,7 +99,6 @@ namespace RevaShare.Test
 
             Assert.True(actual);
         }
-
 
         [Fact]
         public void RegisterUserDeleteUser_Test()

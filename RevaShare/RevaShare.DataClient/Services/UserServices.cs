@@ -22,7 +22,7 @@ namespace RevaShare.DataClient
          else return null;
 
       }
-
+    
       public List<UserDAO> GetAllUsers()
       {
          List<UserInfo> allUsers = new List<UserInfo>();
@@ -102,9 +102,9 @@ namespace RevaShare.DataClient
          }
 
          return adminsDAO;
-      }
+        }
 
-      public UserDAO GetAdminByUsername(string username)
+        public UserDAO GetAdminByUsername(string username)
       {
          List<UserInfo> allAdmins = new List<UserInfo>();
          allAdmins = data.ListAdmins();
@@ -139,12 +139,12 @@ namespace RevaShare.DataClient
          return data.ApproveUserDriverRequest(username);
       }
 
-      public bool ApproveUser(string username)
+      public bool ApproveRider(string username)
       {
          return data.ApproveUserRegistration(username);
       }
 
-      public List<UserDAO> PendingRegistrations()
+      public List<UserDAO> GetPendingRiders()
       {
          List<UserDAO> users = new List<UserDAO>();
          var pendings = data.ListUsersWithPendingApproval();
@@ -155,7 +155,7 @@ namespace RevaShare.DataClient
          return users;
       }
 
-      public List<UserDAO> PendingDriverApprovals()
+      public List<UserDAO> GetPendingDrivers()
       {
          List<UserDAO> users = new List<UserDAO>();
          var pendings = data.ListUsersWithDriverApprovalPending();
