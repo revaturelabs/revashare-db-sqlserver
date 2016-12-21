@@ -100,5 +100,7 @@ namespace RevaShare.DataClient
         FlagDAO GetFlagByID(int id);
         [OperationContract]
         List<FlagDAO> GetAllFlags();
-    }
+        [OperationContract]
+        bool MarkFlagAsRead(FlagDAO flag);
+   }
 }
