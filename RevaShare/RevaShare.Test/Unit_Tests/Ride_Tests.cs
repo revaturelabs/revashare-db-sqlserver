@@ -12,13 +12,14 @@ using System.Diagnostics;
 
 namespace RevaShare.Test
 {
-   class Ride_Tests
+   public class Ride_Tests
    {
       RevaShareData Data = new RevaShareData();
       private RevaShareDataService svc = new RevaShareDataService();
 
       #region Ride Tests
 
+      //Create and Delete Related Methods
       [Fact]
       public void AddRideDeleteRide_Test()
       {
@@ -38,6 +39,8 @@ namespace RevaShare.Test
          Assert.True(resultAddRide);
       }
 
+
+      //Read Related Methods
       [Fact]
       public void GetAllRides_Test()
       {
@@ -69,26 +72,6 @@ namespace RevaShare.Test
       }
 
       [Fact]
-      public void UpdateRide_Test()
-      {
-         RevaShareDataService svc = new RevaShareDataService();
-
-         DateTime testStartDate = new DateTime(2017, 1, 14);
-         VehicleDAO testVehicle = svc.GetVehicles().ToList().Where(v => v.Owner.UserName == "jimbob").First();
-         UserDAO testUser = svc.GetUserByUsername(testVehicle.Owner.UserName);
-
-         List<RideDAO> ridesToUpdate = svc.GetAllRides();
-
-         RideDAO rideToUpdate = svc.GetAllRides().Where(r => r.Vehicle.Owner.UserName == testUser.UserName && r.StartOfWeek == testStartDate).First();
-
-         rideToUpdate.DepartureTime = new TimeSpan(7, 45, 00);
-
-         bool actual = svc.UpdateRide(rideToUpdate);
-
-         Assert.True(actual);
-      }
-
-      [Fact]
       public void GetRidesByLocationAM_Test()
       {
          var actual = svc.ListRidesAtApartmentAM("abc");
@@ -110,7 +93,28 @@ namespace RevaShare.Test
          Assert.InRange<int>(actual, 0, ride.Vehicle.Capacity - 1);
       }
 
-      #endregion
 
+      //Update Related Methods
+      [Fact]
+      public void UpdateRide_Test()
+      {
+         RevaShareDataService svc = new RevaShareDataService();
+
+         DateTime testStartDate = new DateTime(2017, 1, 14);
+         VehicleDAO testVehicle = svc.GetVehicles().ToList().Where(v => v.Owner.UserName == "jimbob").First();
+         UserDAO testUser = svc.GetUserByUsername(testVehicle.Owner.UserName);
+
+         List<RideDAO> ridesToUpdate = svc.GetAllRides();
+
+         RideDAO rideToUpdate = svc.GetAllRides().Where(r => r.Vehicle.Owner.UserName == testUser.UserName && r.StartOfWeek == testStartDate).First();
+
+         rideToUpdate.DepartureTime = new TimeSpan(7, 45, 00);
+
+         bool actual = svc.UpdateRide(rideToUpdate);
+
+         Assert.True(actual);
+      }
+
+      #endregion
    }
 }
