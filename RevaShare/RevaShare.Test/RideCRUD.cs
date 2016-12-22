@@ -13,7 +13,7 @@ namespace RevaShare.Test
     public class RideCRUD
     {
         [Fact]
-        public void AddRideRemoveRide_Test()
+        public void AddRideDeleteRide_Test()
         {
             RevaShareDataService svc = new RevaShareDataService();
 
