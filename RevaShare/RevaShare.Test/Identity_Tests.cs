@@ -165,8 +165,8 @@ namespace RevaShare.Test
       [Fact]
       public void UpdateVehicle_Test()
       {
-         var car = svc.GetVehicles().Where(m => m.Color.Equals("orange")).FirstOrDefault();
-         car.Color = "yellow";
+         var car = svc.GetVehicles().FirstOrDefault();
+         car.Color = "sea foam";
          var actual = svc.UpdateVehicle(car);
          Assert.True(actual);
       }
@@ -207,9 +207,58 @@ namespace RevaShare.Test
       [Fact]
       public void GetRiders_Tests()
       {
-         var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();
-         var actual = svc.getRidersInRide(ride);
+         var ride = svc.ListRidesAtApartment("abc") ;
+         UserDAO actual=null;
+         foreach (var item in ride)
+         {
+            actual = svc.getRidersInRide(item).FirstOrDefault();
+         }
+         
          Assert.NotNull(actual);
       }
+      [Fact]
+      public void AddRideRider_Test()
+      {
+         var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();
+         var rider = svc.GetUserByUsername("johnbob");
+         var actual = svc.AddRideRiders(rider, ride);
+         Assert.True(actual);
+      }
+
+      [Fact]
+      public void GetRideRiders_Test()
+      {
+         var rr = svc.GetRideRiders();
+         Assert.NotNull(rr);
+      }
+
+      [Fact]
+      public void UpdateRideRider_Test()
+      {
+         var rr = svc.GetRideRiders().FirstOrDefault();
+         rr.Accepted = true;
+         var actual = svc.UpdateRideRider(rr);
+         Assert.True(actual);
+         
+      }
+      [Fact]
+      public void AcceptRideRider_Test()
+      {
+         var rr = svc.GetRideRiders().FirstOrDefault();
+         
+         var actual = svc.AcceptRideRequest(rr);
+         Assert.True(actual);
+      }
+
+      [Fact]
+      public void DeleteRideRider_Test()
+      {
+         var rr = svc.GetRideRiders().FirstOrDefault();
+
+         var actual = svc.DeleteRideRider(rr);
+         Assert.True(actual);
+      }
+
+
    }
 }

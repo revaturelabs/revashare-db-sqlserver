@@ -8,9 +8,9 @@ using System.Text;
 
 namespace RevaShare.DataClient
 {
-    [ServiceContract]
-    public interface IRevaShareDataService
-    { 
+   [ServiceContract]
+   public interface IRevaShareDataService
+   {
       //User CRUD
       [OperationContract]
       bool RegisterUser(UserDAO user, string username, string password);
@@ -36,7 +36,6 @@ namespace RevaShare.DataClient
       [OperationContract]
       bool AddAdmin(UserDAO user, string username, string password);
 
-    
       //Other User Related Methods
       [OperationContract]
       UserDAO Login(string username, string password);
@@ -111,14 +110,13 @@ namespace RevaShare.DataClient
       bool UpdateRideRider(RideRidersDAO riderider);
 
       [OperationContract]
-      bool Accept(RideRidersDAO riderider);
-    
+      bool AcceptRideRequest(RideRidersDAO riderider);
+
       [OperationContract]
       bool DeleteRideRider(RideRidersDAO riderider);
 
       [OperationContract]
       List<UserDAO> getRidersInRide(RideDAO ride);
-
 
       //Vehicle section
       [OperationContract]
@@ -133,17 +131,21 @@ namespace RevaShare.DataClient
       [OperationContract]
       List<VehicleDAO> GetVehicles();
 
-
       //Flag section
       [OperationContract]
       bool CreateFlag(FlagDAO flag);
+
       [OperationContract]
       FlagDAO GetFlagByID(int id);
+
       [OperationContract]
       List<FlagDAO> GetAllFlags();
+
       [OperationContract]
       bool MarkFlagAsRead(FlagDAO flag);
+
       [OperationContract]
       bool UpdateFlag(FlagDAO flag);
+
    }
 }
