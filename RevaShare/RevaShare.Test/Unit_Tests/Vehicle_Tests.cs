@@ -11,35 +11,20 @@ using Xunit;
 
 namespace RevaShare.Test
 {
-   class Vehicle_Tests
+   public class Vehicle_Tests
    {
       RevaShareData Data = new RevaShareData();
       private RevaShareDataService svc = new RevaShareDataService();
 
       #region Vehicle tests
 
+      //Create and Delete Related Methods
       [Fact]
       public void AddVehicle_Test()
       {
          var owner = svc.GetAllUsers().FirstOrDefault();
          var vehicle = new VehicleDAO() { Capacity = 4, Color = "orange", LicensePlate = "qwe-ewq", Make = "test make2", Model = "test model2", Owner = owner };
          var actual = svc.AddVehicle(vehicle);
-         Assert.True(actual);
-      }
-
-      [Fact]
-      public void GetVehicles_Test()
-      {
-         var actual = svc.GetVehicles();
-         Assert.NotEmpty(actual);
-      }
-
-      [Fact]
-      public void UpdateVehicle_Test()
-      {
-         var car = svc.GetVehicles().FirstOrDefault();
-         car.Color = "green grey";
-         var actual = svc.UpdateVehicle(car);
          Assert.True(actual);
       }
 
@@ -51,8 +36,27 @@ namespace RevaShare.Test
          var actual = svc.DeleteVehicle(car);
          Assert.True(actual);
       }
+    
+
+      //Read Related Methods
+      [Fact]
+      public void GetVehicles_Test()
+      {
+         var actual = svc.GetVehicles();
+         Assert.NotEmpty(actual);
+      }
+
+    
+      //Update Related Methods
+      [Fact]
+      public void UpdateVehicle_Test()
+      {
+         var car = svc.GetVehicles().FirstOrDefault();
+         car.Color = "green grey";
+         var actual = svc.UpdateVehicle(car);
+         Assert.True(actual);
+      }
 
       #endregion
-
    }
 }

@@ -76,16 +76,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apartment_Test.cs" />
-    <Compile Include="Flag_Tests.cs" />
-    <Compile Include="Identity_Tests.cs" />
+    <Compile Include="Unit_Tests\Apartment_Tests.cs" />
+    <Compile Include="Unit_Tests\Flag_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RideCRUD.cs" />
-    <Compile Include="RideRider_Tests.cs" />
-    <Compile Include="Ride_Tests.cs" />
-    <Compile Include="UserCRUD.cs" />
-    <Compile Include="User_Tests.cs" />
-    <Compile Include="Vehicle_Tests.cs" />
+    <Compile Include="Unit_Tests\RideRider_Tests.cs" />
+    <Compile Include="Unit_Tests\Ride_Tests.cs" />
+    <Compile Include="Unit_Tests\User_Tests.cs" />
+    <Compile Include="Unit_Tests\Vehicle_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -104,6 +101,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

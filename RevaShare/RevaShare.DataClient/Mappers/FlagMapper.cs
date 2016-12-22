@@ -34,7 +34,7 @@ namespace RevaShare.DataClient.Mappers
          var riderInfo = data.GetUser(rider.UserName);
 
          var u = new FlagDAO();
-         u.FlagID = (flag.ID * 3) + 2;
+         u.FlagID = flag.ID;
          u.Driver = UserMapper.MapToUserDAO(driver, driverInfo);
          u.Rider = UserMapper.MapToUserDAO(rider, riderInfo);
          u.Type = flag.Type;

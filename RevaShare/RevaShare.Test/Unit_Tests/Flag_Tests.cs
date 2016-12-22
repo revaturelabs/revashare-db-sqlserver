@@ -11,12 +11,14 @@ using RevaShare.DataClient.Models;
 
 namespace RevaShare.Test
 {
-   class Flag_Tests
+   public class Flag_Tests
    {
       RevaShareData Data = new RevaShareData();
       private RevaShareDataService svc = new RevaShareDataService();
 
       #region Flag Tests
+
+      //Create and Delete Related Methods
       [Fact]
       public void CreateFlag_Test()
       {
@@ -31,7 +33,25 @@ namespace RevaShare.Test
          var actual = svc.CreateFlag(flag);
          Assert.True(actual);
       }
+    
 
+      //Read Related Methods
+      [Fact]
+      public void GetAllFlags_Test()
+      {
+         var actual = svc.GetAllFlags();
+         Assert.NotEmpty(actual);
+      }
+
+      [Fact]
+      public void GetFlagByID_Test()
+      {
+         var actual = svc.GetFlagByID(svc.GetAllFlags().First().FlagID);
+         Assert.NotNull(actual);
+      }
+
+
+      //Update Related Methods
       [Fact]
       public void UpdateFlag_Test()
       {
@@ -50,6 +70,5 @@ namespace RevaShare.Test
       }
 
       #endregion
-
    }
 }

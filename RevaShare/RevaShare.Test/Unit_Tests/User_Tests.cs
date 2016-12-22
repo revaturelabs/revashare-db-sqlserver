@@ -12,15 +12,14 @@ using System.Diagnostics;
 
 namespace RevaShare.Test
 {
-   class User_Tests
+   public class User_Tests
    {
       RevaShareData Data = new RevaShareData();
       private RevaShareDataService svc = new RevaShareDataService();
 
-      #region UserTests
+      #region User Tests
 
       //Create and Delete Related Methods
-      [Fact]
       public void RegisterUserDeleteUser_Test()
       {
          RevaShareDataService svc = new RevaShareDataService();
@@ -44,6 +43,31 @@ namespace RevaShare.Test
          bool resultDeleteUser = svc.DeleteUser("rayadmin");
 
          Assert.True(resultAddAdmin && resultDeleteUser);
+      }
+
+      [Fact]
+      public void Signup_Test_using_service()
+      {
+         var expected = true;
+         var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
+
+         var actual = svc.RegisterUser(new UserDAO { Email = "a@b.c", Name = "john bob", PhoneNumber = "9876543210", Apartment = apt, UserName = "johnbob" }, "johnbob", "jimbob");
+
+         Assert.Equal(expected, actual);
+      }
+
+      [Fact]
+      public void Login_Test_positive()
+      {
+         var actual = svc.Login("jimbob", "jimbob");
+         Assert.NotNull(actual);
+      }
+
+      [Fact]
+      public void Login_Test_negative()
+      {
+         var actual = svc.Login("Ryan", "ASD123");
+         Assert.Null(actual);
       }
 
 
@@ -78,6 +102,15 @@ namespace RevaShare.Test
          List<UserDAO> actual = svc.GetDrivers();
 
          Assert.NotNull(actual);
+      }
+
+      [Fact]
+      public void GetAdmins_Test()
+      {
+          RevaShareDataService svc = new RevaShareDataService();
+          List<UserDAO> actual = svc.GetAdmins();
+
+          Assert.NotNull(actual);
       }
 
       [Fact]
@@ -124,6 +157,17 @@ namespace RevaShare.Test
       }
 
       [Fact]
+      public void UpdatePassword_Test()
+      {
+          RevaShareDataService svc = new RevaShareDataService();
+          UserDAO userToChange = svc.GetUserByUsername("ray2bob");
+          bool change = svc.UpdatePassword("ray2bob", "ray2bob1234", "ray2bob123");
+          bool undoChange = svc.UpdatePassword("ray2bob", "ray2bob123", "ray2bob1234");
+
+          Assert.True(change && undoChange);
+      }
+
+      [Fact]
       public void Update_User_Privileges_Test()
       {
          RevaShareDataService svc = new RevaShareDataService();
@@ -159,32 +203,6 @@ namespace RevaShare.Test
       }
 
       [Fact]
-      public void Signup_Test_using_service()
-      {
-         var expected = true;
-         var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
-
-         var actual = svc.RegisterUser(new UserDAO { Email = "a@b.c", Name = "john bob", PhoneNumber = "9876543210", Apartment = apt, UserName = "johnbob" }, "johnbob", "jimbob");
-
-         Assert.Equal(expected, actual);
-      }
-
-      [Fact]
-      public void Login_Test_positive()
-      {
-         var actual = svc.Login("jimbob", "jimbob");
-         Assert.NotNull(actual);
-      }
-
-      [Fact]
-      public void Login_Test_negative()
-      {
-         var actual = svc.Login("Ryan", "ASD123");
-         Assert.Null(actual);
-      }
-
-
-      [Fact]
       public void UpgradeToRider_TEST()
       {
          var actual = svc.ApproveRider("kimbob");
@@ -197,7 +215,7 @@ namespace RevaShare.Test
          var actual = svc.ApproveDriver("kimbob");
          Assert.True(actual);
       }
-      #endregion
 
+      #endregion
    }
 }

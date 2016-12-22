@@ -11,12 +11,14 @@ using Xunit;
 
 namespace RevaShare.Test
 {
-   class RideRider_Tests
+   public class RideRider_Tests
    {
       RevaShareData Data = new RevaShareData();
       private RevaShareDataService svc = new RevaShareDataService();
 
-      #region RideRider
+      #region RideRider Tests
+
+      //Create and Delete Related Methods
       [Fact]
       public void AddRideRider_Test()
       {
@@ -27,39 +29,22 @@ namespace RevaShare.Test
       }
 
       [Fact]
-      public void GetRideRiders_Test()
-      {
-         var rr = svc.GetRideRiders();
-         Assert.NotNull(rr);
-      }
-
-      [Fact]
-      public void UpdateRideRider_Test()
-      {
-         var rr = svc.GetRideRiders().FirstOrDefault();
-         rr.Accepted = true;
-         var actual = svc.UpdateRideRider(rr);
-         Assert.True(actual);
-
-      }
-      [Fact]
-      public void AcceptRideRider_Test()
-      {
-         var rr = svc.GetRideRiders().FirstOrDefault();
-
-         var actual = svc.AcceptRideRequest(rr);
-         Assert.True(actual);
-      }
-
-      [Fact]
       public void DeleteRideRider_Test()
       {
-         var rr = svc.GetRideRiders().FirstOrDefault();
+         var rr = svc.GetRideRiders().Where(rideRider => rideRider.Rider.UserName == "johnbob").First();
 
          var actual = svc.DeleteRideRider(rr);
          Assert.True(actual);
       }
 
+
+      //Read Related Methods
+      [Fact]
+      public void GetRideRiders_Test()
+      {
+         var rr = svc.GetRideRiders();
+         Assert.NotNull(rr);
+      }
 
       [Fact]
       public void GetRiders_Tests()
@@ -73,7 +58,28 @@ namespace RevaShare.Test
 
          Assert.NotNull(actual);
       }
-      #endregion
+    
 
+      //Update Related Methods
+      [Fact]
+      public void UpdateRideRider_Test()
+      {
+         var rr = svc.GetRideRiders().FirstOrDefault();
+         rr.Accepted = true;
+         var actual = svc.UpdateRideRider(rr);
+         Assert.True(actual);
+
+      }
+
+      [Fact]
+      public void AcceptRideRider_Test()
+      {
+         var rr = svc.GetRideRiders().FirstOrDefault();
+
+         var actual = svc.AcceptRideRequest(rr);
+         Assert.True(actual);
+      }
+
+      #endregion
    }
 }
