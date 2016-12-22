@@ -19,16 +19,6 @@ namespace RevaShare.Test
       private RevaShareDataService svc = new RevaShareDataService();
 
       [Fact]
-      public void Signup_Test_using_data()
-      {
-         var expected = true;
-         var apt = new Apartment() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
-         var actual = Data.CreateUser(new UserInfo { Email = "a@b.c", Name = "jane bob", Phone = "9876543210", Apartment=apt }, "janebob", "janebob");
-
-         Assert.Equal(expected, actual);
-      }
-
-      [Fact]
       public void Signup_Test_using_service()
       {
          var expected = true;
@@ -45,9 +35,8 @@ namespace RevaShare.Test
       {
          var actual = svc.Login("jimbob", "jimbob");
          Assert.NotNull(actual);
-
-         
       }
+
       [Fact]
       public void Login_Test_negative()
       {
@@ -258,7 +247,6 @@ namespace RevaShare.Test
          var actual = svc.DeleteRideRider(rr);
          Assert.True(actual);
       }
-
 
    }
 }

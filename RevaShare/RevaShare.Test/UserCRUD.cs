@@ -33,7 +33,7 @@ namespace RevaShare.Test
             RevaShareDataService svc = new RevaShareDataService();
             ApartmentDAO existingApt = svc.ListApartments().First();
 
-            UserDAO testUser = new UserDAO { Name = "ray admin", UserName = "rayadmin", Email = "rayadmin@gmail.com", PhoneNumber = "422-283-2816", Apartment = existingApt };
+            UserDAO testUser = new UserDAO { Name = "ray admin", UserName = "rayadmin", Email = "rayadmin@gmail.com", PhoneNumber = "422-283-2816", Apartment = null };
             bool resultAddAdmin = svc.AddAdmin(testUser, "rayadmin", "ray2123");
             bool resultDeleteUser = svc.DeleteUser("rayadmin");
 
@@ -70,6 +70,15 @@ namespace RevaShare.Test
         {
             RevaShareDataService svc = new RevaShareDataService();
             List<UserDAO> actual = svc.GetDrivers();
+
+            Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public void GetAdmins_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            List<UserDAO> actual = svc.GetAdmins();
 
             Assert.NotNull(actual);
         }
@@ -115,6 +124,17 @@ namespace RevaShare.Test
             bool actual = svc.UpdateUser(userToChange);
 
             Assert.True(actual);
+        }
+
+        [Fact]
+        public void UpdatePassword_Test()
+        {
+            RevaShareDataService svc = new RevaShareDataService();
+            UserDAO userToChange = svc.GetUserByUsername("ray2bob");
+            bool change = svc.UpdatePassword("ray2bob", "ray2bob1234", "ray2bob123");
+            bool undoChange = svc.UpdatePassword("ray2bob", "ray2bob123", "ray2bob1234");
+
+            Assert.True(change && undoChange);
         }
 
         [Fact]
