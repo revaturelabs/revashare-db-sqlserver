@@ -4,31 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.AspNet.Identity;
 namespace RevaShare.DataAccess.Data
 {
   public partial class RevaShareData
   {
     public List<RideRider> GetRideRiders()
     {      
-      return context.RideRiders.ToList();
+      return context.RideRiders.Where(m => m.Active).ToList();
     }
     private static UserStore<IdentityUser> credentials = new UserStore<IdentityUser>(new Q());
 
     public bool AddRideRider(UserInfo user, Ride ride)
     {
       var riderider = new RideRider();
+      riderider.Active = true;
       riderider.RideID = ride.ID;
-      //riderider.RiderID = user.UserID;
-      
-
+      riderider.RiderID = ListUserInfoes().Where(m => m.Name.Equals(user.Name)).FirstOrDefault().UserID;
       context.RideRiders.Add(riderider);
       return context.SaveChanges() > 0;
     }
 
     public bool UpdateRideRider(RideRider riderider)
     {
-      var result = context.RideRiders.SingleOrDefault(x => x.RiderID == riderider.RiderID);
+      var result = context.RideRiders.SingleOrDefault(x => x.RiderID.Equals(riderider.RiderID));
 
       if (result != null)
       {
@@ -48,14 +47,13 @@ namespace RevaShare.DataAccess.Data
     public bool AcceptRider(RideRider riderider)
     {
       riderider.Accepted = true;
-      UpdateRideRider(riderider);
-      return context.SaveChanges() > 0;
+      return UpdateRideRider(riderider);      
     }
 
     public bool DeleteRideRider(RideRider riderider)
     {
-      riderider.Active = false;
-      return context.SaveChanges() > 0;
+         riderider.Active = false;
+         return UpdateRideRider(riderider);
     }
 
     public RideRider GetRideRiderByID(string id)
