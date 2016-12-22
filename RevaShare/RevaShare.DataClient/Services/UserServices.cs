@@ -122,7 +122,7 @@ namespace RevaShare.DataClient
         public List<UserDAO> GetDrivers()
         {
             List<UserInfo> allDrivers = new List<UserInfo>();
-            allDrivers = data.ListAdmins();
+            allDrivers = data.ListDrivers();
 
             List<UserDAO> driversDAO = new List<UserDAO>();
 

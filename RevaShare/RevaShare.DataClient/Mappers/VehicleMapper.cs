@@ -37,7 +37,7 @@ namespace RevaShare.DataClient
             c.Color = vehicle.Color;
             c.Capacity = vehicle.Capacity;
             c.LicensePlate = vehicle.LicensePlate;
-
+            c.Active = true;
             return c;
         }
     }

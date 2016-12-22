@@ -19,6 +19,7 @@ namespace RevaShare.DataClient.Mappers
          u.RiderID = data.GetUserId(flag.Rider.UserName);
          u.Type = flag.Type;
          u.Message = flag.Message;
+         u.Active = true;
          
 
          return u;
