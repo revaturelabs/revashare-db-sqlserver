@@ -31,9 +31,6 @@ namespace RevaShare.DataClient
       List<UserDAO> GetAdmins();
 
         [OperationContract]
-        UserDAO GetAdminByUsername(string username);
-
-        [OperationContract]
         bool UpdateUser(UserDAO user);
 
         [OperationContract]

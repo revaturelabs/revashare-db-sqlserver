@@ -83,7 +83,16 @@ namespace RevaShare.DataClient
         {
             UserInfo info = new UserInfo();
             info.Name = user.Name;
-            info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
+
+            if (user.Apartment != null)
+            {
+                info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
+            }
+            else
+            {
+                info.ApartmentID = data.GetApartmentByName("No Residence Entered").ID;
+            }
+
             info.Phone = user.PhoneNumber;
             info.Email = user.Email;
             return data.CreateAdmin(info, username, password);
@@ -98,7 +107,10 @@ namespace RevaShare.DataClient
 
          foreach (UserInfo admin in allAdmins)
          {
-            adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+                if (admin != null)
+                {
+                    adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
+                }
          }
 
          return adminsDAO;
@@ -133,31 +145,6 @@ namespace RevaShare.DataClient
 
             return driversDAO;
         }
-
-        public UserDAO GetAdminByUsername(string username)
-        {
-            List<UserInfo> allAdmins = new List<UserInfo>();
-            allAdmins = data.ListAdmins();
-
-            List<UserDAO> adminsDAO = new List<UserDAO>();
-
-            foreach (UserInfo admin in allAdmins)
-            {
-               adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
-            }
-
-            var adminRequested = adminsDAO.Where(a => a.UserName == username);
-
-            if (adminRequested.Count() > 0)
-            {
-               return adminRequested.First();
-            }
-
-            else
-            {
-               return null;
-            }
-         }
     
       public bool DeleteUser(string username)
       {
