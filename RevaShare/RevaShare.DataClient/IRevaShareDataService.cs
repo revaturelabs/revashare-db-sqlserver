@@ -22,6 +22,12 @@ namespace RevaShare.DataClient
       UserDAO GetUserByUsername(string username);
 
       [OperationContract]
+      List<UserDAO> GetRiders();
+
+      [OperationContract]
+      List<UserDAO> GetDrivers();
+
+      [OperationContract]
       List<UserDAO> GetAdmins();
 
       [OperationContract]
@@ -36,6 +42,7 @@ namespace RevaShare.DataClient
       [OperationContract]
       bool AddAdmin(UserDAO user, string username, string password);
 
+    
       //Other User Related Methods
       [OperationContract]
       UserDAO Login(string username, string password);
@@ -48,6 +55,9 @@ namespace RevaShare.DataClient
 
       [OperationContract]
       bool RequestToBeDriver(string username);
+
+      [OperationContract]
+      bool RemoveDriverPrivileges(string username);
 
       [OperationContract]
       List<UserDAO> GetPendingRiders();
@@ -81,6 +91,9 @@ namespace RevaShare.DataClient
       bool AddRide(RideDAO ride);
 
       [OperationContract]
+      List<RideDAO> GetAllRides();
+
+      [OperationContract]
       bool UpdateRide(RideDAO ride);
 
       [OperationContract]
@@ -97,7 +110,7 @@ namespace RevaShare.DataClient
 
       [OperationContract]
       List<RideDAO> ListRidesAtApartmentPM(string apartmentName);
-
+    
 
       //RideRider section
       [OperationContract]
@@ -118,6 +131,7 @@ namespace RevaShare.DataClient
       [OperationContract]
       List<UserDAO> getRidersInRide(RideDAO ride);
 
+
       //Vehicle section
       [OperationContract]
       bool AddVehicle(VehicleDAO vehicle);
@@ -130,6 +144,7 @@ namespace RevaShare.DataClient
 
       [OperationContract]
       List<VehicleDAO> GetVehicles();
+
 
       //Flag section
       [OperationContract]
