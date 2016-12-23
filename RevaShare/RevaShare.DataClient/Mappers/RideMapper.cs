@@ -18,7 +18,8 @@ namespace RevaShare.DataClient
       u.StartOfWeek = ride.StartOfWeekDate;
       u.IsOnTime = ride.IsOnTime;
       u.IsAmRide = ride.IsAmRide;
-
+      u.NumberOfRidersInRide = ride.RideRiders.Count();
+      
       return u;
     }
 

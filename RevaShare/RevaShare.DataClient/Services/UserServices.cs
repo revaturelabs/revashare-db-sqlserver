@@ -125,7 +125,10 @@ namespace RevaShare.DataClient
 
             foreach (UserInfo rider in allRiders)
             {
-                ridersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(rider.UserID), rider));
+                if (rider != null)
+                {
+                    ridersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(rider.UserID), rider));
+                }
             }
 
             return ridersDAO;
@@ -140,7 +143,10 @@ namespace RevaShare.DataClient
 
             foreach (UserInfo driver in allDrivers)
             {
-                driversDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(driver.UserID), driver));
+                if (driver != null)
+                {
+                    driversDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(driver.UserID), driver));
+                }
             }
 
             return driversDAO;
