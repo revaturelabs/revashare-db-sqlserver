@@ -19,5 +19,7 @@ namespace RevaShare.DataClient.Models
         public bool IsOnTime { get; set; }
         [DataMember]
         public bool IsAmRide { get; set; }
+        [DataMember]
+        public int NumberOfRidersInRide { get; set; }
    }
 }

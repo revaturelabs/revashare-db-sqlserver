@@ -91,7 +91,7 @@ namespace RevaShare.Test
       {
          RevaShareDataService svc = new RevaShareDataService();
          List<UserDAO> actual = svc.GetRiders();
-
+        
          Assert.NotNull(actual);
       }
 
