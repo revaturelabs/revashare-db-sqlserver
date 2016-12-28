@@ -13,8 +13,8 @@ namespace RevaShare.DataAccess.Data {
             return context.SaveChanges() > 0;
         }
 
-        public Ride GetRide(string userId, DateTime startOfWeek) {
-            return context.Rides.FirstOrDefault(r => r.Vehicle.OwnerID == userId && r.StartOfWeekDate == startOfWeek && r.Active);
+        public Ride GetRide(string userId, DateTime startOfWeek, bool isAm) {
+            return context.Rides.FirstOrDefault(r => r.Vehicle.OwnerID == userId && r.StartOfWeekDate == startOfWeek && r.Active && r.IsAmRide==isAm);
         }
 
         public List<Ride> ListAllRides()

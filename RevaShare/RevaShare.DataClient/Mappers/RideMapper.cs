@@ -30,7 +30,7 @@ namespace RevaShare.DataClient
       var u = new Ride();
       
       //If ride is already in DB, copy over the ride id
-      var rideInDB = data.GetRide(data.GetUser(ride.Vehicle.Owner.UserName).UserID, ride.StartOfWeek);
+      var rideInDB = data.GetRide(data.GetUser(ride.Vehicle.Owner.UserName).UserID, ride.StartOfWeek, ride.IsAmRide);
       if (rideInDB != null)
       {
           u.ID = rideInDB.ID;

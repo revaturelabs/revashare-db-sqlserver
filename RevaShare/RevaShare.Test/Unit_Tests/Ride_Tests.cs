@@ -93,6 +93,14 @@ namespace RevaShare.Test
          Assert.InRange<int>(actual, 0, ride.Vehicle.Capacity - 1);
       }
 
+      [Fact]
+      public void getRide_test()
+      {
+         var firstride = svc.ListRidesAtApartment("abc").FirstOrDefault();
+         var actual = svc.GetRide(firstride);
+         Assert.NotNull(actual);
+      }
+
 
       //Update Related Methods
       [Fact]
@@ -100,15 +108,9 @@ namespace RevaShare.Test
       {
          RevaShareDataService svc = new RevaShareDataService();
 
-         DateTime testStartDate = new DateTime(2017, 1, 14);
-         VehicleDAO testVehicle = svc.GetVehicles().ToList().Where(v => v.Owner.UserName == "jimbob").First();
-         UserDAO testUser = svc.GetUserByUsername(testVehicle.Owner.UserName);
+         RideDAO rideToUpdate = svc.GetAllRides().FirstOrDefault();
 
-         List<RideDAO> ridesToUpdate = svc.GetAllRides();
-
-         RideDAO rideToUpdate = svc.GetAllRides().Where(r => r.Vehicle.Owner.UserName == testUser.UserName && r.StartOfWeek == testStartDate).First();
-
-         rideToUpdate.DepartureTime = new TimeSpan(7, 45, 00);
+         rideToUpdate.DepartureTime = new TimeSpan(7, 15, 00);
 
          bool actual = svc.UpdateRide(rideToUpdate);
 
