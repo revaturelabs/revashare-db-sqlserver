@@ -20,6 +20,19 @@ namespace RevaShare.Test
 
       //Create and Delete Related Methods
       [Fact]
+      public void AddRideRider_DeleteRideRider_Test()
+      {
+         var ride = svc.GetAllRides().ElementAt(1);
+         var rider = svc.GetAllUsers().First();
+         bool riderAdded = svc.AddRideRiders(rider, ride);
+         
+         var rideRiderToDelete = svc.GetRideRiders().Where(rideRider => (rideRider.Rider.UserName == rider.UserName && rideRider.Ride.DepartureTime == ride.DepartureTime)).First();
+         bool riderDeleted = svc.DeleteRideRider(rideRiderToDelete);
+
+         Assert.True(riderAdded && riderDeleted);
+      }
+
+      [Fact]
       public void AddRideRider_Test()
       {
          var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();

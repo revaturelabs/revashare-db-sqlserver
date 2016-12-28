@@ -29,6 +29,7 @@ namespace RevaShare.DataClient
          u.Ride = RideMapper.MapToRide(riderider.Ride);
          u.RideID = u.Ride.ID;
          u.RiderID = UserMapper.MapToUser(riderider.Rider).UserID;
+         u.UserInfo = UserMapper.MapToUser(riderider.Rider);
          u.Accepted = riderider.Accepted;
          u.Active = true;
          return u;

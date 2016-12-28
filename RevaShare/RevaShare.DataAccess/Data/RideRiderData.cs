@@ -20,14 +20,14 @@ namespace RevaShare.DataAccess.Data
       var riderider = new RideRider();
       riderider.Active = true;
       riderider.RideID = ride.ID;
-      riderider.RiderID = ListUserInfoes().Where(m => m.Name.Equals(user.Name)).FirstOrDefault().UserID;
+      riderider.RiderID = ListUserInfoes().Where(m => m.UserID.Equals(user.UserID)).FirstOrDefault().UserID;
       context.RideRiders.Add(riderider);
       return context.SaveChanges() > 0;
     }
 
     public bool UpdateRideRider(RideRider riderider)
     {
-      var result = context.RideRiders.SingleOrDefault(x => x.RiderID.Equals(riderider.RiderID));
+      var result = context.RideRiders.SingleOrDefault(x => (x.RiderID.Equals(riderider.RiderID) && x.RideID.Equals(riderider.RideID)) );
 
       if (result != null)
       {
