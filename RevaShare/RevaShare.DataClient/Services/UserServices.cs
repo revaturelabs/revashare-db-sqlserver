@@ -10,74 +10,74 @@ using System.Web;
 
 namespace RevaShare.DataClient
 {
-   public partial class RevaShareDataService
-   {
-      public UserDAO Login(string username, string password)
-      {
-         var result = data.TryLogin(username, password);
-         if (result)
-         {
-            return GetUserByUsername(username);
-         }
-         else return null;
-
-      }
-    
-      public List<UserDAO> GetAllUsers()
-      {
-         List<UserInfo> allUsers = new List<UserInfo>();
-         allUsers = data.ListUsers();
-
-         List<UserDAO> usersDAO = new List<UserDAO>();
-
-         foreach (UserInfo user in allUsers)
-         {
-            if (user != null)
+    public partial class RevaShareDataService
+    {
+        public UserDAO Login(string username, string password)
+        {
+            var result = data.TryLogin(username, password);
+            if (result)
             {
-               usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                return GetUserByUsername(username);
             }
-         }
+            else return null;
 
-         return usersDAO;
-      }
+        }
 
-      public UserDAO GetUserByUsername(string username)
-      {
-         List<UserInfo> allUsers = new List<UserInfo>();
-         allUsers = data.ListUsers();
+        public List<UserDAO> GetAllUsers()
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
 
-         List<UserDAO> usersDAO = new List<UserDAO>();
+            List<UserDAO> usersDAO = new List<UserDAO>();
 
-         foreach (UserInfo user in allUsers)
-         {
-            if (user != null)
+            foreach (UserInfo user in allUsers)
             {
-               usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
             }
-         }
+
+            return usersDAO;
+        }
+
+        public UserDAO GetUserByUsername(string username)
+        {
+            List<UserInfo> allUsers = new List<UserInfo>();
+            allUsers = data.ListUsers();
+
+            List<UserDAO> usersDAO = new List<UserDAO>();
+
+            foreach (UserInfo user in allUsers)
+            {
+                if (user != null)
+                {
+                    usersDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(user.UserID), user));
+                }
+            }
 
             var userRequested = usersDAO.Where(u => u.UserName.Equals(username));
 
-         if (userRequested.Count() > 0)
-         {
-            return userRequested.First();
-         }
+            if (userRequested.Count() > 0)
+            {
+                return userRequested.First();
+            }
 
-         else
-         {
-            return null;
-         }
-      }
+            else
+            {
+                return null;
+            }
+        }
 
-      public bool RegisterUser(UserDAO user, string username, string password)
-      {
-         UserInfo info = new UserInfo();
-         info.Name = user.Name;
-         info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
-         info.Phone = user.PhoneNumber;
-         info.Email = user.Email;
-         return data.CreateUser(info, username, password);
-      }
+        public bool RegisterUser(UserDAO user, string username, string password)
+        {
+            UserInfo info = new UserInfo();
+            info.Name = user.Name;
+            info.ApartmentID = data.GetApartmentByName(user.Apartment.Name).ID;
+            info.Phone = user.PhoneNumber;
+            info.Email = user.Email;
+            return data.CreateUser(info, username, password);
+        }
 
         public bool AddAdmin(UserDAO user, string username, string password)
         {
@@ -103,17 +103,17 @@ namespace RevaShare.DataClient
             List<UserInfo> allAdmins = new List<UserInfo>();
             allAdmins = data.ListAdmins();
 
-         List<UserDAO> adminsDAO = new List<UserDAO>();
+            List<UserDAO> adminsDAO = new List<UserDAO>();
 
-         foreach (UserInfo admin in allAdmins)
-         {
+            foreach (UserInfo admin in allAdmins)
+            {
                 if (admin != null)
                 {
                     adminsDAO.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(admin.UserID), admin));
                 }
-         }
+            }
 
-         return adminsDAO;
+            return adminsDAO;
         }
 
         public List<UserDAO> GetRiders()
@@ -151,86 +151,92 @@ namespace RevaShare.DataClient
 
             return driversDAO;
         }
-    
-      public bool DeleteUser(string username)
-      {
-         return data.DeleteUser(username);
-      }
 
-      public bool ApproveDriver(string username)
-      {
-         return data.ApproveUserDriverRequest(username);
-      }
+        public bool DeleteUser(string username)
+        {
+            return data.DeleteUser(username);
+        }
 
-      public bool ApproveRider(string username)
-      {
-         return data.ApproveUserRegistration(username);
-      }
+        public bool ApproveDriver(string username)
+        {
+            return data.ApproveUserDriverRequest(username);
+        }
 
-      public bool RemoveDriverPrivileges(string username)
-      {
-          return data.RemoveDriverPrivilegesRequest(username);
-      }
+        public bool ApproveRider(string username)
+        {
+            return data.ApproveUserRegistration(username);
+        }
 
-      public List<UserDAO> GetPendingRiders()
-      {
-         List<UserDAO> users = new List<UserDAO>();
-         var pendings = data.ListUsersWithPendingApproval();
+        public bool RemoveDriverPrivileges(string username)
+        {
+            return data.RemoveDriverPrivilegesRequest(username);
+        }
 
-         foreach (var item in pendings)
-         {
-            users.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(item.UserID), item));
-         }
+        public List<UserDAO> GetPendingRiders()
+        {
+            List<UserDAO> users = new List<UserDAO>();
+            var pendings = data.ListUsersWithPendingApproval();
 
-         return users;
-      }
+            foreach (var item in pendings)
+            {
+                if (item != null)
+                {
+                    users.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(item.UserID), item));
+                }
+            }
 
-      public List<UserDAO> GetPendingDrivers()
-      {
-         List<UserDAO> users = new List<UserDAO>();
-         var pendings = data.ListUsersWithDriverApprovalPending();
-         foreach (var item in pendings)
-         {
-            users.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(item.UserID), item));
-         }
-         return users;
-      }
+            return users;
+        }
 
-      public bool UpdateUser(UserDAO user)
-      {
-         string userId = data.GetUserId(user.UserName);
-         IdentityUser identityUser = data.GetIdentityUser(userId);
-         identityUser.Email = user.Email;
-         identityUser.PhoneNumber = user.PhoneNumber;
+        public List<UserDAO> GetPendingDrivers()
+        {
+            List<UserDAO> users = new List<UserDAO>();
+            var pendings = data.ListUsersWithDriverApprovalPending();
+            foreach (var item in pendings)
+            {
+                if (item != null)
+                {
+                    users.Add(UserMapper.MapToUserDAO(data.GetIdentityUser(item.UserID), item));
+                }
+            }
+            return users;
+        }
 
-         IdentityResult result = RevaShareIdentity.Instance.Manager.UpdateAsync(identityUser).Result;
+        public bool UpdateUser(UserDAO user)
+        {
+            string userId = data.GetUserId(user.UserName);
+            IdentityUser identityUser = data.GetIdentityUser(userId);
+            identityUser.Email = user.Email;
+            identityUser.PhoneNumber = user.PhoneNumber;
 
-         if (!result.Succeeded)
-         {
-            return false;
-         }
+            IdentityResult result = RevaShareIdentity.Instance.Manager.UpdateAsync(identityUser).Result;
 
-         Apartment apartment = data.GetApartmentByName(user.Apartment.Name);
+            if (!result.Succeeded)
+            {
+                return false;
+            }
 
-         UserInfo info = data.ListUserByUserId(userId);
-         info.UserID = userId;
-         info.Email = user.Email;
-         info.Apartment = apartment;
-         info.ApartmentID = apartment.ID;
-         info.Name = user.Name;
-         info.Phone = user.PhoneNumber;
+            Apartment apartment = data.GetApartmentByName(user.Apartment.Name);
 
-         return data.UpdateUserInfo(info);
-      }
+            UserInfo info = data.ListUserByUserId(userId);
+            info.UserID = userId;
+            info.Email = user.Email;
+            info.Apartment = apartment;
+            info.ApartmentID = apartment.ID;
+            info.Name = user.Name;
+            info.Phone = user.PhoneNumber;
 
-      public bool UpdatePassword(string username, string currentPassword, string newPassword)
-      {
-         return RevaShareIdentity.Instance.Manager.ChangePassword(data.GetUserId(username), currentPassword, newPassword).Succeeded;
-      }
+            return data.UpdateUserInfo(info);
+        }
 
-      public bool RequestToBeDriver(string username)
-      {
-         return data.RequestToBeDriver(username);
-      }
-   }
+        public bool UpdatePassword(string username, string currentPassword, string newPassword)
+        {
+            return RevaShareIdentity.Instance.Manager.ChangePassword(data.GetUserId(username), currentPassword, newPassword).Succeeded;
+        }
+
+        public bool RequestToBeDriver(string username)
+        {
+            return data.RequestToBeDriver(username);
+        }
+    }
 }
