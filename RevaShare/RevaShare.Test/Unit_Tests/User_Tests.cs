@@ -51,7 +51,7 @@ namespace RevaShare.Test
          var expected = true;
          var apt = new ApartmentDAO() { Latitude = "1.1", Longitude = "2.2", Name = "abc" };
 
-         var actual = svc.RegisterUser(new UserDAO { Email = "a@b.c", Name = "john bob", PhoneNumber = "9876543210", Apartment = apt, UserName = "johnbob" }, "johnbob", "jimbob");
+         var actual = svc.RegisterUser(new UserDAO { Email = "thonaj@super.genius", Name = "thonaj", PhoneNumber = "9876543210", Apartment = apt, UserName = "thonaj" }, "thonaj", "thonaj");
 
          Assert.Equal(expected, actual);
       }
