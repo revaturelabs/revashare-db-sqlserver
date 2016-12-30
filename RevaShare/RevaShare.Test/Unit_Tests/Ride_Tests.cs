@@ -88,7 +88,7 @@ namespace RevaShare.Test
       [Fact]
       public void availableSeats_TEST()
       {
-         var ride = svc.ListRidesAtApartment("abc").FirstOrDefault();
+         var ride = svc.ListRidesAtApartment("dddd").FirstOrDefault();
          var actual = svc.GetOpenSeats(ride);
          Assert.InRange<int>(actual, 0, ride.Vehicle.Capacity - 1);
       }

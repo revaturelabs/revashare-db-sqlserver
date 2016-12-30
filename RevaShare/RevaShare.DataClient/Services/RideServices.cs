@@ -58,7 +58,7 @@ namespace RevaShare.DataClient
 
       public int GetOpenSeats(RideDAO ride)
       {
-         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate) && m.Accepted==true);
          return ride.Vehicle.Capacity - riders.ToList().Count - 1;
       }
 
