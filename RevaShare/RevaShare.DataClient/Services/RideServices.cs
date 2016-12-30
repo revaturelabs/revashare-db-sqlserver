@@ -64,7 +64,7 @@ namespace RevaShare.DataClient
 
       public List<UserDAO> getRidersInRide(RideDAO ride)
       {
-         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate));
+         var riders = GetRideRiders().Where(m => m.Ride.Vehicle.LicensePlate.Equals(ride.Vehicle.LicensePlate) && m.Ride.IsAmRide==ride.IsAmRide);
          var list = new List<UserDAO>();
          foreach (var item in riders)
          {

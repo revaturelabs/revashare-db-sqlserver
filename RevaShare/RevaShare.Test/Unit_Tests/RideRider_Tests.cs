@@ -62,11 +62,12 @@ namespace RevaShare.Test
         [Fact]
         public void GetRiders_Tests()
         {
-            var ride = svc.ListRidesAtApartment("abc");
-            UserDAO actual = null;
+            
+            var ride = svc.ListRidesAtApartment("Mansion de Thonaj");
+            List<UserDAO> actual = null;
             foreach (var item in ride)
             {
-                actual = svc.getRidersInRide(item).FirstOrDefault();
+                actual = svc.getRidersInRide(item);
             }
 
             Assert.NotNull(actual);
@@ -97,12 +98,14 @@ namespace RevaShare.Test
         public void AcceptRideRider_NewObj_Test()
         {
 
-            ApartmentDAO existingApt = svc.ListApartments().First();
-            UserDAO rider = new UserDAO { UserName = "johnbob", Apartment = existingApt };
-            UserDAO vehicleOwner = new UserDAO { UserName = "testbob2", Apartment = existingApt };
+            //ApartmentDAO existingApt = svc.ListApartments().First();
+            ApartmentDAO testapt = new ApartmentDAO();
+            testapt.Name = "Mansion de Thonaj";
+            UserDAO rider = new UserDAO { UserName = "testrider@test.com", Apartment = testapt };
 
-            VehicleDAO vehicle = new VehicleDAO { Owner = vehicleOwner, LicensePlate = "qwe-ewq-e1" };
-            DateTime date = new DateTime(2016, 11, 22);
+            UserDAO vehicleOwner = new UserDAO { UserName = "nicememewebsite", Apartment = testapt };
+            VehicleDAO vehicle = new VehicleDAO { Owner = vehicleOwner, /*LicensePlate = "qwe-ewq-e1"*/ };
+            DateTime date = new DateTime(2016, 12, 25);
             RideDAO ride = new RideDAO { Vehicle = vehicle, IsAmRide = true, StartOfWeek = date };
 
             RideRidersDAO newrr = new RideRidersDAO { Ride = ride, Rider = rider, Accepted = false };
