@@ -40,7 +40,7 @@ namespace RevaShare.DataClient
             var u = new UserInfo();
             u.Phone = user.PhoneNumber;
             u.Email = user.Email;
-            u.Name = user.Name;
+            u.Name = user.Name??"";
             u.UserID = data.GetUser(user.UserName).UserID;
 
             u.Apartment = ApartmentMapper.MapToApartment(user.Apartment);

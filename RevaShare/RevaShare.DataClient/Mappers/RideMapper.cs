@@ -18,7 +18,7 @@ namespace RevaShare.DataClient
       u.StartOfWeek = ride.StartOfWeekDate;
       u.IsOnTime = ride.IsOnTime;
       u.IsAmRide = ride.IsAmRide;
-      u.NumberOfRidersInRide = ride.RideRiders.Count();
+      u.NumberOfRidersInRide = ride.RideRiders.Where(m => m.Accepted == true).Count();
       
       return u;
     }
@@ -36,7 +36,11 @@ namespace RevaShare.DataClient
           u.ID = rideInDB.ID;
       }
 
-      u.VehicleID = data.GetVehicleByLicensePlate(ride.Vehicle.LicensePlate).ID;
+         if (ride.Vehicle.LicensePlate!=null)
+         {
+            u.VehicleID = data.GetVehicleByLicensePlate(ride.Vehicle.LicensePlate).ID; 
+         }
+         
       u.DepartureTime = ride.DepartureTime;
       u.StartOfWeekDate = ride.StartOfWeek;
       u.IsOnTime = true;

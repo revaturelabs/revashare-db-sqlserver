@@ -18,9 +18,13 @@ namespace RevaShare.DataAccess.Data
 
       public bool AddVehicle(Vehicle vehicle)
       {
-         vehicle.Active = true;
-         context.Vehicles.Add(vehicle);
-         return context.SaveChanges() > 0;
+         if (context.Vehicles.Where(m => m.LicensePlate.Equals(vehicle.LicensePlate) && m.Active).Count() > 0)
+         {
+            vehicle.Active = true;
+            context.Vehicles.Add(vehicle);
+            return context.SaveChanges() > 0;
+         }
+         else return false;
       }
 
       public bool UpdateVehicle(Vehicle vehicle)
